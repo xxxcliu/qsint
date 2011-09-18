@@ -1,0 +1,3 @@
+#include "../src/Charts/axisbase.h"
+#include "../src/Charts/plotterbase.h"
+#include "../src/Charts/barchartplotter.h"

@@ -1,0 +1,16 @@
+/*! \page changes Changes and Features
+
+\b 0.2.0
+
+- <b>Designer Plugin</b> added
+
+- <b>New widgets:</b>
+	- QSint::ActionPanel and QSint::ActionGroup
+	- QSint::ScrollPanner
+	- QSint::TabListMenu
+	- QSint::WidgetPopup
+
+- <b>Improvements:</b>
+	- Support of \a QAction for QSint::ActionLabel and QSint::ActionBox
+
+*/

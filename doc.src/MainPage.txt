@@ -1,0 +1,17 @@
+/*! \mainpage QSint library manual
+
+\image html QSint.png
+
+\b QSint is a opensource collection of Qt widgets which can be used while developing own Qt-based applications.
+
+\b QSint is licensed as LGPL so you can use it both in commercial and non-commercial projects.
+
+See also:
+- \ref install
+- \ref changes
+
+&copy; Sintegrial Technologies 2011
+<br>
+http://www.sintegrial.com
+*/
+
