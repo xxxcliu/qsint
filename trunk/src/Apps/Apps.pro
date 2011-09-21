@@ -2,7 +2,7 @@ include (Apps.pri)
 include (../src.pri)
 
 
-INCLUDEPATH += ./
+INCLUDEPATH += ./ ../Core
 
 HEADERS += \
     windowmenucontroller.h \

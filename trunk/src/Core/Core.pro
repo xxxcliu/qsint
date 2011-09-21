@@ -19,7 +19,8 @@ HEADERS += \
     actionpanel/actionpanelscheme.h \
     actionpanel/winxppanelscheme.h \
     actionpanel/winvistapanelscheme.h \
-    actionpanel/macpanelscheme.h
+    actionpanel/macpanelscheme.h \
+    pathpicker.h
 
 SOURCES += \
     recentfiles.cpp \
@@ -37,10 +38,12 @@ SOURCES += \
     actionpanel/actiongroup.cpp \
     actionpanel/winxppanelscheme.cpp \
     actionpanel/winvistapanelscheme.cpp \
-    actionpanel/macpanelscheme.cpp
+    actionpanel/macpanelscheme.cpp \
+    pathpicker.cpp \
+    core.h
 
 INCLUDEPATH += ./ ./actionpanel
 
 RESOURCES += \
-    actionpanel/schemes.qrc
-
+    actionpanel/schemes.qrc \
+    res/CommonIcons.qrc

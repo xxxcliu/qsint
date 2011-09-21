@@ -44,7 +44,7 @@ QString ActionBoxPlugin::group() const
 
 QIcon ActionBoxPlugin::icon() const
 {
-    return QIcon(":/images/ActionBox.png");
+    return QIcon(":/icons/ActionBox.png");
 }
 
 QString ActionBoxPlugin::toolTip() const

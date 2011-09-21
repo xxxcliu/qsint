@@ -44,7 +44,7 @@ QString ColorButtonPlugin::group() const
 
 QIcon ColorButtonPlugin::icon() const
 {
-    return QIcon(":/images/ColorButton.png");
+    return QIcon(":/icons/ColorButton.png");
 }
 
 QString ColorButtonPlugin::toolTip() const

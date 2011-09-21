@@ -18,3 +18,5 @@
 
 #include "../src/Core/tablistmenu.h"
 
+#include "../src/Core/pathpicker.h"
+
