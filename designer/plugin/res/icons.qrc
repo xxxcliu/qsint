@@ -7,5 +7,6 @@
         <file>icons/ColorGrid.png</file>
         <file>icons/ScrollPanner.png</file>
         <file>icons/ActionPanel.png</file>
+        <file>icons/PathPicker.png</file>
     </qresource>
 </RCC>

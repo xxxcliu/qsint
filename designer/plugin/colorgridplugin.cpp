@@ -44,7 +44,7 @@ QString ColorGridPlugin::group() const
 
 QIcon ColorGridPlugin::icon() const
 {
-    return QIcon(":/images/ColorGrid.png");
+    return QIcon(":/icons/ColorGrid.png");
 }
 
 QString ColorGridPlugin::toolTip() const

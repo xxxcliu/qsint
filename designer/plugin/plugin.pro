@@ -13,7 +13,8 @@ HEADERS     = scrollpannerplugin.h \
     actionboxplugin.h \
     actionlabelplugin.h \
     actionpanelplugin.h \
-    actiongroupplugin.h
+    actiongroupplugin.h \
+    pathpickerplugin.h
 
 SOURCES     = scrollpannerplugin.cpp \
     colorgridplugin.cpp \
@@ -22,7 +23,8 @@ SOURCES     = scrollpannerplugin.cpp \
     actionboxplugin.cpp \
     actionlabelplugin.cpp \
     actionpanelplugin.cpp \
-    actiongroupplugin.cpp
+    actiongroupplugin.cpp \
+    pathpickerplugin.cpp
 
 RESOURCES   = res/icons.qrc
 

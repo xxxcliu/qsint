@@ -44,7 +44,7 @@ QString ScrollPannerPlugin::group() const
 
 QIcon ScrollPannerPlugin::icon() const
 {
-    return QIcon(":/images/ScrollPanner.png");
+    return QIcon(":/icons/ScrollPanner.png");
 }
 
 QString ScrollPannerPlugin::toolTip() const

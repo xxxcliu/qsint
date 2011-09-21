@@ -13,7 +13,6 @@ public:
 StaticLibInitializer staticLibInitializer;
 
 
-
 namespace QSint
 {
 
