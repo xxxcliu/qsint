@@ -10,7 +10,7 @@ namespace QSint
 
 
 FileMenuController::FileMenuController(ParentClass* parent) :
-    BaseClass(parent)
+    BaseClass(tr("&File"), parent)
 {
     // Create actions
     m_actionExit = new QAction(tr("E&xit"), this);
@@ -50,14 +50,6 @@ FileMenuController::FileMenuController(ParentClass* parent) :
 
 
 // Menu
-
-QMenu* FileMenuController::createMenu()
-{
-    m_menuFile = new QMenu(tr("&File"));
-
-    return m_menuFile;
-}
-
 
 void FileMenuController::onShowRootMenu(QMenu* menu)
 {
@@ -161,7 +153,6 @@ void FileMenuController::updateActions()
             action->setEnabled(false);
         }
     }
-
 }
 
 

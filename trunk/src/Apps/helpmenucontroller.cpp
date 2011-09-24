@@ -9,18 +9,10 @@ namespace QSint
 
 
 HelpMenuController::HelpMenuController(ParentClass* parent) :
-    BaseClass(parent)
+    BaseClass(tr("&Help"), parent)
 {
     m_actionAbout = new QAction(tr("A&bout"), this);
     connect(m_actionAbout, SIGNAL(triggered()), parent, SLOT(showAbout()));
-}
-
-
-QMenu* HelpMenuController::createMenu()
-{
-    m_menuHelp = new QMenu(tr("&Help"));
-
-    return m_menuHelp;
 }
 
 

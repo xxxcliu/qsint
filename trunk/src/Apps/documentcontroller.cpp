@@ -102,6 +102,7 @@ void DocumentController::createFile()
     m_documents.append(doc);
 
     emit documentCreated(doc);
+    emit changed();
 }
 
 

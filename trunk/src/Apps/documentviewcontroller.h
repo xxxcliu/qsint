@@ -3,6 +3,7 @@
 
 
 #include <QTabWidget>
+#include <QMap>
 
 
 namespace QSint
@@ -18,9 +19,15 @@ class DocumentViewController : public QTabWidget
 public:
     explicit DocumentViewController(QWidget *parent = 0);
 
+    Document* activeDocument();
+    bool setActiveDocument(Document* doc);
+
 public Q_SLOTS:
     virtual void onDocumentsChanged();
     virtual void onDocumentCreated(Document* doc);
+
+protected:
+    QMap<QWidget*, Document*> m_viewDocMap;
 };
 
 
