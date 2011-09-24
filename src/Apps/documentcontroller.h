@@ -63,6 +63,9 @@ public:
     // Document factories management
     virtual bool addFactory(DocumentFactory* factory);
 
+    // Documents
+    const QList<Document*>& documents() const { return m_documents; }
+
 Q_SIGNALS:
     void changed();
     void documentCreated(Document*);

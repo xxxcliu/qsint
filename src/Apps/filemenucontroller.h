@@ -2,7 +2,7 @@
 #define FILEMENUCONTROLLER_H
 
 
-#include "actioncontroller.h"
+#include "menuactioncontroller.h"
 
 
 namespace QSint
@@ -13,18 +13,14 @@ class MainWindow;
 class DocumentController;
 
 
-class FileMenuController : public ActionController
+class FileMenuController : public MenuActionController
 {
-    typedef ActionController BaseClass;
+    typedef MenuActionController BaseClass;
     typedef MainWindow ParentClass;
 
-	Q_OBJECT
+    Q_OBJECT
 public:
     explicit FileMenuController(ParentClass *parent);
-
-    // menu methods
-    virtual QMenu* createMenu();
-    virtual QMenu* rootMenu() { return m_menuFile; }
 
     // toolbar methods
     virtual QToolBar* createToolBar(Qt::ToolBarArea* area = 0, bool* toolBreak = 0);
@@ -39,7 +35,6 @@ protected Q_SLOTS:
     virtual void updateActions();
 
 protected:
-    QMenu* m_menuFile;
     QToolBar* m_toolbarFile;
 
     QAction* m_actionNew;

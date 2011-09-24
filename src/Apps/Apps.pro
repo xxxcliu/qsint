@@ -23,7 +23,9 @@ HEADERS += \
     createfiledialog.h \
     createdialogbase.h \
     actioncontroller.h \
-    aboutdialog.h
+    aboutdialog.h \
+    menuactioncontroller.h \
+    documentaction.h
 
 SOURCES += \
     windowmenucontroller.moc \
@@ -53,7 +55,9 @@ SOURCES += \
     actioncontroller.moc \
     actioncontroller.cpp \
     aboutdialog.moc \
-    aboutdialog.cpp
+    aboutdialog.cpp \
+    menuactioncontroller.cpp \
+    documentaction.cpp
 
 FORMS += \
     createfiledialog.ui \

@@ -29,6 +29,37 @@ DocumentViewController::DocumentViewController(QWidget *parent) :
 }
 
 
+Document* DocumentViewController::activeDocument()
+{
+    if (count() == 0)
+        return NULL;
+
+    if (m_viewDocMap.contains(currentWidget()))
+        return m_viewDocMap[currentWidget()];
+
+    return NULL;
+}
+
+
+bool DocumentViewController::setActiveDocument(Document* doc)
+{
+    if (doc == NULL)
+        return false;
+
+    QMap<QWidget*, Document*>::const_iterator iter;
+    for (iter = m_viewDocMap.constBegin(); iter != m_viewDocMap.end(); iter++)
+    {
+        if (iter.value() == doc)
+        {
+            setCurrentWidget(iter.key());
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
 void DocumentViewController::onDocumentsChanged()
 {
 }
@@ -40,6 +71,8 @@ void DocumentViewController::onDocumentCreated(Document* doc)
     Q_ASSERT(view != NULL);
 
     addTab(view, doc->name());
+
+    m_viewDocMap[view] = doc;
 }
 
 

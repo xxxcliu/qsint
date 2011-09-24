@@ -2,30 +2,37 @@
 #define WINDOWMENUCONTROLLER_H
 
 
-#include "actioncontroller.h"
+#include "menuactioncontroller.h"
 
 
 namespace QSint
 {
 
 
-class WindowMenuController : public ActionController
+class DocumentAction;
+
+
+class WindowMenuController : public MenuActionController
 {
-    typedef ActionController BaseClass;
+    typedef MenuActionController BaseClass;
     typedef MainWindow ParentClass;
 
     Q_OBJECT
 public:
     explicit WindowMenuController(ParentClass *parent);
 
-    // menu methods
-    virtual QMenu* createMenu();
-    virtual QMenu* rootMenu() { return m_menuWindow; }
+    virtual void connectActions();
+
+protected Q_SLOTS:
+    virtual void updateActions();
+    void switchDocument(QAction*);
 
 protected:
     virtual void onShowRootMenu(QMenu* menu);
 
-    QMenu* m_menuWindow;
+    QAction* m_actionCloseAll;
+
+    QList<DocumentAction*> m_windowActions;
 };
 
 
