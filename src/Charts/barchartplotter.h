@@ -15,7 +15,7 @@ public:
     explicit BarChartPlotter(QWidget *parent = 0);
 
 
-    enum BarChartType { Stacked, Columns };
+    enum BarChartType { Stacked, Columns, Trend };
 
     void setBarType(BarChartType type);
     inline BarChartType barType() const { return m_type; }
@@ -34,16 +34,63 @@ public:
 protected:
     virtual void drawContent(QPainter &p);
 
-    virtual void drawBarItem(QPainter &p, QRect rect,
-                             QPen &pen, QBrush &brush,
-                             const QModelIndex &index,
-                             double value);
-
     int m_barsize_min, m_barsize_max;
     double m_scale;
     double m_opacity;
 
     BarChartType m_type;
+
+protected:
+    class BarPainter
+    {
+    public:
+    protected:
+        static void drawBarItem(QPainter &p, QRect rect,
+                                 QPen &pen, QBrush &brush,
+                                 const QModelIndex &index,
+                                 double value);
+
+        static void drawValueText(QPainter &p, QRect rect, int flags,
+                                 QPen &pen, QBrush &brush,
+                                 const QModelIndex &index,
+                                 double value);
+    };
+
+    class StackedBarPainter: public BarPainter
+    {
+    public:
+        static void draw(BarChartPlotter *plotter,
+                         QPainter &p,
+                         int count,
+                         int row_count,
+                         int p_start,
+                         int p_offs,
+                         int bar_size);
+    };
+
+    class ColumnBarPainter: public BarPainter
+    {
+    public:
+        static void draw(BarChartPlotter *plotter,
+                         QPainter &p,
+                         int count,
+                         int row_count,
+                         int p_start,
+                         int p_offs,
+                         int bar_size);
+    };
+
+    class TrendPainter: public BarPainter
+    {
+    public:
+        static void draw(BarChartPlotter *plotter,
+                         QPainter &p,
+                         int count,
+                         int row_count,
+                         int p_start,
+                         int p_offs,
+                         int bar_size);
+    };
 };
 
 

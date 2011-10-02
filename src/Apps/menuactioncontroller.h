@@ -23,7 +23,12 @@ public:
 
     // menu methods
     virtual QMenu* createMenu();
-    virtual QMenu* rootMenu() { return m_menu; }
+    virtual QMenu* rootMenu()
+            { return m_menu; }
+
+protected Q_SLOTS:
+    virtual void onMenuTriggered(QAction*)
+            {}
 
 protected:
     QMenu* m_menu;

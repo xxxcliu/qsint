@@ -5,23 +5,21 @@
 #include <QSintApp>
 
 
-class TestMenuController : public QSint::ActionController
+class TestMenuController : public QSint::MenuActionController
 {
     Q_OBJECT
 
     typedef QSint::MainWindow ParentClass;
-    typedef QSint::ActionController BaseClass;
+    typedef QSint::MenuActionController BaseClass;
 
 public:
     explicit TestMenuController(ParentClass *parent);
 
-    // menu methods
-    virtual QMenu* createMenu();
-    virtual QMenu* rootMenu() { return m_menuTest; }
+protected:
+    virtual void onShowRootMenu(QMenu* menu);
+    virtual void onMenuTriggered(QAction*);
 
 private:
-    QMenu* m_menuTest;
-
     QAction* m_actionTest1;
 };
 

@@ -10,6 +10,7 @@ namespace QSint
 
 class PlotterBase;
 
+
 class AxisBase : public QObject
 {
     Q_OBJECT

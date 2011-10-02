@@ -18,6 +18,8 @@ QMenu* MenuActionController::createMenu()
 {
     m_menu = new QMenu(m_name);
 
+    connect(m_menu, SIGNAL(triggered(QAction*)), this, SLOT(onMenuTriggered(QAction*)));
+
     return m_menu;
 }
 

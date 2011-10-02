@@ -74,112 +74,218 @@ void BarChartPlotter::drawContent(QPainter &p)
         bar_size = qMin(m_barsize_min, p_offs);
 
 
-
     switch (m_type)
     {
     case Stacked:
-
-        for (int i = 0; i < count; i++)
-        {
-            int p_d = p_start + p_offs*i + (p_offs-bar_size)/2;
-
-            double acc_value = 0;
-            int p_y = m_axisY->toView(0);
-
-            double neg_value = 0;
-            int p_ny = p_y;
-
-            p.setOpacity(m_opacity);
-
-            for (int j = 0; j < row_count; j++)
-            {
-                QPen pen(qvariant_cast<QColor>(m_model->headerData(j, Qt::Vertical, Qt::ForegroundRole)));
-                QBrush brush(qvariant_cast<QBrush>(m_model->headerData(j, Qt::Vertical, Qt::BackgroundRole)));
-
-                const QModelIndex index(m_model->index(j, i));
-                double value = m_model->data(index).toDouble();
-                if (value < 0)
-                {
-                    neg_value += value;
-
-                    int p_h = m_axisY->toView(neg_value);
-
-                    drawBarItem(p, QRect(p_d, p_ny, bar_size, p_h-p_ny),
-                                pen, brush,
-                                index, value);
-
-                    p_ny = p_h;
-                }
-                else
-                {
-                    acc_value += value;
-
-                    int p_h = m_axisY->toView(acc_value);
-
-                    drawBarItem(p, QRect(p_d, p_h, bar_size, p_y-p_h),
-                                pen, brush,
-                                index, value);
-
-                    p_y = p_h;
-                }
-            }
-        }
-
+        StackedBarPainter::draw(this, p, count, row_count, p_start, p_offs, bar_size);
         break;
 
     case Columns:
-    {
-        int single_bar_size = bar_size/row_count;
-        if (!single_bar_size)
-            return;
-
-        for (int i = 0; i < count; i++)
-        {
-            int p_d = p_start + p_offs*i + (p_offs-bar_size)/2;
-
-            int p_y = m_axisY->toView(0);
-
-            p.setOpacity(m_opacity);
-
-            for (int j = 0; j < row_count; j++)
-            {
-                QPen pen(qvariant_cast<QColor>(m_model->headerData(j, Qt::Vertical, Qt::ForegroundRole)));
-                QBrush brush(qvariant_cast<QBrush>(m_model->headerData(j, Qt::Vertical, Qt::BackgroundRole)));
-
-                const QModelIndex index(m_model->index(j, i));
-                double value = m_model->data(index).toDouble();
-
-                int p_h = m_axisY->toView(value);
-
-                if (value < 0)
-                {
-                    drawBarItem(p, QRect(p_d, p_y, single_bar_size, p_h-p_y),
-                                pen, brush,
-                                index, value);
-                }
-                else
-                {
-                    drawBarItem(p, QRect(p_d, p_h, single_bar_size, p_y-p_h),
-                                pen, brush,
-                                index, value);
-                }
-
-                p_d += single_bar_size;
-            }
-        }
-
+        ColumnBarPainter::draw(this, p, count, row_count, p_start, p_offs, bar_size);
         break;
-    } // Nearby
+
+    case Trend:
+        TrendPainter::draw(this, p, count, row_count, p_start, p_offs, bar_size);
+        break;
 
     } // switch
 }
 
-void BarChartPlotter::drawBarItem(QPainter &p, QRect rect, QPen &pen, QBrush &brush,
+
+void BarChartPlotter::BarPainter::drawBarItem(QPainter &p, QRect rect, QPen &pen, QBrush &brush,
                                   const QModelIndex &index, double value)
 {
     p.setPen(pen);
     p.setBrush(brush);
     p.drawRect(rect);
+}
+
+
+void BarChartPlotter::BarPainter::drawValueText(QPainter &p, QRect rect, int flags,
+                                                QPen &pen, QBrush &brush,
+                                                const QModelIndex &index, double value)
+{
+    p.setPen(pen);
+    p.drawText(rect, flags, QString::number(value));
+}
+
+
+void BarChartPlotter::StackedBarPainter::draw(
+    BarChartPlotter *plotter,
+    QPainter &p,
+    int count,
+    int row_count,
+    int p_start,
+    int p_offs,
+    int bar_size)
+{
+    for (int i = 0; i < count; i++)
+    {
+        int p_d = p_start + p_offs*i + (p_offs-bar_size)/2;
+
+        double acc_value = 0;
+        int p_y = plotter->axisY()->toView(0);
+
+        double neg_value = 0;
+        int p_ny = p_y;
+
+        p.setOpacity(plotter->barOpacity());
+
+        for (int j = 0; j < row_count; j++)
+        {
+            QPen pen(qvariant_cast<QColor>(plotter->model()->headerData(j, Qt::Vertical, Qt::ForegroundRole)));
+            QBrush brush(qvariant_cast<QBrush>(plotter->model()->headerData(j, Qt::Vertical, Qt::BackgroundRole)));
+
+            const QModelIndex index(plotter->model()->index(j, i));
+            double value = plotter->model()->data(index).toDouble();
+            if (value < 0)
+            {
+                neg_value += value;
+
+                int p_h = plotter->axisY()->toView(neg_value);
+
+                drawBarItem(p, QRect(p_d, p_ny, bar_size, p_h-p_ny),
+                            pen, brush,
+                            index, value);
+
+                drawValueText(p, QRect(p_d-100, p_ny, bar_size+200, p_h-p_ny),
+                              Qt::AlignCenter,
+                              pen, brush, index, value);
+
+                p_ny = p_h;
+            }
+            else
+            {
+                acc_value += value;
+
+                int p_h = plotter->axisY()->toView(acc_value);
+
+                drawBarItem(p, QRect(p_d, p_h, bar_size, p_y-p_h),
+                            pen, brush,
+                            index, value);
+
+                drawValueText(p, QRect(p_d-100, p_h, bar_size+200, p_y-p_h),
+                              Qt::AlignCenter,
+                              pen, brush, index, value);
+
+                p_y = p_h;
+            }
+        }
+    }
+}
+
+
+void BarChartPlotter::ColumnBarPainter::draw(
+    BarChartPlotter *plotter,
+    QPainter &p,
+    int count,
+    int row_count,
+    int p_start,
+    int p_offs,
+    int bar_size)
+{
+    int single_bar_size = bar_size/row_count;
+    if (!single_bar_size)
+        return;
+
+    for (int i = 0; i < count; i++)
+    {
+        int p_d = p_start + p_offs*i + (p_offs-bar_size)/2;
+
+        int p_y = plotter->axisY()->toView(0);
+
+        p.setOpacity(plotter->barOpacity());
+
+        for (int j = 0; j < row_count; j++)
+        {
+            QPen pen(qvariant_cast<QColor>(plotter->model()->headerData(j, Qt::Vertical, Qt::ForegroundRole)));
+            QBrush brush(qvariant_cast<QBrush>(plotter->model()->headerData(j, Qt::Vertical, Qt::BackgroundRole)));
+
+            const QModelIndex index(plotter->model()->index(j, i));
+            double value = plotter->model()->data(index).toDouble();
+
+            int p_h = plotter->axisY()->toView(value);
+
+            if (value < 0)
+            {
+                drawBarItem(p, QRect(p_d, p_y, single_bar_size, p_h-p_y),
+                            pen, brush,
+                            index, value);
+
+                drawValueText(p, QRect(p_d-100, p_h, single_bar_size+200, 100),
+                              Qt::AlignHCenter | Qt::AlignTop,
+                              pen, brush, index, value);
+            }
+            else
+            {
+                drawBarItem(p, QRect(p_d, p_h, single_bar_size, p_y-p_h),
+                            pen, brush,
+                            index, value);
+
+                drawValueText(p, QRect(p_d-100, p_h-100, single_bar_size+200, 100),
+                              Qt::AlignHCenter | Qt::AlignBottom,
+                              pen, brush, index, value);
+            }
+
+            p_d += single_bar_size;
+        }
+    }
+}
+
+
+void BarChartPlotter::TrendPainter::draw(
+    BarChartPlotter *plotter,
+    QPainter &p,
+    int count,
+    int row_count,
+    int p_start,
+    int p_offs,
+    int /*bar_size*/)
+{
+    p.setOpacity(plotter->barOpacity());
+
+    for (int j = 0; j < row_count; j++)
+    {
+        QPen pen(qvariant_cast<QColor>(plotter->model()->headerData(j, Qt::Vertical, Qt::ForegroundRole)));
+        QBrush brush(qvariant_cast<QBrush>(plotter->model()->headerData(j, Qt::Vertical, Qt::BackgroundRole)));
+
+        QPolygon points;
+
+        for (int i = 0; i < count; i++)
+        {
+            const QModelIndex index(plotter->model()->index(j, i));
+            double value = plotter->model()->data(index).toDouble();
+
+            int x = p_start + p_offs*i + p_offs/2;
+            int y = plotter->axisY()->toView(value);
+
+            points.append(QPoint(x, y));
+
+            if (value < 0)
+            {
+                drawValueText(p, QRect(x+10, y+10, 200, 100),
+                              Qt::AlignLeft | Qt::AlignTop,
+                              pen, brush, index, value);
+            }
+            else
+            {
+                drawValueText(p, QRect(x+10, y-100-10, 200, 100),
+                              Qt::AlignLeft | Qt::AlignBottom,
+                              pen, brush, index, value);
+            }
+
+        }
+
+        p.setPen(QPen(brush, 2));
+        p.drawPolyline(points);
+
+        p.setPen(pen);
+        p.setBrush(brush);
+        for (int i = 0; i < count; i++)
+        {
+            p.drawEllipse(points.at(i), 3, 3);
+        }
+    }
 }
 
 

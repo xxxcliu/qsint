@@ -1,9 +1,5 @@
 #include "windowmenucontroller.h"
-#include "mainwindow.h"
-#include "document.h"
 #include "documentaction.h"
-#include "documentcontroller.h"
-#include "documentviewcontroller.h"
 
 
 namespace QSint
@@ -19,21 +15,18 @@ WindowMenuController::WindowMenuController(ParentClass* parent) :
 
 void WindowMenuController::onShowRootMenu(QMenu* menu)
 {
+    m_actionCloseAll->setEnabled(!m_windowActions.isEmpty());
+
     ADD_ACTION(menu, m_actionCloseAll);
 
     ADD_SEPARATOR(menu);
 
-    DocumentViewController* documentViewCntr = mainWindow()->documentViewController();
-    if (documentViewCntr != NULL)
+    Document* currentDoc = activeDocument();
+    foreach(DocumentAction* action, m_windowActions)
     {
-        Document* currentDoc = documentViewCntr->activeDocument();
+        action->setChecked(action->document() == currentDoc);
 
-        foreach(DocumentAction* action, m_windowActions)
-        {
-            action->setChecked(action->document() == currentDoc);
-
-            ADD_ACTION(menu, action);
-        }
+        ADD_ACTION(menu, action);
     }
 }
 
@@ -44,13 +37,10 @@ void WindowMenuController::connectActions()
 {
     BaseClass::connectActions();
 
-    DocumentController* documentCntr = mainWindow()->documentController();
-    if (documentCntr != NULL)
+    if (documentController())
     {
-        connect(documentCntr, SIGNAL(changed()), this, SLOT(updateActions()));
+        connect(documentController(), SIGNAL(changed()), this, SLOT(updateActions()));
     }
-
-    connect(m_menu, SIGNAL(triggered(QAction*)), this, SLOT(switchDocument(QAction*)));
 }
 
 
@@ -59,34 +49,27 @@ void WindowMenuController::updateActions()
     qDeleteAll(m_windowActions);
     m_windowActions.clear();
 
-    DocumentController* documentCntr = mainWindow()->documentController();
-    if (documentCntr != NULL)
+    if (documentController())
     {
-        const QList<Document*>& docs = documentCntr->documents();
-        m_actionCloseAll->setEnabled(!docs.isEmpty());
+        const QList<Document*>& docs = documentController()->documents();
 
         foreach(Document* doc, docs)
         {
             m_windowActions.append(new DocumentAction(doc));
         }
-
-    } else
-    {
-        m_actionCloseAll->setEnabled(false);
     }
 }
 
 
-void WindowMenuController::switchDocument(QAction* action)
+void WindowMenuController::onMenuTriggered(QAction* action)
 {
     DocumentAction* act = dynamic_cast<DocumentAction*>(action);
     if (act == NULL)
         return;
 
-    DocumentViewController* documentViewCntr = mainWindow()->documentViewController();
-    if (documentViewCntr != NULL)
+    if (documentViewController())
     {
-        documentViewCntr->setActiveDocument(act->document());
+        documentViewController()->setActiveDocument(act->document());
     }
 }
 

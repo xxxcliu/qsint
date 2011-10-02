@@ -1,5 +1,4 @@
 #include "actioncontroller.h"
-#include "mainwindow.h"
 
 
 namespace QSint

@@ -1,12 +1,7 @@
-CONFIG(release,debug|release){
-    LIBNAME = QSCharts
-}
-
-CONFIG(debug,debug|release){
-    LIBNAME = QSChartsd
-}
-
+include (Charts.pri)
 include (../src.pri)
+
+INCLUDEPATH += ./ ../Core
 
 
 HEADERS += \
@@ -19,5 +14,4 @@ SOURCES += \
     barchartplotter.cpp \
     axisbase.cpp
 
-INCLUDEPATH += ./
 

@@ -66,7 +66,7 @@ public:
             { return m_canCreate; }
 
     // reimplement to create the document with the type id \a id
-    virtual Document* createDocument(int id)
+    virtual Document* createDocument(int /*id*/)
             { return NULL; }
 
     // returns all the available document type infos
@@ -75,7 +75,6 @@ public:
 
     // returns document type info for \a id, or NULL when id is unknown
     const DocTypeInfo* documentTypeInfo(int id) const;
-
 
 
     virtual bool canOpenDocuments() const

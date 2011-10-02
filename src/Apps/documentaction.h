@@ -16,7 +16,8 @@ class DocumentAction : public QAction
 public:
     explicit DocumentAction(Document* doc);
 
-    Document* document() { return m_doc; }
+    Document* document()
+            { return m_doc; }
 
 protected:
     Document* m_doc;
