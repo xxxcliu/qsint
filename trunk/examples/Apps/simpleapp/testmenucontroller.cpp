@@ -1,18 +1,22 @@
 #include "testmenucontroller.h"
 
 TestMenuController::TestMenuController(ParentClass *parent) :
-    BaseClass(parent)
+    BaseClass(tr("&Test"), parent)
 {
-    m_actionTest1 = new QAction("Test Action", this);
+    m_actionTest1 = new QAction(tr("Test Action"), this);
 }
 
 
-QMenu* TestMenuController::createMenu()
+void TestMenuController::onShowRootMenu(QMenu* menu)
 {
-    m_menuTest = new QMenu("&Test");
-
-    ADD_ACTION(m_menuTest, m_actionTest1);
-
-    return m_menuTest;
+    ADD_ACTION(menu, m_actionTest1);
 }
 
+
+void TestMenuController::onMenuTriggered(QAction* action)
+{
+    QMessageBox::information(NULL,
+                             "TestMenuController",
+                             tr("Triggered: %1").arg(action->text())
+                             );
+}

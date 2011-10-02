@@ -64,7 +64,8 @@ public:
     virtual bool addFactory(DocumentFactory* factory);
 
     // Documents
-    const QList<Document*>& documents() const { return m_documents; }
+    const QList<Document*>& documents() const
+            { return m_documents; }
 
 Q_SIGNALS:
     void changed();

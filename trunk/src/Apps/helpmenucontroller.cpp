@@ -11,14 +11,16 @@ namespace QSint
 HelpMenuController::HelpMenuController(ParentClass* parent) :
     BaseClass(tr("&Help"), parent)
 {
-    m_actionAbout = new QAction(tr("A&bout"), this);
+    m_actionAbout = new QAction(tr("A&bout..."), this);
+    m_actionAbout->setShortcut(QKeySequence::HelpContents);
+
     connect(m_actionAbout, SIGNAL(triggered()), parent, SLOT(showAbout()));
 }
 
 
 void HelpMenuController::onShowRootMenu(QMenu* menu)
 {
-    menu->clear();
+    //menu->clear();
 
     if (m_actionAbout != NULL)
     {

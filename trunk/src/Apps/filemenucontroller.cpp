@@ -107,7 +107,7 @@ void FileMenuController::connectActions()
 
     CONNECT_ACTION(m_actionExit, mainWindow(), close());
 
-    DocumentController* documentCntr = mainWindow()->documentController();
+    DocumentController* documentCntr = documentController();
     if (documentCntr != NULL)
     {
         connect(documentCntr, SIGNAL(changed()), this, SLOT(updateActions()));
@@ -124,7 +124,7 @@ void FileMenuController::connectActions()
 
 void FileMenuController::updateActions()
 {
-    DocumentController* documentCntr = mainWindow()->documentController();
+    DocumentController* documentCntr = documentController();
     if (documentCntr != NULL)
     {
         if (m_actionNew != NULL)

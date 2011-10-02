@@ -25,7 +25,7 @@ public:
 
 protected Q_SLOTS:
     virtual void updateActions();
-    void switchDocument(QAction*);
+    virtual void onMenuTriggered(QAction*);
 
 protected:
     virtual void onShowRootMenu(QMenu* menu);

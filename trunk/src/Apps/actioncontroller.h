@@ -1,8 +1,13 @@
 #ifndef ACTIONCONTROLLER_H
 #define ACTIONCONTROLLER_H
 
-
 #include <QObject>
+
+#include "document.h"
+#include "documentcontroller.h"
+#include "documentviewcontroller.h"
+#include "mainwindow.h"
+
 
 class QMenu;
 class QToolBar;
@@ -11,9 +16,6 @@ class QAction;
 
 namespace QSint
 {
-
-
-class MainWindow;
 
 
 #define ADD_ACTION(target, action) \
@@ -27,6 +29,7 @@ class MainWindow;
 #define CONNECT_ACTION(action, controller, slot) \
     if (action != NULL) \
         connect(action, SIGNAL(triggered()), controller, SLOT(slot));
+
 
 
 class ActionController : public QObject
@@ -49,7 +52,7 @@ public:
             { return NULL; }
 
     // toolbar methods
-    virtual QToolBar* createToolBar(Qt::ToolBarArea* area = 0, bool* toolBreak = 0)
+    virtual QToolBar* createToolBar(Qt::ToolBarArea* /*area*/ = 0, bool* /*toolBreak*/ = 0)
             { return NULL; }
 
     // external events handling
@@ -60,6 +63,16 @@ public:
 
 protected:
     virtual void onShowRootMenu(QMenu* /*menu*/) {}
+
+    // accessors
+    inline DocumentController* documentController()
+            { return mainWindow()->documentController(); }
+
+    inline DocumentViewController* documentViewController()
+            { return mainWindow()->documentViewController(); }
+
+    inline Document* activeDocument()
+            { return documentViewController() ? documentViewController()->activeDocument() : NULL; }
 
 protected Q_SLOTS:
     void onShowMenu();
