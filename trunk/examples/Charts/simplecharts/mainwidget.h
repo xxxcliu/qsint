@@ -23,6 +23,8 @@ protected slots:
     void on_NearButton_clicked();
     void on_TrendButton_clicked();
 
+    void OnColumnChanged(QModelIndex,QModelIndex);
+
 protected:
     void changeEvent(QEvent *e);
 

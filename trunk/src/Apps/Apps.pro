@@ -28,33 +28,23 @@ HEADERS += \
     documentaction.h
 
 SOURCES += \
-    windowmenucontroller.moc \
     windowmenucontroller.cpp \
     systemopendialog.cpp \
     qtopendialog.cpp \
     plaintextdocumentfactory.cpp \
-    plaintextdocument.moc \
     plaintextdocument.cpp \
     opendialogbase.cpp \
-    mainwindow.moc \
     mainwindow.cpp \
     hypertextdocumentfactory.cpp \
-    hypertextdocument.moc \
     hypertextdocument.cpp \
     helpmenucontroller.cpp \
-    filemenucontroller.moc \
     filemenucontroller.cpp \
-    documentviewcontroller.moc \
     documentviewcontroller.cpp \
     documentfactory.cpp \
-    documentcontroller.moc \
     documentcontroller.cpp \
     document.cpp \
-    createfiledialog.moc \
     createfiledialog.cpp \
-    actioncontroller.moc \
     actioncontroller.cpp \
-    aboutdialog.moc \
     aboutdialog.cpp \
     menuactioncontroller.cpp \
     documentaction.cpp

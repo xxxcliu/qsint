@@ -20,7 +20,7 @@ public:
     const QString& path() const
             { return m_path; }
 
-    const bool isModified() const
+    bool isModified() const
             { return m_modified; }
 
     virtual QWidget* view() const = 0;

@@ -9,8 +9,7 @@ namespace QSint
 PlotterBase::PlotterBase(QWidget *parent) :
     QWidget(parent)
 {
-    m_axisX = new AxisBase(Qt::Horizontal, this);
-    m_axisY = new AxisBase(Qt::Vertical, this);
+    m_axisX = m_axisY = 0;
 
     setModel(0);
 }
@@ -20,6 +19,7 @@ void PlotterBase::setBorderPen(const QPen &pen)
 {
     m_pen = pen;
 }
+
 
 void PlotterBase::setBackground(const QBrush &brush)
 {
@@ -87,10 +87,12 @@ void PlotterBase::paintEvent(QPaintEvent *)
     drawForeground(p);
 }
 
+
 void PlotterBase::drawBackground(QPainter &p)
 {
     p.fillRect(rect(), m_bg);
 }
+
 
 void PlotterBase::drawForeground(QPainter &p)
 {
@@ -99,6 +101,7 @@ void PlotterBase::drawForeground(QPainter &p)
     p.setBrush(Qt::NoBrush);
     p.drawRect(rect().adjusted(0,0,-1,-1));
 }
+
 
 void PlotterBase::drawAxis(QPainter &p)
 {

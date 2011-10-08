@@ -35,11 +35,6 @@ public:
     void setModel(QAbstractItemModel *model);
     inline QAbstractItemModel* model() const { return m_model; }
 
-
-signals:
-
-public slots:
-
 protected:
     virtual void paintEvent(QPaintEvent *);
 

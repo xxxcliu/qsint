@@ -1,6 +1,6 @@
 include (../../examples.pri)
 
-TARGET = actionlabel
+TARGET = actionpanel
 
 HEADERS += \
     mainwindow.h

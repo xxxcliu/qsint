@@ -7,11 +7,11 @@ INCLUDEPATH += ./ ../Core
 HEADERS += \
     plotterbase.h \
     barchartplotter.h \
-    axisbase.h
+    axisbase.h \
+    piechart.h
 
 SOURCES += \
     plotterbase.cpp \
     barchartplotter.cpp \
-    axisbase.cpp
-
-
+    axisbase.cpp \
+    piechart.cpp
