@@ -52,7 +52,13 @@ MainWidget::MainWidget(QWidget *parent) :
 
     ui->BarPlot->setModel(itemModel);
 
-    ui->tableWidget->setModel(itemModel);
+
+    ui->PieChart->setModel(itemModel);
+
+
+    ui->TableWidget->setModel(itemModel);
+    connect(ui->TableWidget->selectionModel(), SIGNAL(currentColumnChanged(QModelIndex,QModelIndex)),
+            this, SLOT(OnColumnChanged(QModelIndex,QModelIndex)));
 }
 
 MainWidget::~MainWidget()
@@ -80,10 +86,10 @@ void MainWidget::on_AddRowButton_clicked()
 
     QColor color = ui->ChannelColorButton->color();
 
-    int idx = ui->tableWidget->model()->rowCount();
-    ui->tableWidget->model()->insertRow(idx);
-    ui->tableWidget->model()->setHeaderData(idx, Qt::Vertical, name);
-    ui->tableWidget->model()->setHeaderData(idx, Qt::Vertical, QBrush(color), Qt::BackgroundRole);
+    int idx = ui->TableWidget->model()->rowCount();
+    ui->TableWidget->model()->insertRow(idx);
+    ui->TableWidget->model()->setHeaderData(idx, Qt::Vertical, name);
+    ui->TableWidget->model()->setHeaderData(idx, Qt::Vertical, QBrush(color), Qt::BackgroundRole);
 }
 
 void MainWidget::on_AddColumnButton_clicked()
@@ -92,9 +98,9 @@ void MainWidget::on_AddColumnButton_clicked()
     if (name.isEmpty())
         return;
 
-    int idx = ui->tableWidget->model()->columnCount();
-    ui->tableWidget->model()->insertColumn(idx);
-    ui->tableWidget->model()->setHeaderData(idx, Qt::Horizontal, name);
+    int idx = ui->TableWidget->model()->columnCount();
+    ui->TableWidget->model()->insertColumn(idx);
+    ui->TableWidget->model()->setHeaderData(idx, Qt::Horizontal, name);
 }
 
 
@@ -114,4 +120,10 @@ void MainWidget::on_TrendButton_clicked()
 {
     ui->BarPlot->setBarType(QSint::BarChartPlotter::Trend);
     ui->BarPlot->repaint();
+}
+
+
+void MainWidget::OnColumnChanged(QModelIndex current,QModelIndex)
+{
+    ui->PieChart->setActiveIndex(current.column());
 }

@@ -9,6 +9,9 @@ namespace QSint
 BarChartPlotter::BarChartPlotter(QWidget *parent) :
     PlotterBase(parent)
 {
+    m_axisX = new AxisBase(Qt::Horizontal, this);
+    m_axisY = new AxisBase(Qt::Vertical, this);
+
     setBarType(Stacked);
 
     m_axisX->setType(AxisBase::AxisModel);
@@ -242,6 +245,9 @@ void BarChartPlotter::TrendPainter::draw(
     int p_offs,
     int /*bar_size*/)
 {
+    p.save();
+    p.setRenderHint(QPainter::Antialiasing);
+
     p.setOpacity(plotter->barOpacity());
 
     for (int j = 0; j < row_count; j++)
@@ -286,6 +292,8 @@ void BarChartPlotter::TrendPainter::draw(
             p.drawEllipse(points.at(i), 3, 3);
         }
     }
+
+    p.restore();
 }
 
 
