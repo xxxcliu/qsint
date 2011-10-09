@@ -5,14 +5,10 @@ LIBS += -L../../../../lib -l$$LIBNAME
 include(../examples.pri)
 
 
-win32 {
-
 CONFIG(release,debug|release){
-    PRE_TARGETDEPS += ../../../lib/QSApps.lib
+    PRE_TARGETDEPS += ../../../lib/$$LIBNAME.$$LIB_SUFFIX
 }
 
 CONFIG(debug,debug|release){
-    PRE_TARGETDEPS += ../../../lib/QSAppsd.lib
-}
-
+    PRE_TARGETDEPS += ../../../lib/$$LIBNAME.$$LIB_SUFFIX
 }
