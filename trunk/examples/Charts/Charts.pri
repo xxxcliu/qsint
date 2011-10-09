@@ -4,14 +4,10 @@ LIBS += -L../../../../lib -l$$LIBNAME
 
 include(../examples.pri)
 
-win32 {
-
 CONFIG(release,debug|release){
-    PRE_TARGETDEPS += ../../../lib/QSCharts.lib
+    PRE_TARGETDEPS += ../../../lib/$$LIBNAME.$$LIB_SUFFIX
 }
 
 CONFIG(debug,debug|release){
-    PRE_TARGETDEPS += ../../../lib/QSChartsd.lib
-}
-
+    PRE_TARGETDEPS += ../../../lib/$$LIBNAME.$$LIB_SUFFIX
 }

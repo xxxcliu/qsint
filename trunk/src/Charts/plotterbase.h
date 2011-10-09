@@ -35,8 +35,14 @@ public:
     void setModel(QAbstractItemModel *model);
     inline QAbstractItemModel* model() const { return m_model; }
 
+protected Q_SLOTS:
+    void scheduleUpdate();
+
 protected:
-    virtual void paintEvent(QPaintEvent *);
+    virtual void mouseMoveEvent(QMouseEvent *event);
+    virtual void leaveEvent(QMouseEvent *event);
+
+    virtual void paintEvent(QPaintEvent *event);
 
     virtual void drawBackground(QPainter &p);
     virtual void drawForeground(QPainter &p);
@@ -50,6 +56,11 @@ protected:
 
     QBrush m_bg;
     QPen m_pen;
+
+    QPixmap m_buffer;
+    bool m_repaint;
+
+    QPoint m_mousePos;
 };
 
 

@@ -22,9 +22,12 @@ public:
 protected:
     virtual void paintEvent(QPaintEvent *event);
     virtual void drawContent(QPainter &p);
+    virtual void drawHighlight(QPainter &p);
 
 protected:
     int m_index;
+
+    int m_margin;
 };
 
 
