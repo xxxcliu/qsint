@@ -11,6 +11,7 @@
 #include "../src/Core/actionpanel/winxppanelscheme.h"
 #include "../src/Core/actionpanel/winvistapanelscheme.h"
 #include "../src/Core/actionpanel/macpanelscheme.h"
+#include "../src/Core/actionpanel/androidpanelscheme.h"
 
 #include "../src/Core/scrollpanner.h"
 

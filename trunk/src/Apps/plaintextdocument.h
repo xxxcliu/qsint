@@ -21,8 +21,14 @@ public:
     virtual QWidget* view() const
             { return m_editor; }
 
+    virtual bool readFromFile(const QString& fileName);
+
+protected:
+    virtual void setContent(const QString& text);
+
 protected:
     QTextEdit* m_editor;
+    QTextDocument* m_doc;
 };
 
 

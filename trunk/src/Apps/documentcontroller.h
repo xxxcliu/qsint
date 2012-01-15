@@ -6,6 +6,8 @@
 #include <QPair>
 #include <QStringList>
 
+#include "settingscontroller.h"
+
 
 namespace QSint
 {
@@ -20,7 +22,7 @@ class CreateDialogBase;
 class OpenDialogBase;
 
 
-class DocumentController : public QObject
+class DocumentController : public QObject, public Restorable
 {
     Q_OBJECT
 
@@ -41,6 +43,10 @@ public:
 
     // Called once when initialized
     virtual void init();
+
+    // Serialization
+    virtual bool store(QSettings& set);
+    virtual bool restore(QSettings& set);
 
     // File actions availability
     virtual bool canNewFile() const;

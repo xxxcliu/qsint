@@ -1,10 +1,8 @@
+TARGET = qsintplugin
+
 include(../designer.pri)
 
-INCLUDEPATH += ../../include
-
 CONFIG      += designer plugin debug_and_release
-TARGET      = $$qtLibraryTarget(qsintplugin)
-TEMPLATE    = lib
 
 HEADERS     = scrollpannerplugin.h \
     colorgridplugin.h \

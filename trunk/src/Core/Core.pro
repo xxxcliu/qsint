@@ -20,7 +20,8 @@ HEADERS += \
     actionpanel/winxppanelscheme.h \
     actionpanel/winvistapanelscheme.h \
     actionpanel/macpanelscheme.h \
-    pathpicker.h
+    pathpicker.h \
+    actionpanel/androidpanelscheme.h
 
 SOURCES += \
     recentfiles.cpp \
@@ -40,7 +41,8 @@ SOURCES += \
     actionpanel/winvistapanelscheme.cpp \
     actionpanel/macpanelscheme.cpp \
     pathpicker.cpp \
-    core.h
+    core.h \
+    actionpanel/androidpanelscheme.cpp
 
 INCLUDEPATH += ./ ./actionpanel
 

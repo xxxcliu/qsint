@@ -29,6 +29,20 @@ DocumentViewController::DocumentViewController(QWidget *parent) :
 }
 
 
+// Serialization
+
+bool DocumentViewController::store(QSettings& /*set*/)
+{
+    return true;
+}
+
+
+bool DocumentViewController::restore(QSettings& /*set*/)
+{
+    return true;
+}
+
+
 Document* DocumentViewController::activeDocument()
 {
     if (count() == 0)
@@ -70,7 +84,9 @@ void DocumentViewController::onDocumentCreated(Document* doc)
     QWidget* view = doc->view();
     Q_ASSERT(view != NULL);
 
-    addTab(view, doc->name());
+    int index = addTab(view, doc->name());
+
+    setTabToolTip(index, doc->path());
 
     m_viewDocMap[view] = doc;
 }

@@ -5,25 +5,23 @@
 #include <QTextBrowser>
 
 
-#include "document.h"
+#include "plaintextdocument.h"
 
 
 namespace QSint
 {
 
 
-
-class HypertextDocument : public Document
+class HypertextDocument : public PlainTextDocument
 {
     Q_OBJECT
 public:
+    typedef PlainTextDocument BaseClass;
+
     explicit HypertextDocument(QObject *parent = 0);
 
-    virtual QWidget* view() const
-            { return m_browser; }
-
 protected:
-    QTextBrowser* m_browser;
+    virtual void setContent(const QString& text);
 };
 
 

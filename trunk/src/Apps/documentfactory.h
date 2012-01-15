@@ -69,6 +69,10 @@ public:
     virtual Document* createDocument(int /*id*/)
             { return NULL; }
 
+    // reimplement to create the document from the file \a filename
+    virtual Document* createDocumentFromFile(const QString& /*filename*/)
+            { return NULL; }
+
     // returns all the available document type infos
     const QList<DocTypeInfo*> documentTypes() const
             { return m_docTypes.values(); }

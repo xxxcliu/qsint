@@ -32,84 +32,63 @@ MainWindow {
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QSint::ActionGroup" name="ActionGroup1">
-     <property name="expandable">
+    <widget class="QSint::ActionGroup" name="ActionGroup1" native="true">
+     <property name="expandable" stdset="0">
       <bool>true</bool>
      </property>
-     <property name="header">
+     <property name="header" stdset="0">
       <bool>true</bool>
      </property>
-     <property name="headerText">
+     <property name="headerText" stdset="0">
       <string>Choose Scheme</string>
      </property>
-     <widget class="QRadioButton" name="rbDefaultScheme">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>40</y>
-        <width>82</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Default</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="rbXPBlueScheme">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>60</y>
-        <width>82</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>XP Blue</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="rbXPBlue2Scheme">
-      <property name="geometry">
-       <rect>
-        <x>20</x>
-        <y>80</y>
-        <width>82</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>XP Blue 2</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="rbVistaScheme">
-      <property name="geometry">
-       <rect>
-        <x>120</x>
-        <y>40</y>
-        <width>82</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>Vista</string>
-      </property>
-     </widget>
-     <widget class="QRadioButton" name="rbMacScheme">
-      <property name="geometry">
-       <rect>
-        <x>120</x>
-        <y>60</y>
-        <width>82</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>MacOS</string>
-      </property>
-     </widget>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QRadioButton" name="rbDefaultScheme">
+        <property name="text">
+         <string>Default</string>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="rbXPBlueScheme">
+        <property name="text">
+         <string>XP Blue</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="rbXPBlue2Scheme">
+        <property name="text">
+         <string>XP Blue 2</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="rbVistaScheme">
+        <property name="text">
+         <string>Vista</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="rbMacScheme">
+        <property name="text">
+         <string>MacOS</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QRadioButton" name="rbAndroidScheme">
+        <property name="text">
+         <string>Android</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
     </widget>
    </item>
    <item row="1" column="1">

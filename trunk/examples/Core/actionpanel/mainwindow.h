@@ -25,7 +25,8 @@ protected slots:
     void on_rbXPBlueScheme_toggled(bool);
     void on_rbXPBlue2Scheme_toggled(bool);
     void on_rbVistaScheme_toggled(bool);
-    void on_rbMacScheme_toggled(bool b);
+    void on_rbMacScheme_toggled(bool);
+    void on_rbAndroidScheme_toggled(bool);
 
 private:
     Ui::MainWindow *ui;

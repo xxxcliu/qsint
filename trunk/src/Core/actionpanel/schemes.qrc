@@ -18,5 +18,9 @@
         <file>vista/UnfoldOver.png</file>
         <file>mac/FoldOver.png</file>
         <file>mac/UnfoldOver.png</file>
+        <file>android/Fold.png</file>
+        <file>android/Unfold.png</file>
+        <file>android/FoldOver.png</file>
+        <file>android/UnfoldOver.png</file>
     </qresource>
 </RCC>

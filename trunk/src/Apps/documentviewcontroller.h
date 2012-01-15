@@ -5,6 +5,8 @@
 #include <QTabWidget>
 #include <QMap>
 
+#include "settingscontroller.h"
+
 
 namespace QSint
 {
@@ -13,12 +15,18 @@ namespace QSint
 class Document;
 
 
-class DocumentViewController : public QTabWidget
+class DocumentViewController : public QTabWidget, public Restorable
 {
     Q_OBJECT
+
 public:
     explicit DocumentViewController(QWidget *parent = 0);
 
+    // Serialization
+    virtual bool store(QSettings& set);
+    virtual bool restore(QSettings& set);
+
+    // Documents
     Document* activeDocument();
     bool setActiveDocument(Document* doc);
 

@@ -25,7 +25,8 @@ HEADERS += \
     actioncontroller.h \
     aboutdialog.h \
     menuactioncontroller.h \
-    documentaction.h
+    documentaction.h \
+    settingscontroller.h
 
 SOURCES += \
     windowmenucontroller.cpp \
@@ -47,7 +48,8 @@ SOURCES += \
     actioncontroller.cpp \
     aboutdialog.cpp \
     menuactioncontroller.cpp \
-    documentaction.cpp
+    documentaction.cpp \
+    settingscontroller.cpp
 
 FORMS += \
     createfiledialog.ui \
