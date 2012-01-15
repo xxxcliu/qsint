@@ -4,6 +4,7 @@
 #include "../src/Apps/menuactioncontroller.h"
 
 #include "../src/Apps/document.h"
+#include "../src/Apps/plaintextdocument.h"
 #include "../src/Apps/documentaction.h"
 #include "../src/Apps/documentcontroller.h"
 #include "../src/Apps/documentviewcontroller.h"

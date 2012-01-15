@@ -10,14 +10,11 @@ LIBS += -L../../../lib -l$$LIBNAME
 #message($$CONFIG)
 #message($$LIBNAME)
 
-win32{
+#CONFIG(release,debug|release){
+ #   PRE_TARGETDEPS += ../../../lib/$$LIBNAME.$$LIB_SUFFIX
+#}
 
-CONFIG(release,debug|release){
-    PRE_TARGETDEPS += ../../../lib/QSCore.lib
-}
+#CONFIG(debug,debug|release){
+#    PRE_TARGETDEPS += ../../../lib/$$LIBNAME.$$LIB_SUFFIX
+#}
 
-CONFIG(debug,debug|release){
-    PRE_TARGETDEPS += ../../../lib/QSCored.lib
-}
-
-}

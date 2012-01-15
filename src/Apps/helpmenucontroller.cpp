@@ -28,7 +28,7 @@ void HelpMenuController::onShowRootMenu(QMenu* menu)
 
         m_actionAbout->setStatusTip(
                 tr("Show information about the %1")
-                        .arg(mainWindow()->getInfo(QSint::ApplicationName).toString()));
+                        .arg(mainWindow()->getInfo(QSint::ApplicationTitle).toString()));
 
         menu->addAction(m_actionAbout);
     }

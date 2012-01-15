@@ -49,6 +49,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->ActionGroup1->addWidget(ui->rbXPBlue2Scheme);
     ui->ActionGroup1->addWidget(ui->rbVistaScheme);
     ui->ActionGroup1->addWidget(ui->rbMacScheme);
+    ui->ActionGroup1->addWidget(ui->rbAndroidScheme);
 
     adjustSize();
 }
@@ -104,5 +105,11 @@ void MainWindow::on_rbMacScheme_toggled(bool b)
 {
     if (b)
         ui->ActionPanel->setScheme(QSint::MacPanelScheme::defaultScheme());
+}
+
+void MainWindow::on_rbAndroidScheme_toggled(bool b)
+{
+    if (b)
+        ui->ActionPanel->setScheme(QSint::AndroidPanelScheme::defaultScheme());
 }
 

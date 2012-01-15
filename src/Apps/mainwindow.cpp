@@ -1,4 +1,5 @@
 #include "mainwindow.h"
+#include "settingscontroller.h"
 #include "filemenucontroller.h"
 #include "windowmenucontroller.h"
 #include "helpmenucontroller.h"
@@ -21,15 +22,21 @@ namespace QSint
 MainWindow::MainWindow(QWidget *parent) : BaseClass(parent)
 {
     setComponentInfo(tr("Qt Framework"),
-                     tr("Copyright 2008-2011 Nokia Corporation"),
+                     tr("Copyright 2008-2012 Nokia Corporation"),
                      QT_VERSION_STR,
                      QT_VERSION);
 
     setComponentInfo(tr("QSint Application Framework"),
-                     tr("Copyright 2011 Sintegrial Technologies"),
+                     tr("Copyright 2011-2012 Sintegrial Technologies"),
                      QSINT_VERSION_STR,
                      QSINT_VERSION);
 
+}
+
+
+MainWindow::~MainWindow()
+{
+    finalize();
 }
 
 
@@ -59,7 +66,7 @@ void MainWindow::initAndShow()
     }
 
 
-    // Document Controllers
+    // Document controllers
     m_documentController = createDocumentController();
     if (m_documentController != NULL && m_documentViewController != NULL)
     {
@@ -71,8 +78,22 @@ void MainWindow::initAndShow()
     }
 
 
-    // Menu Controllers
+    // Menu controllers
     createMenuControllers();
+
+
+    // Settings controller
+    m_settingsController = createSettingsController();
+
+    // initialize settings controller
+    if (m_settingsController != NULL)
+    {
+        // add default components
+        m_settingsController->registerObject(m_documentController);
+        m_settingsController->registerObject(m_documentViewController);
+
+        m_settingsController->init();
+    }
 
 
     // initialize user components (factories etc.)
@@ -116,8 +137,25 @@ void MainWindow::initAndShow()
     }
 
 
+    // restore settings if available
+    if (m_settingsController != NULL)
+    {
+        m_settingsController->restoreObjects();
+    }
+
+
     // finally, execute
     showMaximized();
+}
+
+
+void MainWindow::finalize()
+{
+    // store settings if available
+    if (m_settingsController != NULL)
+    {
+        m_settingsController->storeObjects();
+    }
 }
 
 
@@ -129,7 +167,7 @@ void MainWindow::setInfo(int id, const QVariant& data)
 
     switch (id)
     {
-    case ApplicationName:
+    case ApplicationTitle:
         setWindowTitle(data.toString());
         break;
 
@@ -171,6 +209,14 @@ void MainWindow::showAbout()
     AboutDialog aboutDialog(this);
 
     aboutDialog.exec();
+}
+
+
+// Global components
+
+SettingsController* MainWindow::createSettingsController()
+{
+    return new SettingsController(this);
 }
 
 

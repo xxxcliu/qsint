@@ -18,6 +18,8 @@ class DocumentController;
 class DocumentFactory;
 class Document;
 
+class SettingsController;
+
 
 struct VersionInfo
 {
@@ -30,9 +32,8 @@ struct VersionInfo
 
 enum ApplicationInfo
 {
-    ApplicationName = 1000,
-    ApplicationVersion,
-    ApplicationVersionText,
+    ApplicationTitle = 1000,
+    ApplicationVersionNumber,
     ApplicationURL,
     ApplicationDescription,
     ApplicationCopyright,
@@ -49,6 +50,7 @@ class MainWindow : public QMainWindow
 
 public:
     explicit MainWindow(QWidget *parent = 0);
+    virtual ~MainWindow();
 
     // Explicit initialization
     virtual void initAndShow();
@@ -75,6 +77,10 @@ public:
     DocumentViewController* documentViewController() const
             { return m_documentViewController; }
 
+    // Settings controller
+    SettingsController* settingsController() const
+            { return m_settingsController; }
+
 
     // Registration of user-defined components
     bool registerMenuController(ActionController* cntr);
@@ -87,6 +93,12 @@ public Q_SLOTS:
 protected:
     // Called once for initialization
     virtual void init() {}
+    // Called once for deinitialization
+    virtual void finalize();
+
+
+    // Global components
+    virtual SettingsController* createSettingsController();
 
 
     // Main menu and subcomponents
@@ -126,6 +138,7 @@ protected:
     QList<ActionController*> m_menuControllers;
     DocumentController* m_documentController;
     DocumentViewController* m_documentViewController;
+    SettingsController* m_settingsController;
 };
 
 

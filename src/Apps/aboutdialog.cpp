@@ -20,9 +20,9 @@ AboutDialog::AboutDialog(ParentClass* parent) :
     Q_ASSERT(parent != NULL);
 
     // application
-    ui->labelName->setText(parent->getInfo(QSint::ApplicationName).toString());
+    ui->labelName->setText(parent->getInfo(QSint::ApplicationTitle).toString());
 
-    ui->labelVersion->setText(parent->getInfo(QSint::ApplicationVersionText).toString());
+    ui->labelVersion->setText(QCoreApplication::applicationVersion());
 
     ui->labelProvider->setText(parent->getInfo(QSint::ApplicationCopyright).toString());
 
@@ -46,7 +46,7 @@ AboutDialog::AboutDialog(ParentClass* parent) :
     else
         ui->labelLogo->setPixmap(logo);
 
-    setWindowTitle(tr("About %1").arg(parent->getInfo(QSint::ApplicationName).toString()));
+    setWindowTitle(tr("About %1").arg(parent->getInfo(QSint::ApplicationTitle).toString()));
 
     // components
     const QList<VersionInfo>& compInfo = parent->componentsInfo();

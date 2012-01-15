@@ -68,7 +68,7 @@ void FileMenuController::onShowRootMenu(QMenu* menu)
 
     if (m_actionExit != NULL)
     {
-        m_actionExit->setStatusTip(tr("Exit the %1").arg(mainWindow()->getInfo(QSint::ApplicationName).toString()));
+        m_actionExit->setStatusTip(tr("Exit the %1").arg(mainWindow()->getInfo(QSint::ApplicationTitle).toString()));
 
         ADD_SEPARATOR(menu);
         ADD_ACTION(menu, m_actionExit);

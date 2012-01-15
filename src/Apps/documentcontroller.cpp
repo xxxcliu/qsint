@@ -31,6 +31,28 @@ void DocumentController::init()
 }
 
 
+// Serialization
+
+bool DocumentController::store(QSettings& set)
+{
+    set.beginGroup("Documents");
+    set.setValue("LastOpenDirectory", m_lastOpenDir);
+    set.endGroup();
+
+    return true;
+}
+
+
+bool DocumentController::restore(QSettings& set)
+{
+    set.beginGroup("Documents");
+    m_lastOpenDir = set.value("LastOpenDirectory", m_lastOpenDir).toString();
+    set.endGroup();
+
+    return true;
+}
+
+
 // File actions availability
 
 bool DocumentController::canNewFile() const
@@ -134,6 +156,39 @@ void DocumentController::openFile()
         m_lastStoreDir = lastDir;
 
     qDebug() << lastDir;
+
+    // try to load files via corresponding factories
+    foreach(const QString& filename, openFilesList)
+    {
+        Document* doc = NULL;
+
+        foreach(const DocFileTypeIndex& index, m_openDocTypes)
+        {
+            DocumentFactory* factory = index.first;
+            doc = factory->createDocumentFromFile(filename);
+            if (doc != NULL)
+            {
+                m_documents.append(doc);
+
+                emit documentCreated(doc);
+
+                //qDebug() << filename;
+
+                break;
+            }
+        }
+
+        // cannot open the document: warn here
+        if (doc == NULL)
+        {
+            QMessageBox::critical(NULL,
+                              tr("Cannot open file"),
+                              tr("Document ""%1"" could not be opened").arg(filename)
+                              );
+        }
+    }
+
+    emit changed();
 }
 
 
