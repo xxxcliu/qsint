@@ -12,10 +12,11 @@ namespace QSint
 class QtOpenDialog : public OpenDialogBase
 {
 public:
-    virtual QStringList openFiles(
+    virtual QStringList chooseFilesToOpen(
             const QList<DocumentController::DocFileTypeIndex>& docFilters,
             const QString& rootDir,
-            bool allowAllFiles);
+            bool allowAllFiles,
+            int* filterIndex = 0);
 
 protected:
     virtual QStringList execute(

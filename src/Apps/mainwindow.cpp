@@ -55,6 +55,9 @@ void MainWindow::initAndShow()
     if (m_documentViewController != NULL)
     {
         setCentralWidget(m_documentViewController);
+
+        connect(m_documentViewController, SIGNAL(currentDocumentChanged(Document*)),
+                this, SLOT(onCurrentDocumentChanged(Document*)));
     }
 
 
@@ -75,6 +78,9 @@ void MainWindow::initAndShow()
 
         connect(m_documentController, SIGNAL(documentCreated(Document*)),
                 m_documentViewController, SLOT(onDocumentCreated(Document*)));
+
+        connect(m_documentController, SIGNAL(documentChanged(Document*)),
+                m_documentViewController, SLOT(onDocumentChanged(Document*)));
     }
 
 
@@ -306,6 +312,20 @@ bool MainWindow::registerDocumentFactory(DocumentFactory* factory)
         return false;
 
     return m_documentController->addFactory(factory);
+}
+
+
+// Document management handlers
+
+void MainWindow::onCurrentDocumentChanged(Document* doc)
+{
+    Q_ASSERT(doc != NULL);
+
+    // test
+    if (doc->path().isEmpty())
+        setWindowTitle(QString("[%1]").arg(doc->name()));
+    else
+        setWindowTitle(doc->path());
 }
 
 

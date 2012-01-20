@@ -39,9 +39,6 @@ bool SettingsController::restoreObjects()
     //QSettings set(m_provider, m_id);
     QSettings set;
 
-    qDebug() << set.applicationName();
-    qDebug() << set.organizationName();
-
     bool ok = true;
 
     foreach(Restorable* obj, m_objects)

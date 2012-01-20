@@ -73,9 +73,14 @@ public:
     const QList<Document*>& documents() const
             { return m_documents; }
 
+    Document* documentOpened(const QString& filename) const;
+    bool isDocumentOpened(const QString& filename) const
+            { return documentOpened(filename) != NULL; }
+
 Q_SIGNALS:
     void changed();
     void documentCreated(Document*);
+    void documentChanged(Document*);
 
 public Q_SLOTS:
     // File actions processing
@@ -83,11 +88,31 @@ public Q_SLOTS:
     virtual void openFile();
 
 protected:
+    // Shows dialog for new document type
     virtual const DocTypeInfo* chooseNewDocumentType(const QList<const DocTypeInfo*>& docTypes);
 
-    virtual QStringList openFiles(const QList<DocFileTypeIndex>& docFilters,
-                                  const QString& rootDir,
-                                  bool allowAllFiles);
+    // Shows dialog for opening files
+    virtual QStringList chooseFilesToOpen(const QList<DocFileTypeIndex>& docFilters,
+                                          const QString& rootDir,
+                                          bool allowAllFiles,
+                                          int* filterIndex = 0);
+
+    // Creates documents from the given files in \a filesList via factory with given index \a filterIndex
+    virtual void createDocuments(const QStringList& filesList,
+                                 int filterIndex = -1);
+
+    // Reloads documents in \a docList
+    virtual void reloadDocuments(const QList<Document*>& docList);
+
+    // Shows dialog with already opened files in \a filesList.
+    // Returns files to reload (i.e. the same \a filesList by default),
+    // or empty list if reload has not been accepted.
+    virtual QStringList showAlreadyOpenedFiles(const QStringList& filesList);
+
+    // Shows dialog with not opened files in \a filesList.
+    // Returns files to try to open again (i.e. the same \a filesList by default),
+    // or empty list if another try has not been accepted.
+    virtual QStringList showNotOpenedFiles(const QStringList& filesList);
 
 protected:
     QList<DocumentFactory*> m_factories;

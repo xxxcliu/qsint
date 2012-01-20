@@ -90,6 +90,9 @@ public Q_SLOTS:
     // About dialog
     virtual void showAbout();
 
+    // Handles change of the current document
+    virtual void onCurrentDocumentChanged(Document* doc);
+
 protected:
     // Called once for initialization
     virtual void init() {}
