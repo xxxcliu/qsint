@@ -1,5 +1,6 @@
 #include "documentcontroller.h"
 #include "documentfactory.h"
+#include "document.h"
 #include "mainwindow.h"
 #include "qtopendialog.h"
 #include "createfiledialog.h"
@@ -145,7 +146,13 @@ void DocumentController::openFile()
 {
     Q_ASSERT(!m_openDocTypes.isEmpty());
 
-    QStringList openFilesList = openFiles(m_openDocTypes, m_lastOpenDir, m_allowAllFilesFilter);
+    int filterIndex = -1;
+    QStringList openFilesList = chooseFilesToOpen(
+                m_openDocTypes,
+                m_lastOpenDir,
+                m_allowAllFilesFilter,
+                &filterIndex);
+
     if (openFilesList.isEmpty())
         return;
 
@@ -155,53 +162,162 @@ void DocumentController::openFile()
     if (m_lastStoreDirPolicy == LDP_LAST_ANY || m_lastStoreDirPolicy == LDP_LAST_IGNORED)
         m_lastStoreDir = lastDir;
 
-    qDebug() << lastDir;
-
-    // try to load files via corresponding factories
-    foreach(const QString& filename, openFilesList)
-    {
-        Document* doc = NULL;
-
-        foreach(const DocFileTypeIndex& index, m_openDocTypes)
-        {
-            DocumentFactory* factory = index.first;
-            doc = factory->createDocumentFromFile(filename);
-            if (doc != NULL)
-            {
-                m_documents.append(doc);
-
-                emit documentCreated(doc);
-
-                //qDebug() << filename;
-
-                break;
-            }
-        }
-
-        // cannot open the document: warn here
-        if (doc == NULL)
-        {
-            QMessageBox::critical(NULL,
-                              tr("Cannot open file"),
-                              tr("Document ""%1"" could not be opened").arg(filename)
-                              );
-        }
-    }
+    //qDebug() << lastDir;
+    createDocuments(openFilesList, filterIndex);
 
     emit changed();
 }
 
 
-QStringList DocumentController::openFiles(const QList<DocFileTypeIndex>& docFilters,
+QStringList DocumentController::chooseFilesToOpen(const QList<DocFileTypeIndex>& docFilters,
                                           const QString& rootDir,
-                                          bool allowAllFiles)
+                                          bool allowAllFiles,
+                                          int* filterIndex)
 {
     Q_ASSERT(m_openDialog != NULL);
 
     if (m_openDialog == NULL)
         return QStringList();
 
-    return m_openDialog->openFiles(docFilters, rootDir, allowAllFiles);
+    return m_openDialog->chooseFilesToOpen(docFilters, rootDir, allowAllFiles, filterIndex);
+}
+
+
+void DocumentController::createDocuments(const QStringList& openFilesList,
+                                         int filterIndex)
+{
+    // temporary vectors
+    QStringList alreadyOpenFiles;
+    QList<Document*> alreadyOpenDocs;
+
+    QStringList cantOpenFiles;
+
+    // try to load files via corresponding factories
+    int from = 0, to = m_openDocTypes.size()-1;
+
+    // if filterIndex != -1 then use the given factory
+    if (filterIndex >= 0)
+    {
+        from = to = filterIndex;
+    }
+
+    foreach(const QString& filename, openFilesList)
+    {
+        Document* doc = NULL;
+
+        // check if already open
+        if ((doc = documentOpened(filename)) != NULL)
+        {
+            alreadyOpenFiles.append(filename);
+            alreadyOpenDocs.append(doc);
+            continue;
+        }
+
+        // try to open
+        for (int i = from; i <= to; i++)
+        {
+            const DocFileTypeIndex& index = m_openDocTypes.at(i);
+            DocumentFactory* factory = index.first;
+
+            doc = factory->createDocumentFromFile(filename);
+            if (doc != NULL)
+            {
+                m_documents.append(doc);
+
+                emit documentCreated(doc);
+                break;
+            }
+        }
+
+        // cannot open
+        if (doc == NULL)
+        {
+            cantOpenFiles.append(filename);
+            continue;
+        }
+    }
+
+    // if there are already opened documents, ask to reload
+    if (!alreadyOpenFiles.isEmpty())
+    {
+        QStringList files = showAlreadyOpenedFiles(alreadyOpenFiles);
+        if (!files.isEmpty())
+        {
+            // reload files...
+            reloadDocuments(alreadyOpenDocs);
+        }
+    }
+
+    // if there are not opened documents
+    if (!cantOpenFiles.isEmpty())
+    {
+        QStringList files = showNotOpenedFiles(cantOpenFiles);
+        if (!files.isEmpty())
+        {
+            createDocuments(cantOpenFiles, filterIndex);
+        }
+    }
+}
+
+
+void DocumentController::reloadDocuments(const QList<Document*>& docList)
+{
+    QStringList cantOpenFiles;
+
+    foreach(Document* doc, docList)
+    {
+        Q_ASSERT(doc != NULL);
+
+        if (doc->readFromFile(doc->path()))
+        {
+            emit documentChanged(doc);
+        } else
+        {
+            cantOpenFiles.append(doc->path());
+        }
+    }
+
+    // if there are not opened documents
+    if (!cantOpenFiles.isEmpty())
+    {
+        //showNotReloadedFiles(cantOpenFiles);
+    }
+}
+
+
+QStringList DocumentController::showAlreadyOpenedFiles(const QStringList& filesList)
+{
+    QString files = filesList.join("<br>");
+
+    int r = QMessageBox::warning(NULL,
+                      tr("Already open"),
+                      tr("Following documents are opened already:<br><br>%1"
+                         "<br><br>Do you want to reload them?").arg(files),
+                      QMessageBox::Ok, QMessageBox::Cancel
+                      );
+
+    if (r == QMessageBox::Ok)
+        return filesList;
+
+    return QStringList();
+}
+
+
+QStringList DocumentController::showNotOpenedFiles(const QStringList& filesList)
+{
+    QString files = filesList.join("<br>");
+
+    int r = QMessageBox::critical(NULL,
+                      tr("Cannot open"),
+                      tr("Following documents cannot be opened:<br><br>%1"
+                         "<br><br>Do you want to try again?").arg(files),
+                      QMessageBox::Ok, QMessageBox::Cancel
+                      );
+
+    if (r == QMessageBox::Ok)
+        return filesList;
+
+    return QStringList();
 }
 
 
@@ -281,6 +397,24 @@ bool DocumentController::addFactory(DocumentFactory* factory)
     return true;
 }
 
+
+// Documents
+
+Document* DocumentController::documentOpened(const QString& filename) const
+{
+    if (filename.isEmpty())
+        return NULL;
+
+    QFileInfo info(filename);
+
+    foreach (Document* doc, m_documents)
+    {
+        if (QFileInfo(doc->path()) == info)
+            return doc;
+    }
+
+    return NULL;
+}
 
 }
 

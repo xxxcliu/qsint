@@ -11,13 +11,15 @@ namespace QSint
 {
 
 
-Document::Document(QObject *parent) :
+Document::Document(const DocTypeInfo& info, QObject *parent) :
+    m_info(&info),
     QObject(parent)
 {
 }
 
 
-Document::Document(const QString& defaultName, QObject *parent) :
+Document::Document(const DocTypeInfo& info, const QString& defaultName, QObject *parent) :
+    m_info(&info),
     m_name(defaultName),
     QObject(parent)
 {

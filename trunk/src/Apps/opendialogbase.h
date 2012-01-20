@@ -15,10 +15,11 @@ namespace QSint
 class OpenDialogBase : public QObject
 {
 public:
-    virtual QStringList openFiles(
-        const QList<DocumentController::DocFileTypeIndex>& docFilters,
-        const QString& rootDir,
-        bool allowAllFiles) = 0;
+    virtual QStringList chooseFilesToOpen(
+            const QList<DocumentController::DocFileTypeIndex>& docFilters,
+            const QString& rootDir,
+            bool allowAllFiles,
+            int* filterIndex = 0) = 0;
 };
 
 

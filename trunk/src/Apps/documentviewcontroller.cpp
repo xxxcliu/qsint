@@ -13,7 +13,8 @@ namespace QSint
 
 
 DocumentViewController::DocumentViewController(QWidget *parent) :
-    QTabWidget(parent)
+    QTabWidget(parent),
+    m_activateNewDocument(true)
 {
     // create TabListMenu
     TabListMenu *tabMenu = new TabListMenu(this);
@@ -26,6 +27,9 @@ DocumentViewController::DocumentViewController(QWidget *parent) :
 
     // assing tabMenu to the tbTabsDropList
     tbTabsDropList->setMenu(tabMenu);
+
+    // signals & slots
+    connect(this, SIGNAL(currentChanged(int)), this, SLOT(onCurrentTabChanged(int)));
 }
 
 
@@ -74,6 +78,24 @@ bool DocumentViewController::setActiveDocument(Document* doc)
 }
 
 
+// internal slots
+
+void DocumentViewController::onCurrentTabChanged(int /*index*/)
+{
+    if (m_viewDocMap.contains(currentWidget()))
+    {
+        Document* doc = m_viewDocMap[currentWidget()];
+        Q_ASSERT(doc != NULL);
+
+        onCurrentDocumentChanged(doc);
+
+        emit currentDocumentChanged(doc);
+    }
+}
+
+
+// slots and methods to be reimplemeted
+
 void DocumentViewController::onDocumentsChanged()
 {
 }
@@ -84,11 +106,42 @@ void DocumentViewController::onDocumentCreated(Document* doc)
     QWidget* view = doc->view();
     Q_ASSERT(view != NULL);
 
+    m_viewDocMap[view] = doc;
+
     int index = addTab(view, doc->name());
+    if (m_activateNewDocument)
+        setCurrentIndex(index);
 
     setTabToolTip(index, doc->path());
 
-    m_viewDocMap[view] = doc;
+    // the one and only
+    if (count() == 1)
+        onCurrentTabChanged(0);
+}
+
+
+void DocumentViewController::onDocumentChanged(Document* doc)
+{
+    Q_ASSERT(doc != NULL);
+
+    int index = indexOf(doc->view());
+    if (index < 0)
+        return;
+
+    setTabToolTip(index, doc->path());
+    setTabText(index, doc->name());
+}
+
+
+void DocumentViewController::onDocumentContentChanged(Document* doc)
+{
+
+}
+
+
+void DocumentViewController::onCurrentDocumentChanged(Document* doc)
+{
+    Q_ASSERT(doc != NULL);
 }
 
 

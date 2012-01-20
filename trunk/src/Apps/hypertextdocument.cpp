@@ -5,8 +5,8 @@ namespace QSint
 {
 
 
-HypertextDocument::HypertextDocument(QObject *parent) :
-    BaseClass(parent)
+HypertextDocument::HypertextDocument(const DocTypeInfo& info, QObject *parent) :
+    BaseClass(info, parent)
 {
     m_name = tr("Html document");
 

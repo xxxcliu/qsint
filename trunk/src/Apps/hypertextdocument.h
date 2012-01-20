@@ -4,7 +4,6 @@
 
 #include <QTextBrowser>
 
-
 #include "plaintextdocument.h"
 
 
@@ -18,7 +17,7 @@ class HypertextDocument : public PlainTextDocument
 public:
     typedef PlainTextDocument BaseClass;
 
-    explicit HypertextDocument(QObject *parent = 0);
+    explicit HypertextDocument(const DocTypeInfo& info, QObject *parent = 0);
 
 protected:
     virtual void setContent(const QString& text);

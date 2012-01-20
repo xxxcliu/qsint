@@ -6,16 +6,19 @@
 
 MainWidget::MainWidget(QWidget *parent) : BaseClass(parent)
 {
-    setInfo(QSint::ApplicationName, "QSint Test Application");
-    setInfo(QSint::ApplicationVersion, 0x000100);
-    setInfo(QSint::ApplicationVersionText, "0.1.0 alpha");
+    QCoreApplication::setApplicationName("QSintAppsDemo");
+    QCoreApplication::setApplicationVersion("0.1.0 alpha");
+    QCoreApplication::setOrganizationName("Sintegrial");
+
+    setInfo(QSint::ApplicationTitle, "QSintApps Demo");
+    setInfo(QSint::ApplicationVersionNumber, 0x000100);
     setInfo(QSint::ApplicationURL, "http://www.sintegrial.com");
     setInfo(QSint::ApplicationDescription,
             "Sintegrial Qt Application Framework - "
             "rapid development of the multidocument applications, "
             "easy-to-use and powerful widgets, and more. "
             "Ideal solution for Qt developers.");
-    setInfo(QSint::ApplicationCopyright, "&copy; 2011 Sintegrial Technologies");
+    setInfo(QSint::ApplicationCopyright, "&copy; 2011-2012 Sintegrial Technologies");
     setInfo(QSint::ApplicationLogo, QPixmap(":/QSintLogo"));
 }
 
@@ -38,7 +41,9 @@ void MainWidget::init()
 
     // view of tabs
     documentViewController()->setTabsClosable(true);
+    //documentViewController()->setNewTabCurrent(false);
 
     // ready!
-    statusBar()->showMessage(getInfo(QSint::ApplicationName).toString() + " started :)");
+    //statusBar()->showMessage(getInfo(QSint::ApplicationName).toString() + " started :)");
 }
+

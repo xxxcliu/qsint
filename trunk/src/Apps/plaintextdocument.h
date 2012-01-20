@@ -4,7 +4,6 @@
 
 #include <QTextEdit>
 
-
 #include "document.h"
 
 
@@ -16,7 +15,7 @@ class PlainTextDocument : public Document
 {
     Q_OBJECT
 public:
-    explicit PlainTextDocument(QObject *parent = 0);
+    explicit PlainTextDocument(const DocTypeInfo& info, QObject *parent = 0);
 
     virtual QWidget* view() const
             { return m_editor; }

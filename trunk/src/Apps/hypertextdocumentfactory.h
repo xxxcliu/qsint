@@ -3,22 +3,25 @@
 
 
 #include "documentfactory.h"
+#include "hypertextdocument.h"
 
 
 namespace QSint
 {
 
 
-class HypertextDocumentFactory : public DocumentFactory
+enum HypertextDocType {
+    DOCTYPE_HTML
+};
+
+
+class HypertextDocumentFactory :
+        public TDocumentFactory<HypertextDocument, DOCTYPE_HTML>
 {
 public:
-    enum DocType {
-        DOCTYPE_HTML
-    };
+    typedef TDocumentFactory<HypertextDocument, DOCTYPE_HTML> BaseClass;
 
     explicit HypertextDocumentFactory(QObject *parent = 0);
-
-    virtual Document* createDocument(int id);
 };
 
 

@@ -3,22 +3,25 @@
 
 
 #include "documentfactory.h"
+#include "plaintextdocument.h"
 
 
 namespace QSint
 {
 
 
-class PlainTextDocumentFactory : public DocumentFactory
+enum PlainTextDocType {
+    DOCTYPE_TEXT
+};
+
+
+class PlainTextDocumentFactory :
+        public TDocumentFactory<PlainTextDocument, DOCTYPE_TEXT>
 {
 public:
-    enum DocType {
-        DOCTYPE_TEXT
-    };
+    typedef TDocumentFactory<PlainTextDocument, DOCTYPE_TEXT> BaseClass;
 
     explicit PlainTextDocumentFactory(QObject *parent = 0);
-
-    virtual Document* createDocument(int id);
 };
 
 

@@ -102,6 +102,53 @@ protected:
 };
 
 
+template<typename DocumentClass, int DocumentDefaultType>
+class TDocumentFactory: public DocumentFactory
+{
+public:
+    explicit TDocumentFactory(QObject *parent = 0):
+        DocumentFactory(parent) {}
+
+    virtual DocumentClass* createDocument(int id = DocumentDefaultType);
+    virtual DocumentClass* createDocumentFromFile(const QString& fileName);
+};
+
+
+#define TDocumentFactoryClass(x) \
+    template<typename DocumentClass, int DocumentDefaultType> \
+    x TDocumentFactory<DocumentClass, DocumentDefaultType>
+
+
+TDocumentFactoryClass(DocumentClass*)::createDocument(int id)
+{
+    Q_ASSERT(id == DocumentDefaultType);
+
+    const DocTypeInfo* info = documentTypeInfo(id);
+    Q_ASSERT(info != NULL);
+
+    if (!info)
+        return NULL;
+
+    return new DocumentClass(*info, this);
+}
+
+
+TDocumentFactoryClass(DocumentClass*)::createDocumentFromFile(const QString& fileName)
+{
+    DocumentClass* doc = dynamic_cast<DocumentClass*>(createDocument(DocumentDefaultType));
+    if (!doc)
+        return NULL;
+
+    if (!doc->readFromFile(fileName))
+    {
+        delete doc;
+        return NULL;
+    }
+
+    return doc;
+}
+
+
 }
 
 

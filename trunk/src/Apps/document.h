@@ -9,11 +9,18 @@ namespace QSint
 {
 
 
+struct DocTypeInfo;
+
+
 class Document : public QObject
 {
 public:
-    explicit Document(QObject *parent = 0);
-    explicit Document(const QString& defaultName, QObject *parent = 0);
+    explicit Document(const DocTypeInfo& info, QObject *parent = 0);
+    explicit Document(const DocTypeInfo& info, const QString& defaultName, QObject *parent = 0);
+
+    // returns document type info
+    const DocTypeInfo& documentTypeInfo() const
+            { return *m_info; }
 
     const QString& name() const
             { return m_name; }
@@ -34,6 +41,8 @@ protected:
     static bool readFromFile(const QString& fileName, QString& text);
 
 protected:
+    const DocTypeInfo* m_info;
+
     QString m_name;
     QString m_path;
     bool m_modified;

@@ -5,8 +5,8 @@ namespace QSint
 {
 
 
-PlainTextDocument::PlainTextDocument(QObject *parent) :
-    Document(tr("Text document"), parent)
+PlainTextDocument::PlainTextDocument(const DocTypeInfo& info, QObject *parent) :
+    Document(info, tr("Text document"), parent)
 {
     m_doc = new QTextDocument(this);
 
