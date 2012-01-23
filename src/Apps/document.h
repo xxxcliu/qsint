@@ -14,6 +14,7 @@ struct DocTypeInfo;
 
 class Document : public QObject
 {
+    Q_OBJECT
 public:
     explicit Document(const DocTypeInfo& info, QObject *parent = 0);
     explicit Document(const DocTypeInfo& info, const QString& defaultName, QObject *parent = 0);
@@ -35,7 +36,13 @@ public:
 
     virtual bool readFromFile(const QString& fileName) = 0;
 
+signals:
+    void documentModified(Document* doc);
+
 protected:
+    void setModified(bool set)
+            { m_modified = set; }
+
     virtual void updateAfterLoad(const QString& fileName);
 
     static bool readFromFile(const QString& fileName, QString& text);

@@ -51,9 +51,9 @@ public:
     // File actions availability
     virtual bool canNewFile() const;
     virtual bool canOpenFile() const;
-    virtual bool canReloadFile() const;
-    virtual bool canSaveFile() const;
-    virtual bool canSaveFileAs() const;
+    virtual bool canReloadFile(Document* doc) const;
+    virtual bool canSaveFile(Document* doc) const;
+    virtual bool canSaveFileAs(Document* doc) const;
     virtual bool canSaveAllFiles() const;
 
     // Last dir policies management
@@ -73,21 +73,12 @@ public:
     const QList<Document*>& documents() const
             { return m_documents; }
 
+    Document* activeDocument() const;
+
     Document* documentOpened(const QString& filename) const;
     bool isDocumentOpened(const QString& filename) const
             { return documentOpened(filename) != NULL; }
 
-Q_SIGNALS:
-    void changed();
-    void documentCreated(Document*);
-    void documentChanged(Document*);
-
-public Q_SLOTS:
-    // File actions processing
-    virtual void createFile();
-    virtual void openFile();
-
-protected:
     // Shows dialog for new document type
     virtual const DocTypeInfo* chooseNewDocumentType(const QList<const DocTypeInfo*>& docTypes);
 
@@ -113,6 +104,24 @@ protected:
     // Returns files to try to open again (i.e. the same \a filesList by default),
     // or empty list if another try has not been accepted.
     virtual QStringList showNotOpenedFiles(const QStringList& filesList);
+
+    // Shows dialog with not reloaded files in \a filesList.
+    virtual void showNotReloadedFiles(const QStringList& filesList);
+
+Q_SIGNALS:
+    void documentCreated(Document* doc);
+    void documentChanged(Document* doc);
+    void documentModified(Document* doc);
+
+public Q_SLOTS:
+    // File actions processing
+    virtual void createFile();
+    virtual void openFile();
+    virtual void reloadFile();
+
+protected:
+    // Internal handling of document creation.
+    virtual void onDocumentCreated(Document *doc);
 
 protected:
     QList<DocumentFactory*> m_factories;

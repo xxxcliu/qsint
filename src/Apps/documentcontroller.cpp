@@ -1,7 +1,11 @@
 #include "documentcontroller.h"
 #include "documentfactory.h"
 #include "document.h"
+
+// to revise & remove !!!
+#include "documentviewcontroller.h"
 #include "mainwindow.h"
+
 #include "qtopendialog.h"
 #include "createfiledialog.h"
 
@@ -28,7 +32,6 @@ DocumentController::DocumentController(ParentClass *parent) :
 
 void DocumentController::init()
 {
-    emit changed();
 }
 
 
@@ -84,19 +87,27 @@ bool DocumentController::canOpenFile() const
 }
 
 
-bool DocumentController::canReloadFile() const
+bool DocumentController::canReloadFile(Document* doc) const
+{
+    if (doc != NULL)
+    {
+        const DocTypeInfo& info = doc->documentTypeInfo();
+
+        // can be reloaded if allowed by factory AND has been already loaded/stored
+        return info.factory->canOpenDocuments() && !doc->path().isEmpty();
+    }
+
+    return false;
+}
+
+
+bool DocumentController::canSaveFile(Document* doc) const
 {
     return false;
 }
 
 
-bool DocumentController::canSaveFile() const
-{
-    return false;
-}
-
-
-bool DocumentController::canSaveFileAs() const
+bool DocumentController::canSaveFileAs(Document* doc) const
 {
     return false;
 }
@@ -120,12 +131,8 @@ void DocumentController::createFile()
 
     //qDebug() << info->description;
     Document* doc = info->factory->createDocument(info->id);
-    Q_ASSERT(doc != NULL);
 
-    m_documents.append(doc);
-
-    emit documentCreated(doc);
-    emit changed();
+    onDocumentCreated(doc);
 }
 
 
@@ -164,8 +171,6 @@ void DocumentController::openFile()
 
     //qDebug() << lastDir;
     createDocuments(openFilesList, filterIndex);
-
-    emit changed();
 }
 
 
@@ -222,9 +227,8 @@ void DocumentController::createDocuments(const QStringList& openFilesList,
             doc = factory->createDocumentFromFile(filename);
             if (doc != NULL)
             {
-                m_documents.append(doc);
+                onDocumentCreated(doc);
 
-                emit documentCreated(doc);
                 break;
             }
         }
@@ -233,6 +237,7 @@ void DocumentController::createDocuments(const QStringList& openFilesList,
         if (doc == NULL)
         {
             cantOpenFiles.append(filename);
+
             continue;
         }
     }
@@ -269,18 +274,15 @@ void DocumentController::reloadDocuments(const QList<Document*>& docList)
         Q_ASSERT(doc != NULL);
 
         if (doc->readFromFile(doc->path()))
-        {
             emit documentChanged(doc);
-        } else
-        {
+        else
             cantOpenFiles.append(doc->path());
-        }
     }
 
     // if there are not opened documents
     if (!cantOpenFiles.isEmpty())
     {
-        //showNotReloadedFiles(cantOpenFiles);
+        showNotReloadedFiles(cantOpenFiles);
     }
 }
 
@@ -289,12 +291,13 @@ QStringList DocumentController::showAlreadyOpenedFiles(const QStringList& filesL
 {
     QString files = filesList.join("<br>");
 
-    int r = QMessageBox::warning(NULL,
-                      tr("Already open"),
-                      tr("Following documents are opened already:<br><br>%1"
-                         "<br><br>Do you want to reload them?").arg(files),
-                      QMessageBox::Ok, QMessageBox::Cancel
-                      );
+    int r = QMessageBox::warning(
+                NULL,
+                tr("Already open"),
+                tr("Following documents are opened already:<br><br>%1"
+                    "<br><br>Do you want to reload them?").arg(files),
+                QMessageBox::Yes,
+                QMessageBox::Cancel);
 
     if (r == QMessageBox::Ok)
         return filesList;
@@ -307,17 +310,61 @@ QStringList DocumentController::showNotOpenedFiles(const QStringList& filesList)
 {
     QString files = filesList.join("<br>");
 
-    int r = QMessageBox::critical(NULL,
-                      tr("Cannot open"),
-                      tr("Following documents cannot be opened:<br><br>%1"
-                         "<br><br>Do you want to try again?").arg(files),
-                      QMessageBox::Ok, QMessageBox::Cancel
-                      );
+    int r = QMessageBox::critical(
+                NULL,
+                tr("Cannot open"),
+                tr("Following documents cannot be opened:<br><br>%1"
+                    "<br><br>Do you want to try again?").arg(files),
+                QMessageBox::Yes,
+                QMessageBox::Cancel);
 
     if (r == QMessageBox::Ok)
         return filesList;
 
     return QStringList();
+}
+
+
+void DocumentController::showNotReloadedFiles(const QStringList& filesList)
+{
+    QString files = filesList.join("<br>");
+
+    QMessageBox::critical(
+                NULL,
+                tr("Cannot reload"),
+                tr("Following documents cannot be reloaded:<br><br>%1").arg(files),
+                QMessageBox::Ok);
+}
+
+
+void DocumentController::reloadFile()
+{
+    Document* doc = activeDocument();
+
+    Q_ASSERT(doc != NULL);
+    if (doc == NULL)
+        return;
+
+    if (doc->path().isEmpty())
+        return;
+
+    if (doc->isModified())
+    {
+        int r = QMessageBox::question(
+                    NULL,
+                    tr("Document modified"),
+                    tr("The document has been modified.<br><br>"
+                       "Do you really want to reload and lose the changes?"),
+                    QMessageBox::Yes,
+                    QMessageBox::Cancel);
+
+        if (r == QMessageBox::Cancel)
+            return;
+    }
+
+    QList<Document*> docList;
+    docList << doc;
+    reloadDocuments(docList);
 }
 
 
@@ -377,28 +424,35 @@ bool DocumentController::addFactory(DocumentFactory* factory)
         Q_ASSERT(info->isValid());
 
         if (info->create)
-        {
             m_createDocTypes.append(info);
-        }
     }
 
     const QList<DocFileInfo>& fileTypes = factory->documentFileTypes();
     foreach(const DocFileInfo& info, fileTypes)
     {
         if (info.open)
-        {
             m_openDocTypes.append(DocFileTypeIndex(factory, &info));
-        }
     }
 
     // factory has been added successfully
-    emit changed();
-
     return true;
 }
 
 
 // Documents
+
+Document* DocumentController::activeDocument() const
+{
+    ParentClass* accessor = (ParentClass*)(parent());
+    if (!accessor)
+        return NULL;
+
+    if (!accessor->documentViewController())
+        return NULL;
+
+    return accessor->documentViewController()->activeDocument();
+}
+
 
 Document* DocumentController::documentOpened(const QString& filename) const
 {
@@ -415,6 +469,20 @@ Document* DocumentController::documentOpened(const QString& filename) const
 
     return NULL;
 }
+
+
+void DocumentController::onDocumentCreated(Document *doc)
+{
+    Q_ASSERT(doc != NULL);
+
+    m_documents.append(doc);
+
+    connect(doc, SIGNAL(documentModified(Document*)),
+            this, SIGNAL(documentModified(Document*)));
+
+    emit documentCreated(doc);
+}
+
 
 }
 

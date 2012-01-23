@@ -19,7 +19,11 @@ namespace QSint
 {
 
 
-MainWindow::MainWindow(QWidget *parent) : BaseClass(parent)
+MainWindow::MainWindow(QWidget *parent) :
+    BaseClass(parent),
+    m_documentViewController(NULL),
+    m_documentController(NULL),
+    m_settingsController(NULL)
 {
     setComponentInfo(tr("Qt Framework"),
                      tr("Copyright 2008-2012 Nokia Corporation"),
@@ -30,7 +34,6 @@ MainWindow::MainWindow(QWidget *parent) : BaseClass(parent)
                      tr("Copyright 2011-2012 Sintegrial Technologies"),
                      QSINT_VERSION_STR,
                      QSINT_VERSION);
-
 }
 
 
@@ -42,12 +45,14 @@ MainWindow::~MainWindow()
 
 void MainWindow::initAndShow()
 {
+    // Main Window
+    setAcceptDrops(true);   // accept drag&drop of the files by default
+
+
     // Status Bar
     QStatusBar* sb = createStatusBar();
     if (sb != NULL)
-    {
         setStatusBar(sb);
-    }
 
 
     // Documents Bar
@@ -56,31 +61,32 @@ void MainWindow::initAndShow()
     {
         setCentralWidget(m_documentViewController);
 
-        connect(m_documentViewController, SIGNAL(currentDocumentChanged(Document*)),
-                this, SLOT(onCurrentDocumentChanged(Document*)));
+        connect(m_documentViewController, SIGNAL(documentActivated(Document*)),
+                this, SLOT(onDocumentActivated(Document*)));
     }
 
 
     // Main Menu
     QMenuBar* mb = createMainMenu();
     if (mb != NULL)
-    {
         setMenuWidget(mb);
-    }
 
 
     // Document controllers
     m_documentController = createDocumentController();
     if (m_documentController != NULL && m_documentViewController != NULL)
     {
-        connect(m_documentController, SIGNAL(changed()),
-                m_documentViewController, SLOT(onDocumentsChanged()));
-
         connect(m_documentController, SIGNAL(documentCreated(Document*)),
                 m_documentViewController, SLOT(onDocumentCreated(Document*)));
 
         connect(m_documentController, SIGNAL(documentChanged(Document*)),
                 m_documentViewController, SLOT(onDocumentChanged(Document*)));
+
+        connect(m_documentController, SIGNAL(documentModified(Document*)),
+                this, SLOT(onDocumentContentChanged(Document*)));
+
+        connect(m_documentController, SIGNAL(documentModified(Document*)),
+                m_documentViewController, SLOT(onDocumentContentChanged(Document*)));
     }
 
 
@@ -90,6 +96,7 @@ void MainWindow::initAndShow()
 
     // Settings controller
     m_settingsController = createSettingsController();
+
 
     // initialize settings controller
     if (m_settingsController != NULL)
@@ -136,18 +143,18 @@ void MainWindow::initAndShow()
     }
 
 
-    // initialize document controllers
+    // initialize document controllers has to be called after user inits
+    // because the signals must be already connected
     if (m_documentController != NULL)
-    {
         m_documentController->init();
-    }
+
+    if (m_documentViewController != NULL)
+        m_documentViewController->init();
 
 
     // restore settings if available
     if (m_settingsController != NULL)
-    {
         m_settingsController->restoreObjects();
-    }
 
 
     // finally, execute
@@ -159,8 +166,79 @@ void MainWindow::finalize()
 {
     // store settings if available
     if (m_settingsController != NULL)
-    {
         m_settingsController->storeObjects();
+}
+
+
+// Title
+
+void MainWindow::updateWindowTitle()
+{
+    QString title;
+
+    if (m_documentViewController != NULL)
+    {
+        Document* doc = m_documentViewController->activeDocument();
+        if (doc != NULL)
+        {
+            if (doc->isModified())
+            {
+                if (doc->path().isEmpty())
+                    title = QString("[*%1]").arg(doc->name());
+                else
+                    title = "*" + doc->path();
+            } else
+            {
+                if (doc->path().isEmpty())
+                    title = QString("[%1]").arg(doc->name());
+                else
+                    title = doc->path();
+            }
+
+            title += " - ";
+        }
+    }
+
+    QString appName = m_appInfo[ApplicationTitle].toString();
+    title += appName;
+
+    setWindowTitle(title);
+}
+
+
+// Drag & drop
+
+void MainWindow::dragEnterEvent(QDragEnterEvent* event)
+{
+    foreach(QUrl url, event->mimeData()->urls())
+    {
+        if (QFileInfo(url.toLocalFile()).exists())
+        {
+            event->acceptProposedAction();
+
+            return;
+        }
+    }
+}
+
+
+void MainWindow::dropEvent(QDropEvent* event)
+{
+    QStringList filesToOpen;
+
+    foreach(QUrl url, event->mimeData()->urls())
+    {
+        QString fileName = url.toLocalFile();
+        if (QFileInfo(fileName).exists())
+            filesToOpen.append(fileName);
+    }
+
+    if (!filesToOpen.isEmpty())
+    {
+        event->acceptProposedAction();
+
+        if (documentController() != NULL)
+            documentController()->createDocuments(filesToOpen);
     }
 }
 
@@ -174,7 +252,7 @@ void MainWindow::setInfo(int id, const QVariant& data)
     switch (id)
     {
     case ApplicationTitle:
-        setWindowTitle(data.toString());
+        updateWindowTitle();
         break;
 
     case ApplicationIcon:
@@ -317,15 +395,20 @@ bool MainWindow::registerDocumentFactory(DocumentFactory* factory)
 
 // Document management handlers
 
-void MainWindow::onCurrentDocumentChanged(Document* doc)
+void MainWindow::onDocumentActivated(Document* /*doc*/)
 {
-    Q_ASSERT(doc != NULL);
+    updateWindowTitle();
+}
 
-    // test
-    if (doc->path().isEmpty())
-        setWindowTitle(QString("[%1]").arg(doc->name()));
-    else
-        setWindowTitle(doc->path());
+
+void MainWindow::onDocumentContentChanged(Document* doc)
+{
+    // update title for the current document only
+    if (m_documentViewController != NULL)
+    {
+        if (doc == m_documentViewController->activeDocument())
+            updateWindowTitle();
+    }
 }
 
 

@@ -32,7 +32,7 @@ protected:
     virtual void onShowRootMenu(QMenu* menu);
 
 protected Q_SLOTS:
-    virtual void updateActions();
+    virtual void updateActions(Document*);
 
 protected:
     QToolBar* m_toolbarFile;
