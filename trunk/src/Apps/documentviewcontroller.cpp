@@ -33,6 +33,15 @@ DocumentViewController::DocumentViewController(QWidget *parent) :
 }
 
 
+// Called once when initialized
+
+void DocumentViewController::init()
+{
+    // no active documents available
+    emit documentActivated(NULL);
+}
+
+
 // Serialization
 
 bool DocumentViewController::store(QSettings& /*set*/)
@@ -87,22 +96,19 @@ void DocumentViewController::onCurrentTabChanged(int /*index*/)
         Document* doc = m_viewDocMap[currentWidget()];
         Q_ASSERT(doc != NULL);
 
-        onCurrentDocumentChanged(doc);
-
-        emit currentDocumentChanged(doc);
+        onDocumentActivated(doc);
     }
 }
 
 
 // slots and methods to be reimplemeted
 
-void DocumentViewController::onDocumentsChanged()
-{
-}
-
-
 void DocumentViewController::onDocumentCreated(Document* doc)
 {
+    Q_ASSERT(doc != NULL);
+    connect(doc, SIGNAL(documentModified(Document*)),
+            this, SLOT(onDocumentContentChanged(Document*)));
+
     QWidget* view = doc->view();
     Q_ASSERT(view != NULL);
 
@@ -135,13 +141,25 @@ void DocumentViewController::onDocumentChanged(Document* doc)
 
 void DocumentViewController::onDocumentContentChanged(Document* doc)
 {
+    Q_ASSERT(doc != NULL);
 
+    int index = indexOf(doc->view());
+    if (index < 0)
+        return;
+
+    bool mod = doc->isModified();
+    if (mod)
+        setTabText(index, "*" + doc->name());
+    else
+        setTabText(index, doc->name());
 }
 
 
-void DocumentViewController::onCurrentDocumentChanged(Document* doc)
+void DocumentViewController::onDocumentActivated(Document* doc)
 {
     Q_ASSERT(doc != NULL);
+
+    emit documentActivated(doc);
 }
 
 

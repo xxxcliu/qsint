@@ -110,7 +110,8 @@ void FileMenuController::connectActions()
     DocumentController* documentCntr = documentController();
     if (documentCntr != NULL)
     {
-        connect(documentCntr, SIGNAL(changed()), this, SLOT(updateActions()));
+        connect(documentCntr, SIGNAL(documentCreated(Document*)),
+                this, SLOT(updateActions(Document*)));
 
         CONNECT_ACTION(m_actionNew, documentCntr, createFile());
         CONNECT_ACTION(m_actionOpen, documentCntr, openFile());
@@ -119,10 +120,17 @@ void FileMenuController::connectActions()
         CONNECT_ACTION(m_actionSaveAs, documentCntr, saveFileAs());
         CONNECT_ACTION(m_actionSaveAll, documentCntr, saveAllFiles());
     }
+
+    DocumentViewController* documentViewCntr = documentViewController();
+    if (documentViewCntr != NULL)
+    {
+        connect(documentViewCntr, SIGNAL(documentActivated(Document*)),
+                this, SLOT(updateActions(Document*)));
+    }
 }
 
 
-void FileMenuController::updateActions()
+void FileMenuController::updateActions(Document* doc)
 {
     DocumentController* documentCntr = documentController();
     if (documentCntr != NULL)
@@ -134,18 +142,19 @@ void FileMenuController::updateActions()
             m_actionOpen->setEnabled(documentCntr->canOpenFile());
 
         if (m_actionReload != NULL)
-            m_actionReload->setEnabled(documentCntr->canReloadFile());
+            m_actionReload->setEnabled(documentCntr->canReloadFile(doc));
 
         if (m_actionSave != NULL)
-            m_actionSave->setEnabled(documentCntr->canSaveFile());
+            m_actionSave->setEnabled(documentCntr->canSaveFile(doc));
 
         if (m_actionSaveAs != NULL)
-            m_actionSaveAs->setEnabled(documentCntr->canSaveFileAs());
+            m_actionSaveAs->setEnabled(documentCntr->canSaveFileAs(doc));
 
         if (m_actionSaveAll != NULL)
             m_actionSaveAll->setEnabled(documentCntr->canSaveAllFiles());
 
-    } else {
+    } else
+    {
         foreach(QAction* action, m_actions)
         {
             Q_ASSERT(action != NULL);

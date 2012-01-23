@@ -24,7 +24,7 @@ public:
     virtual void connectActions();
 
 protected Q_SLOTS:
-    virtual void updateActions();
+    virtual void updateActions(Document*);
     virtual void onMenuTriggered(QAction*);
 
 protected:

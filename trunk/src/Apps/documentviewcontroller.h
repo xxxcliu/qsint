@@ -22,6 +22,9 @@ class DocumentViewController : public QTabWidget, public Restorable
 public:
     explicit DocumentViewController(QWidget *parent = 0);
 
+    // Called once when initialized
+    virtual void init();
+
     // Serialization
     virtual bool store(QSettings& set);
     virtual bool restore(QSettings& set);
@@ -34,17 +37,16 @@ public:
     void setNewTabCurrent(bool set = true)
             { m_activateNewDocument = set; }
 
-signals:
-    void currentDocumentChanged(Document* doc);
+Q_SIGNALS:
+    void documentActivated(Document* doc);
 
 public Q_SLOTS:
-    virtual void onDocumentsChanged();
     virtual void onDocumentCreated(Document* doc);
     virtual void onDocumentChanged(Document* doc);
     virtual void onDocumentContentChanged(Document* doc);
 
 protected:
-    virtual void onCurrentDocumentChanged(Document* doc);
+    virtual void onDocumentActivated(Document* doc);
 
 protected Q_SLOTS:
     void onCurrentTabChanged(int index);

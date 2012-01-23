@@ -58,7 +58,6 @@ public:
 
     // Application information
     void setInfo(int id, const QVariant& data);
-
     const QVariant getInfo(int id) const;
 
     // Component information
@@ -91,13 +90,23 @@ public Q_SLOTS:
     virtual void showAbout();
 
     // Handles change of the current document
-    virtual void onCurrentDocumentChanged(Document* doc);
+    virtual void onDocumentActivated(Document* doc);
+
+    // Handles modification of the document
+    virtual void onDocumentContentChanged(Document* doc);
 
 protected:
     // Called once for initialization
     virtual void init() {}
     // Called once for deinitialization
     virtual void finalize();
+
+    // Reimplement to update windows title
+    virtual void updateWindowTitle();
+
+    // Drag & drop handling
+    virtual void dragEnterEvent(QDragEnterEvent *event);
+    virtual void dropEvent(QDropEvent *event);
 
 
     // Global components

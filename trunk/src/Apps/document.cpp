@@ -13,6 +13,7 @@ namespace QSint
 
 Document::Document(const DocTypeInfo& info, QObject *parent) :
     m_info(&info),
+    m_modified(false),
     QObject(parent)
 {
 }
@@ -21,6 +22,7 @@ Document::Document(const DocTypeInfo& info, QObject *parent) :
 Document::Document(const DocTypeInfo& info, const QString& defaultName, QObject *parent) :
     m_info(&info),
     m_name(defaultName),
+    m_modified(false),
     QObject(parent)
 {
 }
@@ -31,6 +33,8 @@ void Document::updateAfterLoad(const QString& fileName)
     m_name = QFileInfo(fileName).fileName();
     m_path = fileName;
     m_modified = false;
+
+    emit documentModified(this);
 }
 
 

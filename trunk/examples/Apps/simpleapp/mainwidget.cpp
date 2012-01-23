@@ -1,8 +1,6 @@
 #include "mainwidget.h"
 #include "testmenucontroller.h"
 
-#include <QDebug>
-
 
 MainWidget::MainWidget(QWidget *parent) : BaseClass(parent)
 {
@@ -41,6 +39,7 @@ void MainWidget::init()
 
     // view of tabs
     documentViewController()->setTabsClosable(true);
+    documentViewController()->setMovable(true);
     //documentViewController()->setNewTabCurrent(false);
 
     // ready!

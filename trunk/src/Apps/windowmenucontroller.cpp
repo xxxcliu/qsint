@@ -39,12 +39,22 @@ void WindowMenuController::connectActions()
 
     if (documentController())
     {
-        connect(documentController(), SIGNAL(changed()), this, SLOT(updateActions()));
+        connect(documentController(), SIGNAL(documentCreated(Document*)),
+                this, SLOT(updateActions(Document*)));
+
+        connect(documentController(), SIGNAL(documentChanged(Document*)),
+                this, SLOT(updateActions(Document*)));
+    }
+
+    if (documentViewController())
+    {
+        connect(documentViewController(), SIGNAL(documentActivated(Document*)),
+                this, SLOT(updateActions(Document*)));
     }
 }
 
 
-void WindowMenuController::updateActions()
+void WindowMenuController::updateActions(Document*)
 {
     qDeleteAll(m_windowActions);
     m_windowActions.clear();

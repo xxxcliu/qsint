@@ -77,7 +77,7 @@ protected:
 protected Q_SLOTS:
     void onShowMenu();
 
-    virtual void updateActions() {}
+    virtual void updateActions(Document*) {}
 };
 
 

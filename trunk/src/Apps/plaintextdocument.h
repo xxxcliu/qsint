@@ -25,6 +25,9 @@ public:
 protected:
     virtual void setContent(const QString& text);
 
+protected Q_SLOTS:
+    virtual void onTextChanged();
+
 protected:
     QTextEdit* m_editor;
     QTextDocument* m_doc;
