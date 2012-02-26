@@ -1,27 +1,28 @@
-#ifndef QTOPENDIALOG_H
-#define QTOPENDIALOG_H
+#ifndef QTSAVEDIALOG_H
+#define QTSAVEDIALOG_H
 
 
-#include "opendialogbase.h"
+#include "savedialogbase.h"
 
 
 namespace QSint
 {
 
 
-class QtOpenDialog : public OpenDialogBase
+class QtSaveDialog : public SaveDialogBase
 {
 public:
-    virtual QStringList chooseFilesToOpen(
+    virtual QString chooseFileToSave(
+        const Document& doc,
         const QList<DocumentController::DocFileTypeIndex>& docFilters,
         const QString& rootDir,
-        bool allowAllFiles,
         int* filterIndex = 0);
 
 protected:
-    virtual QStringList execute(
+    virtual QString execute(
         const QString& header,
         const QString& rootDir,
+        const QString& defaultName,
         const QString& filters,
         QString* selectedFilter);
 };

@@ -21,6 +21,7 @@ public:
             { return m_editor; }
 
     virtual bool readFromFile(const QString& fileName);
+    virtual bool saveToFile(const QString& fileName);
 
 protected:
     virtual void setContent(const QString& text);

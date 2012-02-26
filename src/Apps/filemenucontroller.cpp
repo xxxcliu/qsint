@@ -110,8 +110,14 @@ void FileMenuController::connectActions()
     DocumentController* documentCntr = documentController();
     if (documentCntr != NULL)
     {
-        connect(documentCntr, SIGNAL(documentCreated(Document*)),
+//        connect(documentCntr, SIGNAL(documentCreated(Document*)),
+//                this, SLOT(updateActions(Document*)));
+
+        connect(documentCntr, SIGNAL(documentChanged(Document*)),
                 this, SLOT(updateActions(Document*)));
+
+//        connect(documentCntr, SIGNAL(documentModified(Document*)),
+//                this, SLOT(updateActions(Document*)));
 
         CONNECT_ACTION(m_actionNew, documentCntr, createFile());
         CONNECT_ACTION(m_actionOpen, documentCntr, openFile());

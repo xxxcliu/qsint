@@ -20,6 +20,7 @@ struct DocTypeInfo;
 struct DocFileInfo;
 class CreateDialogBase;
 class OpenDialogBase;
+class SaveDialogBase;
 
 
 class DocumentController : public QObject, public Restorable
@@ -37,6 +38,13 @@ public:
         LDP_LAST,           /// always open last directory of the current operation
         LDP_LAST_ANY,       /// always open last directory of any previous operation
         LDP_LAST_IGNORED    /// always open last directory of any previous operation except current
+    };
+
+    enum SaveActionRole
+    {
+        SAR_RETRY,
+        SAR_SAVEAS,
+        SAR_CANCEL
     };
 
     explicit DocumentController(ParentClass *parent);
@@ -65,6 +73,9 @@ public:
 
     // Set open file dialog
     void setOpenDialog(OpenDialogBase* dialog, bool deletePrevious = true);
+
+    // Set save file dialog
+    void setSaveDialog(SaveDialogBase* dialog, bool deletePrevious = true);
 
     // Document factories management
     virtual bool addFactory(DocumentFactory* factory);
@@ -108,6 +119,24 @@ public:
     // Shows dialog with not reloaded files in \a filesList.
     virtual void showNotReloadedFiles(const QStringList& filesList);
 
+    // Shows dialog for saving document \a doc with another name.
+    virtual QString chooseFileToSave(
+        Document& doc,
+        const QList<DocFileTypeIndex>& docFilters,
+        const QString& rootDir,
+        int* filterIndex = 0);
+
+    // Shows dialog with not saved \a doc under \a fileName.
+    virtual SaveActionRole showNotSavedFile(
+        const Document& doc,
+        const QString& fileName);
+
+    // Shows dialog with replace query of the already opened \a doc with \a fileName.
+    // Returns true if the document can be replaced.
+    virtual bool showReplaceFile(
+        const Document& doc,
+        const QString& fileName);
+
 Q_SIGNALS:
     void documentCreated(Document* doc);
     void documentChanged(Document* doc);
@@ -118,10 +147,15 @@ public Q_SLOTS:
     virtual void createFile();
     virtual void openFile();
     virtual void reloadFile();
+    virtual void saveFile();
+    virtual void saveFileAs();
+//    virtual void saveAllFiles();
 
 protected:
     // Internal handling of document creation.
     virtual void onDocumentCreated(Document *doc);
+    // Internal handling of document storing.
+    virtual bool doSaveFile(Document& doc, const QString& fileName);
 
 protected:
     QList<DocumentFactory*> m_factories;
@@ -129,6 +163,7 @@ protected:
 
     QList<const DocTypeInfo*> m_createDocTypes;
     QList<DocFileTypeIndex> m_openDocTypes;
+    QList<DocFileTypeIndex> m_storeDocTypes;
 
     bool m_allowAllFilesFilter;
 
@@ -139,6 +174,7 @@ protected:
 
     CreateDialogBase* m_createDialog;
     OpenDialogBase* m_openDialog;
+    SaveDialogBase* m_saveDialog;
 };
 
 

@@ -34,18 +34,27 @@ public:
 
     virtual QWidget* view() const = 0;
 
-    virtual bool readFromFile(const QString& fileName) = 0;
+    virtual bool readFromFile(const QString& /*fileName*/)
+            { return false; }
+
+    virtual bool saveToFile(const QString& /*fileName*/)
+            { return false; }
 
 signals:
+    // emitted when contents of the document has been changed
     void documentModified(Document* doc);
+
+    // emitted when document info has been changed (i.e. name/path after IO etc.)
+    void documentChanged(Document* doc);
 
 protected:
     void setModified(bool set)
             { m_modified = set; }
 
-    virtual void updateAfterLoad(const QString& fileName);
+    virtual void updateAfterIO(const QString& fileName);
 
     static bool readFromFile(const QString& fileName, QString& text);
+    static bool saveToFile(const QString& fileName, QString& text);
 
 protected:
     const DocTypeInfo* m_info;

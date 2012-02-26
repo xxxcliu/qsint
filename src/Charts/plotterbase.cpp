@@ -9,12 +9,19 @@ namespace QSint
 PlotterBase::PlotterBase(QWidget *parent) :
     QWidget(parent),
     m_model(0),
-    m_repaint(true)
+    m_repaint(true),
+    m_antiAliasing(false)
 {
     m_axisX = m_axisY = 0;
 
     setBorderPen(QPen(Qt::gray));
     setBackground(QBrush(Qt::lightGray));
+    setItemPen(QPen(Qt::darkGray));
+
+    setHighlightAlpha(1);
+    setHighlightTextColor(Qt::white);
+    setHighlightPen(QPen(Qt::white));
+    setHighlightBrush(QBrush(Qt::black, Qt::Dense5Pattern));
 
     setModel(0);
 
@@ -34,7 +41,43 @@ void PlotterBase::setBackground(const QBrush &brush)
 }
 
 
-QRect PlotterBase::dataRect()
+void PlotterBase::setItemPen(const QPen &pen)
+{
+    m_itemPen = pen;
+}
+
+
+void PlotterBase::setFont(const QFont &font)
+{
+    m_font = font;
+}
+
+
+void PlotterBase::setHighlightTextColor(const QColor &color)
+{
+    m_hlTextColor = color;
+}
+
+
+void PlotterBase::setHighlightPen(const QPen &pen)
+{
+    m_hlPen = pen;
+}
+
+
+void PlotterBase::setHighlightBrush(const QBrush &brush)
+{
+    m_hlBrush = brush;
+}
+
+
+void PlotterBase::setHighlightAlpha(double alpha)
+{
+    m_hlAlpha = alpha;
+}
+
+
+QRect PlotterBase::dataRect() const
 {
     QRect p_rect(rect());
 
@@ -92,6 +135,43 @@ void PlotterBase::scheduleUpdate()
 }
 
 
+void PlotterBase::mousePressEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton)
+    {
+        emit pressed(m_indexUnderMouse);
+
+        m_indexClick = m_indexUnderMouse;
+
+        //qDebug() << "pressed: " << m_indexUnderMouse;
+    }
+}
+
+
+void PlotterBase::mouseDoubleClickEvent(QMouseEvent *event)
+{
+    if (event->button() == Qt::LeftButton)
+    {
+        emit doubleClicked(m_indexUnderMouse);
+
+        //qDebug() << "doubleClicked: " << m_indexUnderMouse;
+    }
+}
+
+
+void PlotterBase::mouseReleaseEvent(QMouseEvent *event)
+{
+    if (m_indexClick == m_indexUnderMouse && event->button() == Qt::LeftButton)
+    {
+        emit clicked(m_indexUnderMouse);
+
+        m_indexClick = QModelIndex();
+
+        //qDebug() << "clicked: " << m_indexUnderMouse;
+    }
+}
+
+
 void PlotterBase::mouseMoveEvent(QMouseEvent *event)
 {
     m_mousePos = event->pos();
@@ -100,15 +180,19 @@ void PlotterBase::mouseMoveEvent(QMouseEvent *event)
 }
 
 
-void PlotterBase::leaveEvent(QMouseEvent *event)
+void PlotterBase::leaveEvent(QMouseEvent* /*event*/)
 {
     m_mousePos = QPoint();
+
+    repaint();
 }
 
 
 void PlotterBase::paintEvent(QPaintEvent *)
 {
     QPainter p(this);
+    if (m_antiAliasing)
+        p.setRenderHint(QPainter::Antialiasing);
 
     drawBackground(p);
 
@@ -142,6 +226,18 @@ void PlotterBase::drawAxis(QPainter &p)
 
     if (m_axisY)
         m_axisY->draw(p);
+}
+
+
+void PlotterBase::setIndexUnderMouse(const QModelIndex& index)
+{
+    if (m_indexUnderMouse != index)
+    {
+        m_indexUnderMouse = index;
+
+        //if (index.isValid())
+            emit entered(index);
+    }
 }
 
 

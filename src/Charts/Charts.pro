@@ -8,10 +8,12 @@ HEADERS += \
     plotterbase.h \
     barchartplotter.h \
     axisbase.h \
-    piechart.h
+    piechart.h \
+    paintscheme.h
 
 SOURCES += \
     plotterbase.cpp \
     barchartplotter.cpp \
     axisbase.cpp \
-    piechart.cpp
+    piechart.cpp \
+    paintscheme.cpp

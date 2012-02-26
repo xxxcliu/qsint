@@ -27,7 +27,18 @@ bool PlainTextDocument::readFromFile(const QString& fileName)
 
     setContent(text);
 
-    updateAfterLoad(fileName);
+    updateAfterIO(fileName);
+
+    return true;
+}
+
+
+bool PlainTextDocument::saveToFile(const QString& fileName)
+{
+    if (!Document::saveToFile(fileName, m_doc->toPlainText()))
+        return false;
+
+    updateAfterIO(fileName);
 
     return true;
 }
@@ -48,16 +59,18 @@ void PlainTextDocument::setContent(const QString& text)
 
 void PlainTextDocument::onTextChanged()
 {
-    qDebug() << "PlainTextDocument::onTextChanged() " << m_modified;
+//    qDebug() << "PlainTextDocument::onTextChanged() " << m_modified;
 
     if (m_modified != m_doc->isModified())
     {
         m_modified = m_doc->isModified();
 
-        qDebug() << "modified: " << m_modified;
+//        qDebug() << "modified: " << m_modified;
 
-        emit documentModified(this);
+        emit documentChanged(this);
     }
+
+    emit documentModified(this);
 }
 
 
