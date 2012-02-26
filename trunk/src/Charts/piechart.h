@@ -17,13 +17,19 @@ class PieChart : public PlotterBase
 public:
     PieChart(QWidget *parent = 0);
 
+public Q_SLOTS:
+    // sets active index to the given column
     void setActiveIndex(int index);
+    // sets active index to the given column
+    void setActiveIndex(const QModelIndex &index);
 
 protected:
-    virtual void paintEvent(QPaintEvent *event);
     virtual void drawContent(QPainter &p);
-    virtual void drawHighlight(QPainter &p);
 
+    virtual void drawSegment(QPainter &p, const QRect& pieRect,
+                               const QModelIndex &index, double value,
+                               double angle1, double angle2,
+                               bool isHighlighted);
 protected:
     int m_index;
 

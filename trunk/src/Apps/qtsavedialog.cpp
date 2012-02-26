@@ -1,4 +1,5 @@
-#include "qtopendialog.h"
+#include "qtsavedialog.h"
+#include "document.h"
 #include "documentfactory.h"
 
 #include <QFileDialog>
@@ -8,10 +9,10 @@ namespace QSint
 {
 
 
-QStringList QtOpenDialog::chooseFilesToOpen(
+QString QtSaveDialog::chooseFileToSave(
+    const Document& doc,
     const QList<DocumentController::DocFileTypeIndex>& docFilters,
     const QString& rootDir,
-    bool allowAllFiles,
     int* filterIndex)
 {
     QString filters;
@@ -30,10 +31,12 @@ QStringList QtOpenDialog::chooseFilesToOpen(
         filters.append(info->description + " (" + info->filters + ");;");
     }
 
-    if (allowAllFiles)
-         filters += tr("Any file") + " (*.*)";
-
-    QStringList result = execute(tr("Open a file"), rootDir, filters, &selectedFilter);
+    QString result = execute(
+        tr("Save file %1").arg(doc.name()),
+        rootDir,
+        doc.path(),
+        filters,
+        &selectedFilter);
 
     if (filterIndex)
     {
@@ -53,22 +56,27 @@ QStringList QtOpenDialog::chooseFilesToOpen(
 }
 
 
-QStringList QtOpenDialog::execute(
+QString QtSaveDialog::execute(
     const QString& header,
     const QString& rootDir,
+    const QString& defaultName,
     const QString& filters,
     QString* selectedFilter)
 {
-    QFileDialog fileOpenDialog(NULL, header, rootDir, filters);
+    QFileDialog fileSaveDialog(NULL, header, rootDir, filters);
+    fileSaveDialog.setAcceptMode(QFileDialog::AcceptSave);
+    fileSaveDialog.setConfirmOverwrite(true);
+    fileSaveDialog.selectFile(defaultName);
 
-    if (fileOpenDialog.exec()) {
+    if (fileSaveDialog.exec()) {
         if (selectedFilter != NULL)
-            *selectedFilter = fileOpenDialog.selectedFilter();
+            *selectedFilter = fileSaveDialog.selectedFilter();
 
-        return fileOpenDialog.selectedFiles();
+        Q_ASSERT(!fileSaveDialog.selectedFiles().isEmpty());
+        return fileSaveDialog.selectedFiles().first();
     }
 
-    return QStringList();
+    return QString();
 }
 
 

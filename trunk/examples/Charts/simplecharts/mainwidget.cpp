@@ -10,7 +10,7 @@ MainWidget::MainWidget(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    ui->BarPlot->axisY()->setRanges(-100, 100);
+    ui->BarPlot->axisY()->setRanges(-80, 80);
     ui->BarPlot->axisY()->setTicks(2, 10);
     ui->BarPlot->axisY()->setPen(QPen(Qt::darkGray));
     ui->BarPlot->axisY()->setMinorTicksPen(QPen(Qt::gray));
@@ -41,9 +41,13 @@ MainWidget::MainWidget(QWidget *parent) :
     itemModel->setVerticalHeaderLabels(QStringList() <<
                                        "Water" << "Coal" << "Oil" << "Sand" << "Stone");
     itemModel->setHeaderData(0, Qt::Vertical, Qt::red, Qt::BackgroundRole);
+    itemModel->setHeaderData(0, Qt::Vertical, Qt::darkYellow, Qt::ForegroundRole);
     itemModel->setHeaderData(1, Qt::Vertical, Qt::blue, Qt::BackgroundRole);
+    itemModel->setHeaderData(1, Qt::Vertical, Qt::darkBlue, Qt::ForegroundRole);
     itemModel->setHeaderData(2, Qt::Vertical, Qt::green, Qt::BackgroundRole);
+    itemModel->setHeaderData(2, Qt::Vertical, Qt::darkGreen, Qt::ForegroundRole);
     itemModel->setHeaderData(3, Qt::Vertical, Qt::yellow, Qt::BackgroundRole);
+    itemModel->setHeaderData(3, Qt::Vertical, Qt::darkRed, Qt::ForegroundRole);
     itemModel->setHeaderData(4, Qt::Vertical, Qt::white, Qt::BackgroundRole);
 
     for (int i = 0; i < 5; i++)
@@ -54,6 +58,7 @@ MainWidget::MainWidget(QWidget *parent) :
 
 
     ui->PieChart->setModel(itemModel);
+    ui->PieChart->setBackground(QBrush(bg));
 
 
     ui->TableWidget->setModel(itemModel);
@@ -127,3 +132,4 @@ void MainWidget::OnColumnChanged(QModelIndex current,QModelIndex)
 {
     ui->PieChart->setActiveIndex(current.column());
 }
+

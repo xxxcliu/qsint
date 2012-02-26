@@ -6,6 +6,7 @@
 
 // Qt
 #include <QToolButton>
+#include <QDebug>
 
 
 namespace QSint
@@ -109,6 +110,9 @@ void DocumentViewController::onDocumentCreated(Document* doc)
     connect(doc, SIGNAL(documentModified(Document*)),
             this, SLOT(onDocumentContentChanged(Document*)));
 
+    connect(doc, SIGNAL(documentChanged(Document*)),
+            this, SLOT(onDocumentChanged(Document*)));
+
     QWidget* view = doc->view();
     Q_ASSERT(view != NULL);
 
@@ -134,8 +138,11 @@ void DocumentViewController::onDocumentChanged(Document* doc)
     if (index < 0)
         return;
 
+    // update path
     setTabToolTip(index, doc->path());
-    setTabText(index, doc->name());
+
+    // update name in tab title
+    onDocumentContentChanged(doc);
 }
 
 

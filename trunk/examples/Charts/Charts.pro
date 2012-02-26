@@ -2,6 +2,7 @@ TEMPLATE = subdirs
 
 CONFIG = ordered
 
-SUBDIRS += simplecharts
+SUBDIRS += simplecharts \
+    simplecharts2
 
 

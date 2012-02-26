@@ -26,7 +26,9 @@ HEADERS += \
     aboutdialog.h \
     menuactioncontroller.h \
     documentaction.h \
-    settingscontroller.h
+    settingscontroller.h \
+    savedialogbase.h \
+    qtsavedialog.h
 
 SOURCES += \
     windowmenucontroller.cpp \
@@ -49,7 +51,8 @@ SOURCES += \
     aboutdialog.cpp \
     menuactioncontroller.cpp \
     documentaction.cpp \
-    settingscontroller.cpp
+    settingscontroller.cpp \
+    qtsavedialog.cpp
 
 FORMS += \
     createfiledialog.ui \

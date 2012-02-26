@@ -10,6 +10,8 @@ namespace QSint
 PieChart::PieChart(QWidget *parent) :
     PlotterBase(parent)
 {
+    setAntiAliasing(true);
+
     m_index = 0;
 
     m_margin = 3;
@@ -28,32 +30,15 @@ void PieChart::setActiveIndex(int index)
     if (!m_model)
         return;
 
-    if (index >= 0 && index < m_model->rowCount())
+    if (index >= 0 && index < m_model->columnCount())
         m_index = index;
 }
 
 
-void PieChart::paintEvent(QPaintEvent *)
+void PieChart::setActiveIndex(const QModelIndex &index)
 {
-    if (m_buffer.size() != size() || m_repaint)
-    {
-        m_buffer = QPixmap(size());
-        m_repaint = false;
-
-        QPainter p2(&m_buffer);
-        p2.setRenderHint(QPainter::Antialiasing);
-
-        drawBackground(p2);
-
-        drawContent(p2);
-    }
-
-    QPainter p(this);
-    p.setRenderHint(QPainter::Antialiasing);
-
-    p.drawPixmap(0, 0, m_buffer);
-
-    drawHighlight(p);
+    if (index.isValid())
+        setActiveIndex(index.column());
 }
 
 
@@ -62,69 +47,15 @@ void PieChart::drawContent(QPainter &p)
     int w = width() - m_margin*2;
     int h = height() - m_margin*2;
 
-    int w2 = w / 2;
-    int h2 = h / 2;
+    int wh = qMin(w,h);
+    int wh2 = wh / 2;
 
-    QRect pieRect = QRect(m_margin, m_margin, w, h);
+    int dx2 = (w - wh) / 2;
+    int dy2 = (h - wh) / 2;
 
-    p.translate(pieRect.x(), pieRect.y());
-    p.drawEllipse(0, 0, w, h);
+    QRect pieRect = QRect(dx2+m_margin, dy2+m_margin, wh, wh);
 
-    if (!m_model)
-        return;
-
-    int row_count = m_model->rowCount();
-    if (!row_count)
-        return;
-
-    int count = m_model->columnCount();
-    if (!count)
-        return;
-
-    if (m_index < 0 || m_index >= count)
-        return;
-
-    int c = m_index;
-
-    double totalValue = 0;
-
-    for (int r = 0; r < row_count; r++)
-    {
-        const QModelIndex index(m_model->index(r, c));
-        double value = m_model->data(index).toDouble();
-
-        if (value > 0.0)
-            totalValue += value;
-    }
-
-    double startAngle = 0.0;
-
-    for (int r = 0; r < row_count; r++)
-    {
-        const QModelIndex index(m_model->index(r, c));
-        double value = m_model->data(index).toDouble();
-
-        if (value > 0.0) {
-            double angle = 360*value/totalValue;
-
-            QPen pen(qvariant_cast<QColor>(m_model->headerData(r, Qt::Vertical, Qt::ForegroundRole)));
-            p.setPen(pen);
-
-            QBrush brush(qvariant_cast<QBrush>(m_model->headerData(r, Qt::Vertical, Qt::BackgroundRole)));
-            p.setBrush(brush);
-
-            p.drawPie(0, 0, w, h, int(startAngle*16), int(angle*16));
-
-            startAngle += angle;
-        }
-    }
-}
-
-
-void PieChart::drawHighlight(QPainter &p)
-{
-    if (m_mousePos.isNull())
-        return;
+    p.drawEllipse(pieRect);
 
     if (!m_model)
         return;
@@ -140,33 +71,30 @@ void PieChart::drawHighlight(QPainter &p)
     if (m_index < 0 || m_index >= count)
         return;
 
-    int w = width() - m_margin*2;
-    int h = height() - m_margin*2;
-
-    int w2 = w / 2;
-    int h2 = h / 2;
-
-    QRect pieRect = QRect(m_margin, m_margin, w, h);
+    // check if need to draw highlight
+    bool checkHighlight = false;
+    double mouseAngle = 0;
 
     // check if we're inside piechart at all
-    if (!pieRect.contains(m_mousePos))
-        return;
+    if (!m_mousePos.isNull() && pieRect.contains(m_mousePos))
+    {
+        // Determine the distance from the center point of the pie chart.
+        double cx = m_mousePos.x() - dx2 - wh2;
+        double cy = dy2 + wh2 - m_mousePos.y();
+        double dr = pow(pow(cx, 2) + pow(cy, 2), 0.5);
+        if (!(dr == 0 || dr > wh2)){
+            // Determine the angle of the point.
+            mouseAngle = (180 / M_PI) * acos(cx/dr);
+            if (cy < 0)
+                mouseAngle = 360 - mouseAngle;
 
-    // Determine the distance from the center point of the pie chart.
-    double cx = m_mousePos.x() - w2;
-    double cy = h2 - m_mousePos.y();
-    double d = pow(pow(cx, 2) + pow(cy, 2), 0.5);
-    if (d == 0)
-        return;
+            checkHighlight = true;
+        }
+    }
 
-    // Determine the angle of the point.
-    double mouseAngle = (180 / M_PI) * acos(cx/d);
-    if (cy < 0)
-        mouseAngle = 360 - mouseAngle;
+    // draw pie chart
+    p.setFont(m_font);
 
-    qDebug() << mouseAngle;
-
-    // Find the corresponding data segment
     int c = m_index;
 
     double totalValue = 0;
@@ -181,6 +109,9 @@ void PieChart::drawHighlight(QPainter &p)
     }
 
     double startAngle = 0.0;
+    bool isHighlighted = false;
+    double angleHl1, angleHl2, valueHl;
+    QModelIndex indexHl;
 
     for (int r = 0; r < row_count; r++)
     {
@@ -190,28 +121,73 @@ void PieChart::drawHighlight(QPainter &p)
         if (value > 0.0) {
             double angle = 360*value/totalValue;
 
-            if (startAngle <= mouseAngle && mouseAngle <= (startAngle + angle))
+            if (checkHighlight && startAngle <= mouseAngle && mouseAngle <= (startAngle + angle))
             {
-                // highlight the segment and break
-                p.translate(pieRect.x(), pieRect.y());
-
-                QPen pen(qvariant_cast<QColor>(m_model->headerData(r, Qt::Vertical, Qt::ForegroundRole)));
-                p.setPen(pen);
-
-                QBrush brush(QBrush(Qt::black, Qt::Dense5Pattern));
-                p.setBrush(brush);
-
-                //p.setOpacity(0.2);
-
-                p.drawPie(0, 0, w, h, int(startAngle*16), int(angle*16));
-
-                break;
+                isHighlighted = true;
+                angleHl1 = startAngle;
+                angleHl2 = angle;
+                valueHl = value;
+                indexHl = index;
+            } else
+            {
+                drawSegment(p, pieRect, index, value, startAngle, angle, false);
             }
 
             startAngle += angle;
         }
     }
 
+    // highlight to be drawn over the other segments
+    if (isHighlighted)
+    {
+        setIndexUnderMouse(indexHl);
+
+        drawSegment(p, pieRect, indexHl, valueHl, angleHl1, angleHl2, true);
+    }
+    else
+        setIndexUnderMouse(QModelIndex());
+}
+
+
+void PieChart::drawSegment(QPainter &p, const QRect& pieRect,
+                           const QModelIndex &index, double value,
+                           double angle1, double angle2,
+                           bool isHighlighted)
+{
+    int r = index.row();
+
+    // text (angle CCW in radians)
+    double cr = pieRect.height()/4 + pieRect.height()/8;
+    double textAngle = (360 - angle1 - angle2/2) * M_PI / 180;
+    double tx = cr * cos(textAngle) + rect().center().x();
+    double ty = cr * sin(textAngle) + rect().center().y();
+
+    if (isHighlighted)
+    {
+        p.setPen(m_hlPen);
+        p.setBrush(m_hlBrush);
+        //p.setOpacity(m_hlAlpha);
+
+        p.drawPie(pieRect, int(angle1*16), int(angle2*16));
+
+        p.setPen(QPen(m_hlTextColor));
+
+        p.drawText(tx, ty, QString::number(value));
+    }
+    else
+    {
+        p.setPen(m_itemPen);
+
+        QBrush brush(qvariant_cast<QBrush>(m_model->headerData(r, Qt::Vertical, Qt::BackgroundRole)));
+        p.setBrush(brush);
+
+        p.drawPie(pieRect, int(angle1*16), int(angle2*16));
+
+        QPen pen(qvariant_cast<QColor>(m_model->headerData(r, Qt::Vertical, Qt::ForegroundRole)));
+        p.setPen(pen);
+
+        p.drawText(tx, ty, QString::number(value));
+    }
 }
 
 

@@ -2,12 +2,13 @@
 #include "documentfactory.h"
 #include "document.h"
 
+#include "qtopendialog.h"
+#include "createfiledialog.h"
+#include "qtsavedialog.h"
+
 // to revise & remove !!!
 #include "documentviewcontroller.h"
 #include "mainwindow.h"
-
-#include "qtopendialog.h"
-#include "createfiledialog.h"
 
 
 namespace QSint
@@ -27,6 +28,9 @@ DocumentController::DocumentController(ParentClass *parent) :
 
     // default create dialog
     m_createDialog = new CreateFileDialog();
+
+    // default save dialog
+    m_saveDialog = new QtSaveDialog();
 }
 
 
@@ -103,18 +107,42 @@ bool DocumentController::canReloadFile(Document* doc) const
 
 bool DocumentController::canSaveFile(Document* doc) const
 {
+    if (doc != NULL)
+    {
+        const DocTypeInfo& info = doc->documentTypeInfo();
+
+        // can be stored if allowed by factory AND has been already loaded/stored
+        return info.factory->canStoreDocuments() && doc->isModified();
+    }
+
     return false;
 }
 
 
 bool DocumentController::canSaveFileAs(Document* doc) const
 {
+    if (doc != NULL)
+    {
+        const DocTypeInfo& info = doc->documentTypeInfo();
+
+        // can be stored if allowed by factory AND has been already loaded/stored
+        return info.factory->canStoreDocuments();
+    }
+
     return false;
 }
 
 
 bool DocumentController::canSaveAllFiles() const
 {
+    foreach (Document* doc, m_documents)
+    {
+        Q_ASSERT(doc);
+
+        if (canSaveFile(doc))
+            return true;
+    }
+
     return false;
 }
 
@@ -136,7 +164,8 @@ void DocumentController::createFile()
 }
 
 
-const DocTypeInfo* DocumentController::chooseNewDocumentType(const QList<const DocTypeInfo*>& docTypes)
+const DocTypeInfo* DocumentController::chooseNewDocumentType(
+    const QList<const DocTypeInfo*>& docTypes)
 {
     if (docTypes.count() == 1)
         return docTypes.first();
@@ -174,10 +203,11 @@ void DocumentController::openFile()
 }
 
 
-QStringList DocumentController::chooseFilesToOpen(const QList<DocFileTypeIndex>& docFilters,
-                                          const QString& rootDir,
-                                          bool allowAllFiles,
-                                          int* filterIndex)
+QStringList DocumentController::chooseFilesToOpen(
+    const QList<DocFileTypeIndex>& docFilters,
+    const QString& rootDir,
+    bool allowAllFiles,
+    int* filterIndex)
 {
     Q_ASSERT(m_openDialog != NULL);
 
@@ -188,8 +218,9 @@ QStringList DocumentController::chooseFilesToOpen(const QList<DocFileTypeIndex>&
 }
 
 
-void DocumentController::createDocuments(const QStringList& openFilesList,
-                                         int filterIndex)
+void DocumentController::createDocuments(
+    const QStringList& openFilesList,
+    int filterIndex)
 {
     // temporary vectors
     QStringList alreadyOpenFiles;
@@ -293,7 +324,7 @@ QStringList DocumentController::showAlreadyOpenedFiles(const QStringList& filesL
 
     int r = QMessageBox::warning(
                 NULL,
-                tr("Already open"),
+                tr("Documents already opened"),
                 tr("Following documents are opened already:<br><br>%1"
                     "<br><br>Do you want to reload them?").arg(files),
                 QMessageBox::Yes,
@@ -312,7 +343,7 @@ QStringList DocumentController::showNotOpenedFiles(const QStringList& filesList)
 
     int r = QMessageBox::critical(
                 NULL,
-                tr("Cannot open"),
+                tr("Documents not opened"),
                 tr("Following documents cannot be opened:<br><br>%1"
                     "<br><br>Do you want to try again?").arg(files),
                 QMessageBox::Yes,
@@ -368,6 +399,175 @@ void DocumentController::reloadFile()
 }
 
 
+void DocumentController::saveFile()
+{
+    Document* doc = activeDocument();
+
+    Q_ASSERT(doc != NULL);
+    if (doc == NULL)
+        return;
+
+    if (doc->path().isEmpty())
+    {
+        saveFileAs();
+    }
+    else
+    {
+        doSaveFile(*doc, doc->path());
+    }
+}
+
+
+void DocumentController::saveFileAs()
+{
+    Document* doc = activeDocument();
+
+    Q_ASSERT(doc != NULL);
+    if (doc == NULL)
+        return;
+
+    int filterIndex = -1;   // to do...
+
+    // allow only applicable types
+    const DocTypeInfo& docInfo = doc->documentTypeInfo();
+
+    QList<DocFileTypeIndex> docFilters;
+
+    for (int i = 0; i < m_storeDocTypes.size(); i++)
+    {
+        const DocumentController::DocFileTypeIndex& index = m_storeDocTypes.at(i);
+
+        const DocFileInfo* info = index.second;
+        Q_ASSERT(info != NULL);
+
+        // check if document id is registered as storable
+        if (index.first == docInfo.factory && info->id == docInfo.id)
+        {
+            docFilters.append(index);
+        }
+    }
+
+    // execute dialog
+    QString fileName = chooseFileToSave(
+                *doc,
+                docFilters,
+                m_lastStoreDir,
+                &filterIndex);
+
+//    qDebug() << "DocumentController::saveFileAs()";
+//    qDebug() << fileName;
+//    qDebug() << filterIndex;
+
+    if (fileName.isEmpty())
+        return;
+
+    // check if the same file opened already
+    Document* docToReplace = NULL;
+    foreach (Document* doc2, m_documents)
+    {
+        if (doc2 != doc && QFileInfo(fileName) == QFileInfo(doc2->path()))
+        {
+            if (!showReplaceFile(*doc2, fileName))
+                return;
+
+            docToReplace = doc2;
+            break;
+        }
+    }
+
+    // save file under given name
+    bool isSaved = doSaveFile(*doc, fileName);
+
+    if (isSaved && docToReplace != NULL)
+    {
+        // close docToReplace...
+    }
+}
+
+
+bool DocumentController::doSaveFile(Document& doc, const QString& fileName)
+{
+    if (!doc.saveToFile(fileName))
+    {
+        SaveActionRole result = showNotSavedFile(doc, fileName);
+        switch(result)
+        {
+            case SAR_SAVEAS:
+                saveFileAs();
+                return false;
+
+            case SAR_RETRY:
+                saveFile();
+                return false;
+        }
+    }
+
+    return true;
+}
+
+
+QString DocumentController::chooseFileToSave(
+    Document& doc,
+    const QList<DocFileTypeIndex>& docFilters,
+    const QString& rootDir,
+    int* filterIndex)
+{
+    Q_ASSERT(m_saveDialog != NULL);
+
+    if (m_saveDialog == NULL)
+        return QString();
+
+    return m_saveDialog->chooseFileToSave(doc, docFilters, rootDir, filterIndex);
+}
+
+
+DocumentController::SaveActionRole DocumentController::showNotSavedFile(
+    const Document& doc,
+    const QString& fileName)
+{
+    QMessageBox dialog(QMessageBox::Critical,
+                tr("Document not saved"),
+                tr("The document cannot be saved as %1.").arg(fileName)
+    );
+
+    //dialog.setStandardButtons(QMessageBox::Retry, QMessageBox::Ignore);
+    dialog.setDefaultButton(QMessageBox::Retry);
+    dialog.setEscapeButton(QMessageBox::Ignore);
+
+    dialog.addButton(tr("Choose another name..."), QMessageBox::NRoles);
+
+    dialog.exec();
+    QMessageBox::ButtonRole r = dialog.buttonRole(dialog.clickedButton());
+
+    switch(r)
+    {
+    case QMessageBox::InvalidRole:
+        return SAR_CANCEL;
+
+    case QMessageBox::Retry:
+        return SAR_RETRY;
+    }
+
+    // another name by default
+    return SAR_SAVEAS;
+}
+
+
+bool DocumentController::showReplaceFile(
+        const Document& doc,
+        const QString& fileName)
+{
+    int r = QMessageBox::warning(
+                NULL,
+                tr("Document already exists"),
+                tr("The following document is opened already:<br><br>%1<br><br>"
+                   "Do you want to replace it?").arg(fileName),
+                QMessageBox::Yes | QMessageBox::Cancel);
+
+    return (r == QMessageBox::Yes);
+}
+
+
 // Last dir policies management
 
 void DocumentController::setLastOpenDir(const QString& dirName, LastDirPolicy policy)
@@ -406,6 +606,16 @@ void DocumentController::setOpenDialog(OpenDialogBase* dialog, bool deletePrevio
 }
 
 
+// Set save file dialog
+
+void DocumentController::setSaveDialog(SaveDialogBase* dialog, bool deletePrevious)
+{
+    if (m_saveDialog != NULL && deletePrevious)
+        delete m_saveDialog;
+
+    m_saveDialog = dialog;
+}
+
 
 // Document factories management
 
@@ -432,6 +642,9 @@ bool DocumentController::addFactory(DocumentFactory* factory)
     {
         if (info.open)
             m_openDocTypes.append(DocFileTypeIndex(factory, &info));
+
+        if (info.store)
+            m_storeDocTypes.append(DocFileTypeIndex(factory, &info));
     }
 
     // factory has been added successfully
@@ -480,7 +693,12 @@ void DocumentController::onDocumentCreated(Document *doc)
     connect(doc, SIGNAL(documentModified(Document*)),
             this, SIGNAL(documentModified(Document*)));
 
+    connect(doc, SIGNAL(documentChanged(Document*)),
+            this, SIGNAL(documentChanged(Document*)));
+
     emit documentCreated(doc);
+
+    emit documentChanged(doc);
 }
 
 

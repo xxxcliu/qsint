@@ -28,17 +28,26 @@ Document::Document(const DocTypeInfo& info, const QString& defaultName, QObject 
 }
 
 
-void Document::updateAfterLoad(const QString& fileName)
+void Document::updateAfterIO(const QString& fileName)
 {
-    m_name = QFileInfo(fileName).fileName();
-    m_path = fileName;
+    QFileInfo info(fileName);
+
+    m_name = info.fileName();
+    m_path = info.absoluteFilePath();
     m_modified = false;
 
+    qDebug() << "Document::updateAfterIO()  " << m_path;
+
+    // IO info changed
+    emit documentChanged(this);
+
+    // modification flag changed
     emit documentModified(this);
 }
 
 
 // static
+
 bool Document::readFromFile(const QString& fileName, QString& text)
 {
     QFile file(fileName);
@@ -51,6 +60,21 @@ bool Document::readFromFile(const QString& fileName, QString& text)
     file.close();
 
     //qDebug() << "Document::readFromFile ok";
+
+    return true;
+}
+
+
+bool Document::saveToFile(const QString& fileName, QString& text)
+{
+    QFile file(fileName);
+
+    if (!file.open(QFile::WriteOnly))
+        return false;
+
+    QTextStream ts(&file);
+    ts << text;
+    file.close();
 
     return true;
 }

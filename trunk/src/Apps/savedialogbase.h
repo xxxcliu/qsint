@@ -1,5 +1,5 @@
-#ifndef OPENDIALOGBASE_H
-#define OPENDIALOGBASE_H
+#ifndef SAVEDIALOGBASE_H
+#define SAVEDIALOGBASE_H
 
 
 #include <QtCore>
@@ -12,13 +12,13 @@ namespace QSint
 {
 
 
-class OpenDialogBase : public QObject
+class SaveDialogBase : public QObject
 {
 public:
-    virtual QStringList chooseFilesToOpen(
+    virtual QString chooseFileToSave(
+        const Document& doc,
         const QList<DocumentController::DocFileTypeIndex>& docFilters,
         const QString& rootDir,
-        bool allowAllFiles,
         int* filterIndex = 0) = 0;
 };
 
@@ -26,4 +26,4 @@ public:
 }
 
 
-#endif // OPENDIALOGBASE_H
+#endif // SAVEDIALOGBASE_H
