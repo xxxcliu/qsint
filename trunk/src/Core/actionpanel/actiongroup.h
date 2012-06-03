@@ -13,7 +13,7 @@ class ActionPanelScheme;
 
 
 /**
-    \brief Class for representing a single group of actions similar to Windows XP task panels.
+    \brief Class representing a single group of actions similar to Windows XP task panels.
     \since 0.2
 
     \image html ActionGroup.png An example of ActionGroup

@@ -7,7 +7,7 @@ namespace QSint
 {
 
 /**
-    \brief Class for representing recently opened files as a QMenu.
+    \brief Class representing recently opened files as a QMenu.
 
     Class provides easy API to add, remove and signal of the picking of the
     recent file item. Each item can have associated QIcon.

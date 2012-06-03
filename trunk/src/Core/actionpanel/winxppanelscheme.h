@@ -8,6 +8,12 @@ namespace QSint
 {
 
 
+/**
+    \brief WindowsXP-like blue color scheme for ActionPanel and ActionGroup.
+    \since 0.2
+
+    \image html ActionPanel2.png Example of the scheme
+*/
 class WinXPPanelScheme : public ActionPanelScheme
 {
 public:
@@ -21,6 +27,12 @@ public:
 };
 
 
+/**
+    \brief WindowsXP-like blue color scheme for ActionPanel and ActionGroup (variation 2).
+    \since 0.2
+
+    \image html ActionPanel3.png Example of the scheme
+*/
 class WinXPPanelScheme2 : public ActionPanelScheme
 {
 public:

@@ -10,7 +10,7 @@ namespace QSint
 
 
 /**
-    \brief Class for representing drop-down menu of QTabWidget's tabs.
+    \brief Class representing drop-down menu of QTabWidget's tabs.
     \since 0.2
 
     \image html TabListMenu.png An example of TabListMenu

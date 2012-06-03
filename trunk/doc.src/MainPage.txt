@@ -10,7 +10,7 @@ See also:
 - \ref install
 - \ref changes
 
-&copy; Sintegrial Technologies 2011
+&copy; Sintegrial Technologies 2011-2012
 <br>
 http://www.sintegrial.com
 */

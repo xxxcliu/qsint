@@ -11,6 +11,13 @@ namespace QSint
 class PlotterBase;
 
 
+/**
+    \brief Class representing single vertical or horizontal plotter axis.
+    \since 0.2.1
+
+    Class provides basic axis painting and calculations.
+*/
+
 class AxisBase : public QObject
 {
     Q_OBJECT

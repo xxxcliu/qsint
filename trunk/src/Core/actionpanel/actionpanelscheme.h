@@ -9,8 +9,10 @@ namespace QSint
 
 
 /**
-    \brief Class for representing color scheme for ActionPanel and ActionGroup.
+    \brief Class representing color scheme for ActionPanel and ActionGroup.
     \since 0.2
+
+    \image html ActionPanel1.png Default ActionPanel scheme
 */
 class ActionPanelScheme
 {

@@ -9,7 +9,7 @@ namespace QSint
 
 
 /**
-    \brief Class for showing a widget as popup window.
+    \brief Class showing a widget as popup window.
     \since 0.2
 
     setWidget() function allows you to specify the widget to be popped up.

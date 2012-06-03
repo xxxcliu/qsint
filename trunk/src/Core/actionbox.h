@@ -11,7 +11,7 @@ namespace QSint
 
 
 /**
-    \brief Class for representing a panel of actions similar to Windows Vista/7 control panel items.
+    \brief Class representing a panel of actions similar to Windows Vista/7 control panel items.
     \since 0.2
 
     \image html ActionBox.png An example of ActionBox
