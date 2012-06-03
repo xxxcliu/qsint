@@ -9,7 +9,7 @@ namespace QSint
 
 
 /**
-    \brief Class for representing an action similar to Windows Vista/7 control panel item.
+    \brief Class representing an action similar to Windows Vista/7 control panel item.
 
     \image html ActionLabel.png An example of ActionLabel
 

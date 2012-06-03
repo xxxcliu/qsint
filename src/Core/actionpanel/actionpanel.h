@@ -13,7 +13,7 @@ class ActionGroup;
 
 
 /**
-    \brief Class for representing panels of actions similar to Windows XP task panels.
+    \brief Class representing panels of actions similar to Windows XP task panels.
     \since 0.2
 
     \image html ActionPanel1.png An example of ActionPanel
@@ -24,7 +24,8 @@ class ActionGroup;
     The look and fill is complete styleable via setScheme().
     Currently the following schemes available: ActionPanelScheme (the default),
     WinXPPanelScheme and WinXPPanelScheme2 (blue Windows XP schemes),
-    WinVistaPanelScheme (Windows Vista variation).
+    WinVistaPanelScheme (Windows Vista variation), MacPanelScheme (MacOS variation),
+    AndroidPanelScheme (Android variation).
 */
 class ActionPanel : public QFrame
 {

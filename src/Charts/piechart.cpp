@@ -18,6 +18,17 @@ PieChart::PieChart(QWidget *parent) :
 }
 
 
+void PieChart::setMargin(int margin)
+{
+    if (margin < 0 || margin == m_margin)
+        return;
+
+    m_margin = margin;
+
+    scheduleUpdate();
+}
+
+
 void PieChart::setActiveIndex(int index)
 {
     if (m_index == index)
@@ -128,9 +139,11 @@ void PieChart::drawContent(QPainter &p)
                 angleHl2 = angle;
                 valueHl = value;
                 indexHl = index;
-            } else
+            }
+            else
             {
                 drawSegment(p, pieRect, index, value, startAngle, angle, false);
+                drawValue(p, pieRect, index, value, startAngle, angle, false);
             }
 
             startAngle += angle;
@@ -143,6 +156,7 @@ void PieChart::drawContent(QPainter &p)
         setIndexUnderMouse(indexHl);
 
         drawSegment(p, pieRect, indexHl, valueHl, angleHl1, angleHl2, true);
+        drawValue(p, pieRect, indexHl, valueHl, angleHl1, angleHl2, true);
     }
     else
         setIndexUnderMouse(QModelIndex());
@@ -150,17 +164,11 @@ void PieChart::drawContent(QPainter &p)
 
 
 void PieChart::drawSegment(QPainter &p, const QRect& pieRect,
-                           const QModelIndex &index, double value,
+                           const QModelIndex &index, double /*value*/,
                            double angle1, double angle2,
                            bool isHighlighted)
 {
     int r = index.row();
-
-    // text (angle CCW in radians)
-    double cr = pieRect.height()/4 + pieRect.height()/8;
-    double textAngle = (360 - angle1 - angle2/2) * M_PI / 180;
-    double tx = cr * cos(textAngle) + rect().center().x();
-    double ty = cr * sin(textAngle) + rect().center().y();
 
     if (isHighlighted)
     {
@@ -169,10 +177,6 @@ void PieChart::drawSegment(QPainter &p, const QRect& pieRect,
         //p.setOpacity(m_hlAlpha);
 
         p.drawPie(pieRect, int(angle1*16), int(angle2*16));
-
-        p.setPen(QPen(m_hlTextColor));
-
-        p.drawText(tx, ty, QString::number(value));
     }
     else
     {
@@ -182,13 +186,32 @@ void PieChart::drawSegment(QPainter &p, const QRect& pieRect,
         p.setBrush(brush);
 
         p.drawPie(pieRect, int(angle1*16), int(angle2*16));
-
-        QPen pen(qvariant_cast<QColor>(m_model->headerData(r, Qt::Vertical, Qt::ForegroundRole)));
-        p.setPen(pen);
-
-        p.drawText(tx, ty, QString::number(value));
     }
 }
 
+
+void PieChart::drawValue(QPainter &p, const QRect& pieRect,
+                           const QModelIndex &index, double value,
+                           double angle1, double angle2,
+                           bool isHighlighted)
+{
+    // text (angle CCW in radians)
+    double cr = pieRect.height()/4 + pieRect.height()/8;
+    double textAngle = (360 - angle1 - angle2/2) * M_PI / 180;
+    double tx = cr * cos(textAngle) + rect().center().x();
+    double ty = cr * sin(textAngle) + rect().center().y();
+
+    if (isHighlighted)
+    {
+        p.setPen(QPen(m_hlTextColor));
+    }
+    else
+    {
+        QPen pen(qvariant_cast<QColor>(m_model->headerData(index.row(), Qt::Vertical, Qt::ForegroundRole)));
+        p.setPen(pen);
+    }
+
+    p.drawText(tx, ty, QString::number(value));
+}
 
 }

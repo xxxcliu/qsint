@@ -12,7 +12,7 @@ namespace QSint
 /**
     \brief Widget combining a line edit and a tool button used for
     selection of file system objects.
-    \since 0.3
+    \since 0.2.1
 
     \image html PathPicker.png An example of PathPicker
 

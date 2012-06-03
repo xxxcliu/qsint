@@ -196,7 +196,7 @@ void PlotterBase::paintEvent(QPaintEvent *)
 
     drawBackground(p);
 
-    drawAxis(p);
+    drawAxes(p);
 
     drawContent(p);
 
@@ -219,7 +219,7 @@ void PlotterBase::drawForeground(QPainter &p)
 }
 
 
-void PlotterBase::drawAxis(QPainter &p)
+void PlotterBase::drawAxes(QPainter &p)
 {
     if (m_axisX)
         m_axisX->draw(p);
