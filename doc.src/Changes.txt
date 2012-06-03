@@ -1,11 +1,13 @@
 /*! \page changes Changes and Features
 
-\b 0.3.0
+\b 0.2.1
 
-Since version 0.3, QSint library has modular structure.
+Since this version, QSint library has modular structure.
 All the widgets are represented by \a Core module.
 
-New modules \a Charts and \a Apps added.
+New module \a Charts added containing following widgets:
+	- QSintCharts::BarChartPlotter
+	- QSintCharts::PieChart
 
 Changes of \a Core module:
 

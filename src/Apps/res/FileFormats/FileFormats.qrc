@@ -1,6 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file alias="HtmlDocument">text-html.png</file>
-        <file alias="TextDocument">text-plain.png</file>
-    </qresource>
-</RCC>
