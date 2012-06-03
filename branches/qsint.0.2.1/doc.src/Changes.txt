@@ -1,0 +1,33 @@
+/*! \page changes Changes and Features
+
+\b 0.2.1
+
+Since this version, QSint library has modular structure.
+All the widgets are represented by \a Core module.
+
+New module \a Charts added containing following widgets:
+	- QSintCharts::BarChartPlotter
+	- QSintCharts::PieChart
+
+Changes of \a Core module:
+
+- <b>New widgets:</b>
+	- QSint::PathPicker
+	
+	
+
+
+\b 0.2.0
+
+- <b>Designer Plugin</b> added
+
+- <b>New widgets:</b>
+	- QSint::ActionPanel and QSint::ActionGroup
+	- QSint::ScrollPanner
+	- QSint::TabListMenu
+	- QSint::WidgetPopup
+
+- <b>Improvements:</b>
+	- Support of \a QAction for QSint::ActionLabel and QSint::ActionBox
+
+*/
