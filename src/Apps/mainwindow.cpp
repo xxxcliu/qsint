@@ -21,8 +21,8 @@ namespace QSint
 
 MainWindow::MainWindow(QWidget *parent) :
     BaseClass(parent),
-    m_documentViewController(NULL),
     m_documentController(NULL),
+    m_documentViewController(NULL),
     m_settingsController(NULL)
 {
     setComponentInfo(tr("Qt Framework"),

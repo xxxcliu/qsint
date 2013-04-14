@@ -21,3 +21,6 @@
 
 #include "../src/Core/pathpicker.h"
 
+#include "../src/Core/multipagewidget.h"
+
+#include "../src/Core/optionslider.h"

@@ -8,6 +8,8 @@ SUBDIRS += recentfiles \
         scrollpanner \
         tablistmenu \
         actionpanel \
-        pathpicker
+        pathpicker \
+        optionslider \
+        multipagewidget
 
 

@@ -21,7 +21,10 @@ HEADERS += \
     actionpanel/winvistapanelscheme.h \
     actionpanel/macpanelscheme.h \
     pathpicker.h \
-    actionpanel/androidpanelscheme.h
+    actionpanel/androidpanelscheme.h \
+    multipagewidget.h \
+    optionslider.h \
+    multicombobox.h
 
 SOURCES += \
     recentfiles.cpp \
@@ -42,7 +45,10 @@ SOURCES += \
     actionpanel/macpanelscheme.cpp \
     pathpicker.cpp \
     core.h \
-    actionpanel/androidpanelscheme.cpp
+    actionpanel/androidpanelscheme.cpp \
+    multipagewidget.cpp \
+    optionslider.cpp \
+    multicombobox.cpp
 
 INCLUDEPATH += ./ ./actionpanel
 

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWidget</class>
+ <widget class="QWidget" name="MainWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>331</width>
+    <height>117</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>OptionSlider Example</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QLabel" name="CurrentItemLabel">
+     <property name="text">
+      <string>&lt;current option&gt;</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QSint::OptionSlider" name="OptionSlider">
+     <property name="optionsList">
+      <stringlist>
+       <string>Item 1</string>
+       <string>Item 2</string>
+       <string>Item 3</string>
+       <string>Item 4 Very Long</string>
+      </stringlist>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QSint::OptionSlider</class>
+   <extends>QWidget</extends>
+   <header>QSint</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
