@@ -65,7 +65,7 @@ bool Document::readFromFile(const QString& fileName, QString& text)
 }
 
 
-bool Document::saveToFile(const QString& fileName, QString& text)
+bool Document::saveToFile(const QString& fileName, const QString& text)
 {
     QFile file(fileName);
 

@@ -8,6 +8,7 @@
 #include "actionpanelplugin.h"
 #include "actiongroupplugin.h"
 #include "pathpickerplugin.h"
+#include "optionsliderplugin.h"
 
 QSintPlugin::QSintPlugin(QObject *parent) :
     QObject(parent)
@@ -20,6 +21,7 @@ QSintPlugin::QSintPlugin(QObject *parent) :
     widgets.append(new ColorButtonPlugin(this));
     widgets.append(new ScrollPannerPlugin(this));
     widgets.append(new PathPickerPlugin(this));
+    widgets.append(new OptionSliderPlugin(this));
 }
 
 Q_EXPORT_PLUGIN2(qsintplugin, QSintPlugin)

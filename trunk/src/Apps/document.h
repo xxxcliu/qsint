@@ -54,7 +54,7 @@ protected:
     virtual void updateAfterIO(const QString& fileName);
 
     static bool readFromFile(const QString& fileName, QString& text);
-    static bool saveToFile(const QString& fileName, QString& text);
+    static bool saveToFile(const QString& fileName, const QString& text);
 
 protected:
     const DocTypeInfo* m_info;
