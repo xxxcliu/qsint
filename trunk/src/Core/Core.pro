@@ -3,6 +3,7 @@ include (../src.pri)
 
 
 HEADERS += \
+    core.h \
     recentfiles.h \
     colorgrid.h \
     colorbutton.h \
@@ -22,8 +23,9 @@ HEADERS += \
     actionpanel/macpanelscheme.h \
     pathpicker.h \
     actionpanel/androidpanelscheme.h \
-    multipagewidget.h \
     optionslider.h \
+    spinslider.h \
+    multipagewidget.h \
     multicombobox.h
 
 SOURCES += \
@@ -44,10 +46,10 @@ SOURCES += \
     actionpanel/winvistapanelscheme.cpp \
     actionpanel/macpanelscheme.cpp \
     pathpicker.cpp \
-    core.h \
     actionpanel/androidpanelscheme.cpp \
-    multipagewidget.cpp \
     optionslider.cpp \
+    spinslider.cpp \
+    multipagewidget.cpp \
     multicombobox.cpp
 
 INCLUDEPATH += ./ ./actionpanel

@@ -24,3 +24,7 @@
 #include "../src/Core/multipagewidget.h"
 
 #include "../src/Core/optionslider.h"
+
+#include "../src/Core/multicombobox.h" 
+
+#include "../src/Core/spinslider.h"
