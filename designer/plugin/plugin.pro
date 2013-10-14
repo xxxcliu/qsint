@@ -13,7 +13,9 @@ HEADERS     = scrollpannerplugin.h \
     actionpanelplugin.h \
     actiongroupplugin.h \
     pathpickerplugin.h \
-    optionsliderplugin.h
+    optionsliderplugin.h \
+#    multicomboboxplugin.h \
+    spinsliderplugin.h
 
 SOURCES     = scrollpannerplugin.cpp \
     colorgridplugin.cpp \
@@ -24,7 +26,9 @@ SOURCES     = scrollpannerplugin.cpp \
     actionpanelplugin.cpp \
     actiongroupplugin.cpp \
     pathpickerplugin.cpp \
-    optionsliderplugin.cpp
+    optionsliderplugin.cpp \
+#    multicomboboxplugin.cpp \
+    spinsliderplugin.cpp
 
 RESOURCES   = res/icons.qrc
 

@@ -10,6 +10,8 @@ SUBDIRS += recentfiles \
         actionpanel \
         pathpicker \
         optionslider \
+        spinslider \
+        multicombobox \
         multipagewidget
 
 

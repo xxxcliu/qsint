@@ -9,6 +9,10 @@
 #include "actiongroupplugin.h"
 #include "pathpickerplugin.h"
 #include "optionsliderplugin.h"
+#include "spinsliderplugin.h"
+
+//#include "multicomboboxplugin.h"
+
 
 QSintPlugin::QSintPlugin(QObject *parent) :
     QObject(parent)
@@ -22,6 +26,8 @@ QSintPlugin::QSintPlugin(QObject *parent) :
     widgets.append(new ScrollPannerPlugin(this));
     widgets.append(new PathPickerPlugin(this));
     widgets.append(new OptionSliderPlugin(this));
+    widgets.append(new SpinSliderPlugin(this));
+    //widgets.append(new MultiComboBoxPlugin(this));
 }
 
 Q_EXPORT_PLUGIN2(qsintplugin, QSintPlugin)

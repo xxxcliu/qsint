@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWidget</class>
+ <widget class="QWidget" name="MainWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>359</width>
+    <height>192</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>SpinSlider Example</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QSint::SpinSlider" name="Slider1">
+     <property name="sliderMultiplier">
+      <double>5.000000000000000</double>
+     </property>
+     <property name="unitText">
+      <string>%</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QSint::SpinSlider" name="Slider2">
+     <property name="minimum">
+      <number>-10000</number>
+     </property>
+     <property name="maximum">
+      <number>10000</number>
+     </property>
+     <property name="sliderMultiplier">
+      <double>25.000000000000000</double>
+     </property>
+     <property name="unitText">
+      <string>KgS</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QSint::SpinSlider" name="Slider3">
+     <property name="minimum">
+      <number>-12</number>
+     </property>
+     <property name="maximum">
+      <number>23</number>
+     </property>
+     <property name="value">
+      <number>5</number>
+     </property>
+     <property name="sliderMultiplier">
+      <double>0.500000000000000</double>
+     </property>
+     <property name="showTicks" stdset="0">
+      <bool>true</bool>
+     </property>
+     <property name="unitText">
+      <string>mm</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>42</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QSint::SpinSlider</class>
+   <extends>QWidget</extends>
+   <header>QSint</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
