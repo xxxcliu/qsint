@@ -25,8 +25,7 @@ HEADERS += \
     actionpanel/androidpanelscheme.h \
     optionslider.h \
     spinslider.h \
-    multipagewidget.h \
-    multicombobox.h
+    ledwidget.h
 
 SOURCES += \
     recentfiles.cpp \
@@ -49,8 +48,7 @@ SOURCES += \
     actionpanel/androidpanelscheme.cpp \
     optionslider.cpp \
     spinslider.cpp \
-    multipagewidget.cpp \
-    multicombobox.cpp
+    ledwidget.cpp
 
 INCLUDEPATH += ./ ./actionpanel
 

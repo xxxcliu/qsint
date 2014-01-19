@@ -12,6 +12,12 @@ namespace QSint
 {
 
 
+/**
+    \brief Spin editor with additional buttons and slider for quick value edition.
+    \since 0.2.2
+
+    \image html SpinSlider.png An example of SpinSlider
+*/
 class SpinSlider : public QWidget
 {
     Q_OBJECT
