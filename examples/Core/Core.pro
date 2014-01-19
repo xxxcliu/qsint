@@ -11,7 +11,6 @@ SUBDIRS += recentfiles \
         pathpicker \
         optionslider \
         spinslider \
-        multicombobox \
-        multipagewidget
+        ledwidget
 
 
