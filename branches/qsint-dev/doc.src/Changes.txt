@@ -1,0 +1,31 @@
+/*! \page changes Changes and Features
+
+\b 0.3.0
+
+Since version 0.3, QSint library has modular structure.
+All the widgets are represented by \a Core module.
+
+New modules \a Charts and \a Apps added.
+
+Changes of \a Core module:
+
+- <b>New widgets:</b>
+	- QSint::PathPicker
+	
+	
+
+
+\b 0.2.0
+
+- <b>Designer Plugin</b> added
+
+- <b>New widgets:</b>
+	- QSint::ActionPanel and QSint::ActionGroup
+	- QSint::ScrollPanner
+	- QSint::TabListMenu
+	- QSint::WidgetPopup
+
+- <b>Improvements:</b>
+	- Support of \a QAction for QSint::ActionLabel and QSint::ActionBox
+
+*/

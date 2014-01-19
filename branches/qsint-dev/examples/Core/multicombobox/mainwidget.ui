@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWidget</class>
+ <widget class="QWidget" name="MainWidget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>331</width>
+    <height>117</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>OptionSlider Example</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QSint::MultiComboBox" name="MultiComboBox">
+     <item>
+      <property name="text">
+       <string>Item 1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Item 2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Item 3</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Item 4</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Item 5</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <item>
+      <widget class="QCheckBox" name="EnabledCB">
+       <property name="text">
+        <string>Enabled</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="EnableAll">
+       <property name="text">
+        <string>Enable All</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item>
+    <widget class="QCheckBox" name="CheckedCB">
+     <property name="text">
+      <string>Checked</string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <spacer name="verticalSpacer">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <property name="sizeHint" stdset="0">
+      <size>
+       <width>20</width>
+       <height>40</height>
+      </size>
+     </property>
+    </spacer>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>QSint::MultiComboBox</class>
+   <extends>QComboBox</extends>
+   <header>QSint</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>
