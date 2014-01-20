@@ -215,6 +215,13 @@
 						Name="QT Moc Metafile"
 					/>
 				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
@@ -225,31 +232,17 @@
 			<File
 				RelativePath="..\..\Charts\simplecharts\mainwidget.ui"
 				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="QT Designer Form"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="QT Designer Form"
-					/>
-				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
 			Name="Generated"
 			>
 			<File
-				RelativePath="..\..\Charts\GeneratedFiles\simplecharts\moc_mainwidget.cpp"
+				RelativePath=".\GeneratedFiles\simplecharts\moc_mainwidget.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Charts\GeneratedFiles\simplecharts\ui_mainwidget.h"
+				RelativePath=".\GeneratedFiles\simplecharts\ui_mainwidget.h"
 				>
 			</File>
 		</Filter>
