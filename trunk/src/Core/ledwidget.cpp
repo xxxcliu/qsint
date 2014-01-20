@@ -38,9 +38,8 @@ void LedWidget::paintEvent(QPaintEvent *event)
     int radius = qMin(rect().width(), rect().height()) / 2 - 1;
 
     m_gradient.setCenter(rect().center());
-    m_gradient.setFocalPoint(rect().center() - QPoint(radius/2, radius/2));
+    m_gradient.setFocalPoint(rect().center() - QPoint(radius/3, radius/3));
     m_gradient.setRadius(radius);
-    //m_gradient.setFocalRadius(radius / 3);
 
     p.setBrush(m_gradient);
 
