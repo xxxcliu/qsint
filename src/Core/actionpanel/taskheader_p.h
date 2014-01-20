@@ -1,7 +1,7 @@
 #ifndef TASKHEADER_P_H
 #define TASKHEADER_P_H
 
-#include <QtGui>
+#include <QtGui/QLabel>
 
 #include "actionpanelscheme.h"
 #include "actionlabel.h"

@@ -1,7 +1,7 @@
 #include "actionlabel.h"
 
-#include <QStyleOptionToolButton>
-#include <QApplication>
+#include <QtGui/QStyleOptionToolButton>
+#include <QtGui/QApplication>
 
 
 namespace QSint

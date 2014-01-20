@@ -1,5 +1,11 @@
 #include "colorgrid.h"
 
+#include <qmath.h>
+
+#include <QtGui/QPainter>
+#include <QtGui/QMouseEvent>
+#include <QtGui/QToolTip>
+
 
 namespace QSint
 {
@@ -137,7 +143,7 @@ void ColorGrid::paintEvent ( QPaintEvent * event )
     }
 }
 
-void ColorGrid::mouseMoveEvent ( QMouseEvent * event )
+void ColorGrid::mouseMoveEvent(QMouseEvent *event)
 {
     //if (!hasFocus()) setFocus();
 

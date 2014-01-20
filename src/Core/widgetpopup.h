@@ -1,7 +1,7 @@
 #ifndef WIDGETPOPUP_H
 #define WIDGETPOPUP_H
 
-#include <QtGui>
+#include <QtGui/QFrame>
 
 
 namespace QSint

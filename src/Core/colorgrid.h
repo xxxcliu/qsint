@@ -1,9 +1,9 @@
 #ifndef COLORGRID_H
 #define COLORGRID_H
 
-#include <QtGui>
-
 #include "colordefs.h"
+
+#include <QtGui/QWidget>
 
 
 namespace QSint

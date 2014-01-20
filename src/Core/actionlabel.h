@@ -1,7 +1,7 @@
 #ifndef ACTIONLABEL_H
 #define ACTIONLABEL_H
 
-#include <QToolButton>
+#include <QtGui/QToolButton>
 
 
 namespace QSint

@@ -1,8 +1,9 @@
 #ifndef COLORDEFS_H
 #define COLORDEFS_H
 
+#include <QtCore/QList>
 
-#include <QtGui>
+#include <QtGui/QColor>
 
 
 namespace QSint

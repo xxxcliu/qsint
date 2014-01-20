@@ -1,5 +1,8 @@
 #include "recentfiles.h"
 
+#include <QtCore/QDir>
+
+
 namespace QSint
 {
 

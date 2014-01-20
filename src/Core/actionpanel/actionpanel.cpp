@@ -2,6 +2,8 @@
 #include "actionpanelscheme.h"
 #include "actiongroup.h"
 
+#include <QtCore/QVariant>
+
 
 namespace QSint
 {

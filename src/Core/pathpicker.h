@@ -1,8 +1,8 @@
 #ifndef PATHPICKER_H
 #define PATHPICKER_H
 
-#include <QLineEdit>
-#include <QToolButton>
+#include <QtGui/QLineEdit>
+#include <QtGui/QToolButton>
 
 
 namespace QSint

@@ -1,5 +1,4 @@
 #include "axisbase.h"
-#include "plotterbase.h"
 
 
 namespace QSint
