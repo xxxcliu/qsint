@@ -171,7 +171,7 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Quelldateien"
+			Name="Sources"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
@@ -273,21 +273,63 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Headerdateien"
+			Name="Headers"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
 				RelativePath="..\..\src\Core\actionbox.h"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\Core\actionlabel.h"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\Core\colorbutton.h"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\Core\colordefs.h"
@@ -296,6 +338,20 @@
 			<File
 				RelativePath="..\..\src\Core\colorgrid.h"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\Core\core.h"
@@ -308,30 +364,128 @@
 			<File
 				RelativePath="..\..\src\Core\optionslider.h"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\Core\pathpicker.h"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\Core\recentfiles.h"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\Core\scrollpanner.h"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\Core\spinslider.h"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\Core\tablistmenu.h"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\src\Core\widgetpopup.h"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
 			</File>
 			<Filter
 				Name="actionpanel"
@@ -339,10 +493,38 @@
 				<File
 					RelativePath="..\..\src\Core\actionpanel\actiongroup.h"
 					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="QT Moc Metafile"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="QT Moc Metafile"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\src\Core\actionpanel\actionpanel.h"
 					>
+					<FileConfiguration
+						Name="Debug|Win32"
+						>
+						<Tool
+							Name="QT Moc Metafile"
+						/>
+					</FileConfiguration>
+					<FileConfiguration
+						Name="Release|Win32"
+						>
+						<Tool
+							Name="QT Moc Metafile"
+						/>
+					</FileConfiguration>
 				</File>
 				<File
 					RelativePath="..\..\src\Core\actionpanel\actionpanelscheme.h"
@@ -367,7 +549,7 @@
 			</Filter>
 		</Filter>
 		<Filter
-			Name="Ressourcendateien"
+			Name="Resources"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
@@ -387,6 +569,58 @@
 		<Filter
 			Name="Generated"
 			>
+			<File
+				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_actionbox.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Core\GeneratedFiles\qsint-core\moc_actiongroup.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_actionlabel.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\Core\GeneratedFiles\qsint-core\moc_actionpanel.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_colorbutton.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_colorgrid.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_optionslider.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_pathpicker.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_recentfiles.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_scrollpanner.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_spinslider.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_tablistmenu.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_widgetpopup.cpp"
+				>
+			</File>
 			<File
 				RelativePath="..\..\src\Core\GeneratedFiles\qsint-core\qrc_CommonIcons.cpp"
 				>

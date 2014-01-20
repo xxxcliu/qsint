@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="qsint-charts"
-	ProjectGUID="{3265192E-98C3-4B97-BCD9-7D23067D68FF}"
-	RootNamespace="qsintcharts"
+	Name="simplecharts2"
+	ProjectGUID="{ED4B42C1-E2F4-4C9F-84F1-86E27B3D2907}"
+	RootNamespace="examples"
 	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
@@ -14,7 +14,7 @@
 	</Platforms>
 	<ToolFiles>
 		<ToolFile
-			RelativePath=".\qt.rules"
+			RelativePath="..\..\..\build\vc9\qt.rules"
 		/>
 	</ToolFiles>
 	<Configurations>
@@ -22,7 +22,7 @@
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="4"
+			ConfigurationType="1"
 			CharacterSet="2"
 			WholeProgramOptimization="0"
 			>
@@ -30,10 +30,7 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
-				Name="QT Moc Metafile"
-			/>
-			<Tool
-				Name="Qt Linguist"
+				Name="QT Designer Form"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -42,7 +39,10 @@
 				Name="QT Resources"
 			/>
 			<Tool
-				Name="QT Designer Form"
+				Name="QT Moc Metafile"
+			/>
+			<Tool
+				Name="Qt Linguist"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -56,7 +56,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="$(QTDIR)/include;$(QTDIR)/include/QtGui;$(QTDIR)/include/QtCore;"
+				AdditionalIncludeDirectories="&quot;$(QTDIR)/include&quot;;&quot;$(QTDIR)/include/QtGui&quot;;&quot;$(QTDIR)/include/QtCore&quot;;../../../include;&quot;../../Charts/GeneratedFiles/$(ProjectName)/&quot;"
 				PreprocessorDefinitions="DEBUG"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -74,10 +74,15 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLibrarianTool"
+				Name="VCLinkerTool"
+				AdditionalDependencies="qsint-core.lib qsint-charts.lib QtCored4.lib QtGuid4.lib"
+				AdditionalLibraryDirectories="&quot;../../../build/vc9/Debug&quot;;&quot;$(QTDIR)/lib&quot;"
 			/>
 			<Tool
 				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -89,6 +94,9 @@
 				Name="VCFxCopTool"
 			/>
 			<Tool
+				Name="VCAppVerifierTool"
+			/>
+			<Tool
 				Name="VCPostBuildEventTool"
 			/>
 		</Configuration>
@@ -96,7 +104,7 @@
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="4"
+			ConfigurationType="1"
 			CharacterSet="2"
 			WholeProgramOptimization="0"
 			>
@@ -104,10 +112,7 @@
 				Name="VCPreBuildEventTool"
 			/>
 			<Tool
-				Name="QT Moc Metafile"
-			/>
-			<Tool
-				Name="Qt Linguist"
+				Name="QT Designer Form"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -116,7 +121,10 @@
 				Name="QT Resources"
 			/>
 			<Tool
-				Name="QT Designer Form"
+				Name="QT Moc Metafile"
+			/>
+			<Tool
+				Name="Qt Linguist"
 			/>
 			<Tool
 				Name="VCXMLDataGeneratorTool"
@@ -132,7 +140,7 @@
 				Optimization="3"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="$(QTDIR)/include;$(QTDIR)/include/QtGui;$(QTDIR)/include/QtCore;"
+				AdditionalIncludeDirectories="&quot;$(QTDIR)/include&quot;;&quot;$(QTDIR)/include/QtGui&quot;;&quot;$(QTDIR)/include/QtCore&quot;;../../../include;&quot;../../Charts/GeneratedFiles/$(ProjectName)/&quot;"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
@@ -148,10 +156,15 @@
 				Name="VCPreLinkEventTool"
 			/>
 			<Tool
-				Name="VCLibrarianTool"
+				Name="VCLinkerTool"
+				AdditionalDependencies="qsint-core.lib qsint-charts.lib QtCore4.lib QtGui4.lib"
+				AdditionalLibraryDirectories="&quot;../../../build/vc9/Release&quot;;&quot;$(QTDIR)/lib&quot;"
 			/>
 			<Tool
 				Name="VCALinkTool"
+			/>
+			<Tool
+				Name="VCManifestTool"
 			/>
 			<Tool
 				Name="VCXDCMakeTool"
@@ -161,6 +174,9 @@
 			/>
 			<Tool
 				Name="VCFxCopTool"
+			/>
+			<Tool
+				Name="VCAppVerifierTool"
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
@@ -176,23 +192,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\src\Charts\axisbase.cpp"
+				RelativePath="..\..\Charts\simplecharts2\main.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Charts\barchartplotter.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\Charts\paintscheme.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\Charts\piechart.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\Charts\plotterbase.cpp"
+				RelativePath="..\..\Charts\simplecharts2\mainwidget.cpp"
 				>
 			</File>
 		</Filter>
@@ -202,65 +206,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\src\Charts\axisbase.h"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="QT Moc Metafile"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="QT Moc Metafile"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\src\Charts\barchartplotter.h"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="QT Moc Metafile"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="QT Moc Metafile"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\src\Charts\paintscheme.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\Charts\piechart.h"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="QT Moc Metafile"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="QT Moc Metafile"
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\src\Charts\plotterbase.h"
+				RelativePath="..\..\Charts\simplecharts2\mainwidget.h"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -283,24 +229,20 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<File
+				RelativePath="..\..\Charts\simplecharts2\mainwidget.ui"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Generated"
 			>
 			<File
-				RelativePath="..\..\src\GeneratedFiles\qsint-charts\moc_axisbase.cpp"
+				RelativePath="..\..\Charts\GeneratedFiles\simplecharts2\moc_mainwidget.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\GeneratedFiles\qsint-charts\moc_barchartplotter.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\GeneratedFiles\qsint-charts\moc_piechart.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\src\GeneratedFiles\qsint-charts\moc_plotterbase.cpp"
+				RelativePath="..\..\Charts\GeneratedFiles\simplecharts2\ui_mainwidget.h"
 				>
 			</File>
 		</Filter>

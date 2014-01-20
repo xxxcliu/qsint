@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "simplecharts", "simplecharts.vcproj", "{33426881-1BD4-46CB-85EF-2B646D003BBE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "simplecharts2", "simplecharts2.vcproj", "{ED4B42C1-E2F4-4C9F-84F1-86E27B3D2907}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Win32 = Debug|Win32
+		Release|Win32 = Release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{33426881-1BD4-46CB-85EF-2B646D003BBE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{33426881-1BD4-46CB-85EF-2B646D003BBE}.Debug|Win32.Build.0 = Debug|Win32
+		{33426881-1BD4-46CB-85EF-2B646D003BBE}.Release|Win32.ActiveCfg = Release|Win32
+		{33426881-1BD4-46CB-85EF-2B646D003BBE}.Release|Win32.Build.0 = Release|Win32
+		{ED4B42C1-E2F4-4C9F-84F1-86E27B3D2907}.Debug|Win32.ActiveCfg = Debug|Win32
+		{ED4B42C1-E2F4-4C9F-84F1-86E27B3D2907}.Debug|Win32.Build.0 = Debug|Win32
+		{ED4B42C1-E2F4-4C9F-84F1-86E27B3D2907}.Release|Win32.ActiveCfg = Release|Win32
+		{ED4B42C1-E2F4-4C9F-84F1-86E27B3D2907}.Release|Win32.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

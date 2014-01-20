@@ -3,6 +3,9 @@
 
 #include <QSintCharts>
 
+#include <QtGui/QStandardItemModel>
+#include <QtGui/QToolTip>
+
 
 MainWidget::MainWidget(QWidget *parent) :
     QWidget(parent),
