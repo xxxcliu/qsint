@@ -1,11 +1,11 @@
 #ifndef SPINSLIDER_H
 #define SPINSLIDER_H
 
-#include <QSlider>
-#include <QLabel>
-#include <QBoxLayout>
-#include <QSpinBox>
-#include <QToolButton>
+#include <QtGui/QSlider>
+#include <QtGui/QLabel>
+#include <QtGui/QBoxLayout>
+#include <QtGui/QSpinBox>
+#include <QtGui/QToolButton>
 
 
 namespace QSint

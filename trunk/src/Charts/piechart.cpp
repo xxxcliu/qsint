@@ -1,4 +1,4 @@
-#include <math.h>
+#include <qmath.h>
 
 #include "piechart.h"
 

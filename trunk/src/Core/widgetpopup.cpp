@@ -1,5 +1,8 @@
 #include "widgetpopup.h"
 
+#include <QtGui/QVBoxLayout>
+#include <QtGui/QDesktopWidget>
+
 
 namespace QSint
 {

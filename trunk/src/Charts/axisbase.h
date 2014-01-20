@@ -1,7 +1,8 @@
 #ifndef AXISBASE_H
 #define AXISBASE_H
 
-#include <QtGui>
+
+#include "plotterbase.h"
 
 
 namespace QSint

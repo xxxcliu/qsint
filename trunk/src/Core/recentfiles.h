@@ -1,7 +1,10 @@
 #ifndef RECENTFILES_H
 #define RECENTFILES_H
 
-#include <QtGui>
+#include <QtCore/QSettings>
+
+#include <QtGui/QMenu>
+
 
 namespace QSint
 {

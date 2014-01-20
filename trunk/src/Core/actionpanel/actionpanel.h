@@ -1,7 +1,7 @@
 #ifndef ACTIONPANEL_H
 #define ACTIONPANEL_H
 
-#include <QtGui>
+#include <QtGui/QFrame>
 
 
 namespace QSint

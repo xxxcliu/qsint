@@ -1,9 +1,10 @@
 #ifndef ACTIONBOX_H
 #define ACTIONBOX_H
 
-#include <QtGui>
-
 #include "actionlabel.h"
+
+#include <QtGui/QLabel>
+#include <QtGui/QVBoxLayout>
 
 
 namespace QSint

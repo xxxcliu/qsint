@@ -1,7 +1,6 @@
 #ifndef PIECHART_H
 #define PIECHART_H
 
-#include <QtGui>
 
 #include "plotterbase.h"
 

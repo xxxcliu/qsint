@@ -2,7 +2,10 @@
 #define PAINTSCHEME_H
 
 
-#include <QtGui>
+#include <QtGui/QPen>
+#include <QtGui/QBrush>
+#include <QtGui/QFont>
+#include <QtGui/QColor>
 
 
 namespace QSint

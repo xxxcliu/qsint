@@ -1,8 +1,8 @@
 #ifndef TABLISTMENU_H
 #define TABLISTMENU_H
 
-#include <QMenu>
-#include <QTabWidget>
+#include <QtGui/QMenu>
+#include <QtGui/QTabWidget>
 
 
 namespace QSint

@@ -1,7 +1,8 @@
 #ifndef ACTIONGROUP_H
 #define ACTIONGROUP_H
 
-#include <QtGui>
+#include <QtGui/QWidget>
+#include <QtGui/QBoxLayout>
 
 
 namespace QSint

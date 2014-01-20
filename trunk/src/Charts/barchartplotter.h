@@ -1,6 +1,7 @@
 #ifndef BARCHARTPLOTTER_H
 #define BARCHARTPLOTTER_H
 
+
 #include "plotterbase.h"
 
 

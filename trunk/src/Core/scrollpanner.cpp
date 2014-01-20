@@ -1,5 +1,9 @@
 #include "scrollpanner.h"
 
+#include <QtGui/QScrollBar>
+#include <QtGui/QMouseEvent>
+#include <QtGui/QPainter>
+
 
 namespace QSint
 {

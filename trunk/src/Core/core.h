@@ -1,4 +1,4 @@
-#include <QtGui>
+#include <qglobal.h>
 
 
 class CoreLibInitializer

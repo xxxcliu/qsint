@@ -2,6 +2,15 @@
 #include "actionpanelscheme.h"
 #include "actionlabel.h"
 
+#include <QtCore/QVariant>
+#include <QtCore/QEvent>
+#include <QtCore/QTimer>
+
+#include <QtGui/QHBoxLayout>
+#include <QtGui/QPainter>
+#include <QtGui/QMouseEvent>
+#include <QtGui/QApplication>
+
 
 namespace QSint
 {

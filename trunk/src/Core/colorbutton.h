@@ -1,9 +1,9 @@
 #ifndef COLORBUTTON_H
 #define COLORBUTTON_H
 
-#include <QtGui>
-
 #include "colordefs.h"
+
+#include <QtGui/QToolButton>
 
 
 namespace QSint
@@ -107,8 +107,8 @@ signals:
 protected:
     virtual void drawColorItem(QPixmap &pm, const QColor& color);
 
-    virtual void resizeEvent ( QResizeEvent * event );
-    virtual void mousePressEvent ( QMouseEvent * event );
+    virtual void resizeEvent(QResizeEvent *event);
+    virtual void mousePressEvent(QMouseEvent *event);
 
     QColor m_color;
     PickMode m_modeLeft, m_modeRight;

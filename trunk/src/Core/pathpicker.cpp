@@ -5,8 +5,8 @@
 #include "core.h"
 
 
-#include <QHBoxLayout>
-#include <QFileDialog>
+#include <QtGui/QHBoxLayout>
+#include <QtGui/QFileDialog>
 
 
 namespace QSint
