@@ -238,11 +238,11 @@
 			Name="Generated"
 			>
 			<File
-				RelativePath="..\..\Charts\GeneratedFiles\simplecharts2\moc_mainwidget.cpp"
+				RelativePath=".\GeneratedFiles\simplecharts2\moc_mainwidget.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Charts\GeneratedFiles\simplecharts2\ui_mainwidget.h"
+				RelativePath=".\GeneratedFiles\simplecharts2\ui_mainwidget.h"
 				>
 			</File>
 		</Filter>
