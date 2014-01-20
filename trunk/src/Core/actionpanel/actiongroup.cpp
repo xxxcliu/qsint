@@ -4,6 +4,8 @@
 #include "actionlabel.h"
 #include "actionpanelscheme.h"
 
+#include <QtGui/QPainter>
+
 
 namespace QSint
 {

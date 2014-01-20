@@ -1,5 +1,9 @@
 #include "taskgroup_p.h"
 
+#include <QtCore/QVariant>
+#include <QtGui/QKeyEvent>
+#include <QtGui/QApplication>
+
 
 namespace QSint
 {
