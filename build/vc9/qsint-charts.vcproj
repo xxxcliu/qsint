@@ -288,19 +288,19 @@
 			Name="Generated"
 			>
 			<File
-				RelativePath="..\..\src\GeneratedFiles\qsint-charts\moc_axisbase.cpp"
+				RelativePath=".\GeneratedFiles\qsint-charts\moc_axisbase.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\GeneratedFiles\qsint-charts\moc_barchartplotter.cpp"
+				RelativePath=".\GeneratedFiles\qsint-charts\moc_barchartplotter.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\GeneratedFiles\qsint-charts\moc_piechart.cpp"
+				RelativePath=".\GeneratedFiles\qsint-charts\moc_piechart.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\GeneratedFiles\qsint-charts\moc_plotterbase.cpp"
+				RelativePath=".\GeneratedFiles\qsint-charts\moc_plotterbase.cpp"
 				>
 			</File>
 		</Filter>

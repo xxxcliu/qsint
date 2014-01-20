@@ -570,63 +570,63 @@
 			Name="Generated"
 			>
 			<File
-				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_actionbox.cpp"
+				RelativePath=".\GeneratedFiles\qsint-core\moc_actionbox.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Core\GeneratedFiles\qsint-core\moc_actiongroup.cpp"
+				RelativePath=".\GeneratedFiles\qsint-core\moc_actiongroup.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_actionlabel.cpp"
+				RelativePath=".\GeneratedFiles\qsint-core\moc_actionlabel.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Core\GeneratedFiles\qsint-core\moc_actionpanel.cpp"
+				RelativePath=".\GeneratedFiles\qsint-core\moc_actionpanel.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_colorbutton.cpp"
+				RelativePath=".\GeneratedFiles\qsint-core\moc_colorbutton.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_colorgrid.cpp"
+				RelativePath=".\GeneratedFiles\qsint-core\moc_colorgrid.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_optionslider.cpp"
+				RelativePath=".\GeneratedFiles\qsint-core\moc_optionslider.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_pathpicker.cpp"
+				RelativePath=".\GeneratedFiles\qsint-core\moc_pathpicker.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_recentfiles.cpp"
+				RelativePath=".\GeneratedFiles\qsint-core\moc_recentfiles.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_scrollpanner.cpp"
+				RelativePath=".\GeneratedFiles\qsint-core\moc_scrollpanner.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_spinslider.cpp"
+				RelativePath=".\GeneratedFiles\qsint-core\moc_spinslider.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_tablistmenu.cpp"
+				RelativePath=".\GeneratedFiles\qsint-core\moc_tablistmenu.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\GeneratedFiles\qsint-core\moc_widgetpopup.cpp"
+				RelativePath=".\GeneratedFiles\qsint-core\moc_widgetpopup.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Core\GeneratedFiles\qsint-core\qrc_CommonIcons.cpp"
+				RelativePath=".\GeneratedFiles\qsint-core\qrc_CommonIcons.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\Core\GeneratedFiles\qsint-core\qrc_schemes.cpp"
+				RelativePath=".\GeneratedFiles\qsint-core\qrc_schemes.cpp"
 				>
 			</File>
 		</Filter>
