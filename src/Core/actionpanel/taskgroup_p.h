@@ -1,10 +1,11 @@
 #ifndef TASKGROUP_P_H
 #define TASKGROUP_P_H
 
-#include <QtGui>
-
 #include "actionpanelscheme.h"
 #include "actionlabel.h"
+
+#include <QtGui/QFrame>
+#include <QtGui/QBoxLayout>
 
 
 namespace QSint

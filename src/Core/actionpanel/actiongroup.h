@@ -1,6 +1,7 @@
 #ifndef ACTIONGROUP_H
 #define ACTIONGROUP_H
 
+#include <QtCore/QTimer>
 #include <QtGui/QWidget>
 #include <QtGui/QBoxLayout>
 

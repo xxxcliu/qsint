@@ -1,10 +1,10 @@
 #ifndef TASKHEADER_P_H
 #define TASKHEADER_P_H
 
-#include <QtGui/QLabel>
-
 #include "actionpanelscheme.h"
 #include "actionlabel.h"
+
+#include <QtGui/QLabel>
 
 
 namespace QSint
