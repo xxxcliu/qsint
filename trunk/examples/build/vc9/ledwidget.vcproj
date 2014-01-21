@@ -2,8 +2,8 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9,00"
-	Name="simplecharts"
-	ProjectGUID="{33426881-1BD4-46CB-85EF-2B646D003BBE}"
+	Name="ledwidget"
+	ProjectGUID="{4C2506AC-8FAB-4A89-90B1-51D3AB6CF2CB}"
 	RootNamespace="examples"
 	TargetFrameworkVersion="196613"
 	>
@@ -75,7 +75,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qsint-core.lib qsint-charts.lib QtCored4.lib QtGuid4.lib"
+				AdditionalDependencies="qsint-core.lib QtCored4.lib QtGuid4.lib"
 				AdditionalLibraryDirectories="$(SolutionDir)\..\..\..\lib\vc9\$(ConfigurationName);$(QTDIR)\lib"
 			/>
 			<Tool
@@ -157,7 +157,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="qsint-core.lib qsint-charts.lib QtCore4.lib QtGui4.lib"
+				AdditionalDependencies="qsint-core.lib QtCore4.lib QtGui4.lib"
 				AdditionalLibraryDirectories="$(SolutionDir)\..\..\..\lib\vc9\$(ConfigurationName);$(QTDIR)\lib"
 			/>
 			<Tool
@@ -192,11 +192,11 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\Charts\simplecharts\main.cpp"
+				RelativePath="..\..\Core\ledwidget\ledwidgetdemo.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\Charts\simplecharts\mainwidget.cpp"
+				RelativePath="..\..\Core\ledwidget\main.cpp"
 				>
 			</File>
 		</Filter>
@@ -206,7 +206,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\Charts\simplecharts\mainwidget.h"
+				RelativePath="..\..\Core\ledwidget\ledwidgetdemo.h"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -230,7 +230,7 @@
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath="..\..\Charts\simplecharts\mainwidget.ui"
+				RelativePath="..\..\Core\ledwidget\ledwidgetdemo.ui"
 				>
 			</File>
 		</Filter>
@@ -238,11 +238,11 @@
 			Name="Generated"
 			>
 			<File
-				RelativePath=".\GeneratedFiles\simplecharts\moc_mainwidget.cpp"
+				RelativePath=".\GeneratedFiles\ledwidget\moc_ledwidgetdemo.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\GeneratedFiles\simplecharts\ui_mainwidget.h"
+				RelativePath=".\GeneratedFiles\ledwidget\ui_ledwidgetdemo.h"
 				>
 			</File>
 		</Filter>
