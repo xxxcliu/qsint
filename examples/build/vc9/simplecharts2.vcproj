@@ -21,7 +21,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="1"
 			CharacterSet="2"
 			WholeProgramOptimization="0"
@@ -56,7 +56,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="&quot;$(QTDIR)/include&quot;;&quot;$(QTDIR)/include/QtGui&quot;;&quot;$(QTDIR)/include/QtCore&quot;;../../../include;&quot;../../Charts/GeneratedFiles/$(ProjectName)/&quot;"
+				AdditionalIncludeDirectories="&quot;$(QTDIR)/include&quot;;&quot;$(QTDIR)/include/QtGui&quot;;&quot;$(QTDIR)/include/QtCore&quot;;../../../include;&quot;./GeneratedFiles/$(ProjectName)/&quot;"
 				PreprocessorDefinitions="DEBUG"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -76,7 +76,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="qsint-core.lib qsint-charts.lib QtCored4.lib QtGuid4.lib"
-				AdditionalLibraryDirectories="&quot;../../../build/vc9/Debug&quot;;&quot;$(QTDIR)/lib&quot;"
+				AdditionalLibraryDirectories="$(SolutionDir)\..\..\..\lib\vc9\$(ConfigurationName);$(QTDIR)\lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -103,7 +103,7 @@
 		<Configuration
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
-			IntermediateDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)\$(ProjectName)"
 			ConfigurationType="1"
 			CharacterSet="2"
 			WholeProgramOptimization="0"
@@ -140,7 +140,7 @@
 				Optimization="3"
 				InlineFunctionExpansion="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="&quot;$(QTDIR)/include&quot;;&quot;$(QTDIR)/include/QtGui&quot;;&quot;$(QTDIR)/include/QtCore&quot;;../../../include;&quot;../../Charts/GeneratedFiles/$(ProjectName)/&quot;"
+				AdditionalIncludeDirectories="&quot;$(QTDIR)/include&quot;;&quot;$(QTDIR)/include/QtGui&quot;;&quot;$(QTDIR)/include/QtCore&quot;;../../../include;&quot;./GeneratedFiles/$(ProjectName)/&quot;"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
 				WarningLevel="3"
@@ -158,7 +158,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="qsint-core.lib qsint-charts.lib QtCore4.lib QtGui4.lib"
-				AdditionalLibraryDirectories="&quot;../../../build/vc9/Release&quot;;&quot;$(QTDIR)/lib&quot;"
+				AdditionalLibraryDirectories="$(SolutionDir)\..\..\..\lib\vc9\$(ConfigurationName);$(QTDIR)\lib"
 			/>
 			<Tool
 				Name="VCALinkTool"
