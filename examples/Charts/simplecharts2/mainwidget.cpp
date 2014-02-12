@@ -12,11 +12,11 @@ MainWidget::MainWidget(QWidget *parent) :
     ui(new Ui::MainWidget)
 {
     // data model
-    QStandardItemModel* itemModel = new QStandardItemModel(5,4,this);
+    QStandardItemModel* itemModel = new QStandardItemModel(7, 6, this);
     itemModel->setHorizontalHeaderLabels(QStringList() <<
-                                         "2007" << "2008" << "2009" << "2010");
+                                         "2007" << "2008" << "2009" << "2010" << "2011" << "2012");
     itemModel->setVerticalHeaderLabels(QStringList() <<
-                                       "Water" << "Coal" << "Oil" << "Sand" << "Stone");
+                                       "Water" << "Coal" << "Oil" << "Sand" << "Stone" << "Wood" << "Concrete");
     itemModel->setHeaderData(0, Qt::Vertical, Qt::red, Qt::BackgroundRole);
     itemModel->setHeaderData(0, Qt::Vertical, Qt::white, Qt::ForegroundRole);
     itemModel->setHeaderData(1, Qt::Vertical, Qt::blue, Qt::BackgroundRole);
@@ -26,9 +26,14 @@ MainWidget::MainWidget(QWidget *parent) :
     itemModel->setHeaderData(3, Qt::Vertical, Qt::yellow, Qt::BackgroundRole);
     itemModel->setHeaderData(3, Qt::Vertical, Qt::darkRed, Qt::ForegroundRole);
     itemModel->setHeaderData(4, Qt::Vertical, Qt::white, Qt::BackgroundRole);
+	itemModel->setHeaderData(4, Qt::Vertical, Qt::darkMagenta, Qt::ForegroundRole);
+	itemModel->setHeaderData(5, Qt::Vertical, Qt::magenta, Qt::BackgroundRole);
+	itemModel->setHeaderData(5, Qt::Vertical, Qt::darkBlue, Qt::ForegroundRole);
+    itemModel->setHeaderData(6, Qt::Vertical, Qt::cyan, Qt::BackgroundRole);
+	itemModel->setHeaderData(6, Qt::Vertical, Qt::darkBlue, Qt::ForegroundRole);
 
-    for (int i = 0; i < 5; i++)
-        for (int j = 0; j < 4; j++)
+    for (int i = 0; i < 7; i++)
+        for (int j = 0; j < 6; j++)
             itemModel->setData(itemModel->index(i,j),
                                j > 0 ? qrand()%20-10 : qrand()%15);
 
@@ -105,6 +110,13 @@ MainWidget::MainWidget(QWidget *parent) :
     ui->Chart4->axisX()->setMinorTicksPen(QPen(Qt::darkGray));
     ui->Chart4->axisX()->setMajorTicksPen(QPen(Qt::lightGray));
     ui->Chart4->setHighlightBrush(QBrush(QColor(0xffa500)));
+
+	ui->Chart5->setBackground(QBrush(bg));
+    ui->Chart5->setModel(itemModel);
+    ui->Chart5->setHighlightBrush(QBrush(QColor(0xffa500), Qt::Dense4Pattern));
+    ui->Chart5->setHighlightAlpha(0.5);
+    QFont ringFont("Arial", 10, QFont::Bold);
+    ui->Chart5->setFont(ringFont);
 }
 
 MainWidget::~MainWidget()

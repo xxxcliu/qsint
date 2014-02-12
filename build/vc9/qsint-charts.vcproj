@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="qsint-charts"
 	ProjectGUID="{3265192E-98C3-4B97-BCD9-7D23067D68FF}"
 	RootNamespace="qsintcharts"
@@ -195,6 +195,10 @@
 				RelativePath="..\..\src\Charts\plotterbase.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\src\Charts\ringchart.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Headers"
@@ -277,6 +281,24 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath="..\..\src\Charts\ringchart.h"
+				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					>
+					<Tool
+						Name="QT Moc Metafile"
+					/>
+				</FileConfiguration>
+			</File>
 		</Filter>
 		<Filter
 			Name="Resources"
@@ -301,6 +323,10 @@
 			</File>
 			<File
 				RelativePath=".\GeneratedFiles\qsint-charts\moc_plotterbase.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\GeneratedFiles\qsint-charts\moc_ringchart.cpp"
 				>
 			</File>
 		</Filter>
