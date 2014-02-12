@@ -9,6 +9,7 @@ HEADERS += \
     barchartplotter.h \
     axisbase.h \
     piechart.h \
+	ringchart.h \
     paintscheme.h
 
 SOURCES += \
@@ -16,4 +17,5 @@ SOURCES += \
     barchartplotter.cpp \
     axisbase.cpp \
     piechart.cpp \
+	ringchart.cpp \
     paintscheme.cpp

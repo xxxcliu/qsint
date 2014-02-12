@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="simplecharts2"
 	ProjectGUID="{ED4B42C1-E2F4-4C9F-84F1-86E27B3D2907}"
 	RootNamespace="examples"
@@ -77,6 +77,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="qsint-core.lib qsint-charts.lib QtCored4.lib QtGuid4.lib"
 				AdditionalLibraryDirectories="$(SolutionDir)\..\..\..\lib\vc9\$(ConfigurationName);$(QTDIR)\lib"
+				GenerateDebugInformation="true"
 			/>
 			<Tool
 				Name="VCALinkTool"
