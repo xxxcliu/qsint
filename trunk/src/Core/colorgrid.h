@@ -3,7 +3,7 @@
 
 #include "colordefs.h"
 
-#include <QtGui/QWidget>
+#include <QWidget>
 
 
 namespace QSint

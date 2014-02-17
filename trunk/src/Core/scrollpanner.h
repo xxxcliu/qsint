@@ -1,10 +1,10 @@
 #ifndef SCROLLPANNER_H
 #define SCROLLPANNER_H
 
-#include <QtGui/QAbstractScrollArea>
-#include <QtGui/QAbstractSlider>
-#include <QtGui/QPen>
-#include <QtGui/QBrush>
+#include <QAbstractScrollArea>
+#include <QAbstractSlider>
+#include <QPen>
+#include <QBrush>
 
 
 namespace QSint

@@ -40,15 +40,15 @@ MainWidget::MainWidget(QWidget *parent) :
                                          "2007" << "2008" << "2009" << "2010");
     itemModel->setVerticalHeaderLabels(QStringList() <<
                                        "Water" << "Coal" << "Oil" << "Sand" << "Stone");
-    itemModel->setHeaderData(0, Qt::Vertical, Qt::red, Qt::BackgroundRole);
-    itemModel->setHeaderData(0, Qt::Vertical, Qt::darkYellow, Qt::ForegroundRole);
-    itemModel->setHeaderData(1, Qt::Vertical, Qt::blue, Qt::BackgroundRole);
-    itemModel->setHeaderData(1, Qt::Vertical, Qt::darkBlue, Qt::ForegroundRole);
-    itemModel->setHeaderData(2, Qt::Vertical, Qt::green, Qt::BackgroundRole);
-    itemModel->setHeaderData(2, Qt::Vertical, Qt::darkGreen, Qt::ForegroundRole);
-    itemModel->setHeaderData(3, Qt::Vertical, Qt::yellow, Qt::BackgroundRole);
-    itemModel->setHeaderData(3, Qt::Vertical, Qt::darkRed, Qt::ForegroundRole);
-    itemModel->setHeaderData(4, Qt::Vertical, Qt::white, Qt::BackgroundRole);
+    itemModel->setHeaderData(0, Qt::Vertical, QColor(Qt::red), Qt::BackgroundRole);
+    itemModel->setHeaderData(0, Qt::Vertical, QColor(Qt::darkYellow), Qt::ForegroundRole);
+    itemModel->setHeaderData(1, Qt::Vertical, QColor(Qt::blue), Qt::BackgroundRole);
+    itemModel->setHeaderData(1, Qt::Vertical, QColor(Qt::darkBlue), Qt::ForegroundRole);
+    itemModel->setHeaderData(2, Qt::Vertical, QColor(Qt::green), Qt::BackgroundRole);
+    itemModel->setHeaderData(2, Qt::Vertical, QColor(Qt::darkGreen), Qt::ForegroundRole);
+    itemModel->setHeaderData(3, Qt::Vertical, QColor(Qt::yellow), Qt::BackgroundRole);
+    itemModel->setHeaderData(3, Qt::Vertical, QColor(Qt::darkRed), Qt::ForegroundRole);
+    itemModel->setHeaderData(4, Qt::Vertical, QColor(Qt::white), Qt::BackgroundRole);
 
     for (int i = 0; i < 5; i++)
         for (int j = 0; j < 4; j++)

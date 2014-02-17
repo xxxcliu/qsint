@@ -1,7 +1,11 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
-#include <QtGui>
+#include <QPushButton>
+#include <QCheckBox>
+#include <QRadioButton>
+#include <QMessageBox>
+
 
 MainWindow::MainWindow(QWidget *parent) :
     QWidget(parent),

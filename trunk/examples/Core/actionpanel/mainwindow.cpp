@@ -1,6 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+#include <QPushButton>
+#include <QMessageBox>
+
 #include <QSint>
 
 MainWindow::MainWindow(QWidget *parent) :

@@ -3,8 +3,8 @@
 
 #include <QSintCharts>
 
-#include <QtGui/QStandardItemModel>
-#include <QtGui/QToolTip>
+#include <QStandardItemModel>
+#include <QToolTip>
 
 
 MainWidget::MainWidget(QWidget *parent) :
@@ -17,20 +17,20 @@ MainWidget::MainWidget(QWidget *parent) :
                                          "2007" << "2008" << "2009" << "2010" << "2011" << "2012");
     itemModel->setVerticalHeaderLabels(QStringList() <<
                                        "Water" << "Coal" << "Oil" << "Sand" << "Stone" << "Wood" << "Concrete");
-    itemModel->setHeaderData(0, Qt::Vertical, Qt::red, Qt::BackgroundRole);
-    itemModel->setHeaderData(0, Qt::Vertical, Qt::white, Qt::ForegroundRole);
-    itemModel->setHeaderData(1, Qt::Vertical, Qt::blue, Qt::BackgroundRole);
-    itemModel->setHeaderData(1, Qt::Vertical, Qt::darkBlue, Qt::ForegroundRole);
-    itemModel->setHeaderData(2, Qt::Vertical, Qt::green, Qt::BackgroundRole);
-    itemModel->setHeaderData(2, Qt::Vertical, Qt::darkGreen, Qt::ForegroundRole);
-    itemModel->setHeaderData(3, Qt::Vertical, Qt::yellow, Qt::BackgroundRole);
-    itemModel->setHeaderData(3, Qt::Vertical, Qt::darkRed, Qt::ForegroundRole);
-    itemModel->setHeaderData(4, Qt::Vertical, Qt::white, Qt::BackgroundRole);
-	itemModel->setHeaderData(4, Qt::Vertical, Qt::darkMagenta, Qt::ForegroundRole);
-	itemModel->setHeaderData(5, Qt::Vertical, Qt::magenta, Qt::BackgroundRole);
-	itemModel->setHeaderData(5, Qt::Vertical, Qt::darkBlue, Qt::ForegroundRole);
-    itemModel->setHeaderData(6, Qt::Vertical, Qt::cyan, Qt::BackgroundRole);
-	itemModel->setHeaderData(6, Qt::Vertical, Qt::darkBlue, Qt::ForegroundRole);
+    itemModel->setHeaderData(0, Qt::Vertical, QColor(Qt::red), Qt::BackgroundRole);
+    itemModel->setHeaderData(0, Qt::Vertical, QColor(Qt::white), Qt::ForegroundRole);
+    itemModel->setHeaderData(1, Qt::Vertical, QColor(Qt::blue), Qt::BackgroundRole);
+    itemModel->setHeaderData(1, Qt::Vertical, QColor(Qt::darkBlue), Qt::ForegroundRole);
+    itemModel->setHeaderData(2, Qt::Vertical, QColor(Qt::green), Qt::BackgroundRole);
+    itemModel->setHeaderData(2, Qt::Vertical, QColor(Qt::darkGreen), Qt::ForegroundRole);
+    itemModel->setHeaderData(3, Qt::Vertical, QColor(Qt::yellow), Qt::BackgroundRole);
+    itemModel->setHeaderData(3, Qt::Vertical, QColor(Qt::darkRed), Qt::ForegroundRole);
+    itemModel->setHeaderData(4, Qt::Vertical, QColor(Qt::white), Qt::BackgroundRole);
+    itemModel->setHeaderData(4, Qt::Vertical, QColor(Qt::darkMagenta), Qt::ForegroundRole);
+    itemModel->setHeaderData(5, Qt::Vertical, QColor(Qt::magenta), Qt::BackgroundRole);
+    itemModel->setHeaderData(5, Qt::Vertical, QColor(Qt::darkBlue), Qt::ForegroundRole);
+    itemModel->setHeaderData(6, Qt::Vertical, QColor(Qt::cyan), Qt::BackgroundRole);
+    itemModel->setHeaderData(6, Qt::Vertical, QColor(Qt::darkBlue), Qt::ForegroundRole);
 
     for (int i = 0; i < 7; i++)
         for (int j = 0; j < 6; j++)
@@ -100,11 +100,13 @@ MainWidget::MainWidget(QWidget *parent) :
     ui->Chart4->setModel(itemModel);
     ui->Chart4->setBarType(QSint::BarChartPlotter::Columns);
     ui->Chart4->setZeroLinePen(QPen(0xffa500));
+    ui->Chart4->setBarScale(0.75);
     ui->Chart4->axisY()->setRanges(-20, 20);
     ui->Chart4->axisY()->setTextColor(Qt::yellow);
     ui->Chart4->axisY()->setPen(QPen(Qt::gray));
     ui->Chart4->axisY()->setMinorTicksPen(QPen(Qt::darkGray));
     ui->Chart4->axisY()->setMajorTicksPen(QPen(Qt::lightGray));
+    ui->Chart4->axisY()->setMinorGridPen(QPen(Qt::darkCyan, 1, Qt::DotLine));
     ui->Chart4->axisX()->setTextColor(Qt::green);
     ui->Chart4->axisX()->setPen(QPen(Qt::gray));
     ui->Chart4->axisX()->setMinorTicksPen(QPen(Qt::darkGray));

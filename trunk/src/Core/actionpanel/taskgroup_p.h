@@ -4,8 +4,8 @@
 #include "actionpanelscheme.h"
 #include "actionlabel.h"
 
-#include <QtGui/QFrame>
-#include <QtGui/QBoxLayout>
+#include <QFrame>
+#include <QBoxLayout>
 
 
 namespace QSint

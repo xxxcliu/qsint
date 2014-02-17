@@ -1,7 +1,7 @@
 #ifndef LEDWIDGET_H
 #define LEDWIDGET_H
 
-#include <QtGui/QWidget>
+#include <QWidget>
 
 
 namespace QSint

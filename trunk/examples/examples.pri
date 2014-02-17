@@ -6,15 +6,4 @@ INCLUDEPATH = ../../../include
 
 LIBS += -L../../../lib -l$$LIBNAME
 
-#message("examples.pri:")
-#message($$CONFIG)
-#message($$LIBNAME)
-
-#CONFIG(release,debug|release){
- #   PRE_TARGETDEPS += ../../../lib/$$LIBNAME.$$LIB_SUFFIX
-#}
-
-#CONFIG(debug,debug|release){
-#    PRE_TARGETDEPS += ../../../lib/$$LIBNAME.$$LIB_SUFFIX
-#}
-
+greaterThan(QT_MAJOR_VERSION, 4): QT += widgets

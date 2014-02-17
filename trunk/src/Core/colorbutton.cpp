@@ -2,9 +2,9 @@
 #include "colorgrid.h"
 #include "widgetpopup.h"
 
-#include <QtGui/QPainter>
-#include <QtGui/QMouseEvent>
-#include <QtGui/QColorDialog>
+#include <QPainter>
+#include <QMouseEvent>
+#include <QColorDialog>
 
 
 namespace QSint

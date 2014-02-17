@@ -4,7 +4,7 @@
 #include "actionpanelscheme.h"
 #include "actionlabel.h"
 
-#include <QtGui/QLabel>
+#include <QLabel>
 
 
 namespace QSint

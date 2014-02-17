@@ -3,8 +3,8 @@
 
 #include "actionlabel.h"
 
-#include <QtGui/QLabel>
-#include <QtGui/QVBoxLayout>
+#include <QLabel>
+#include <QVBoxLayout>
 
 
 namespace QSint
