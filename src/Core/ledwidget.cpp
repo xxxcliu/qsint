@@ -28,7 +28,7 @@ void LedWidget::setColors(const QColor &ledColor, const QColor &blickColor)
 }
 
 
-void LedWidget::paintEvent(QPaintEvent *event)
+void LedWidget::paintEvent(QPaintEvent * /*event*/)
 {
     QPainter p(this);
 

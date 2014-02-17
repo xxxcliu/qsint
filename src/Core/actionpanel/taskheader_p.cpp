@@ -6,10 +6,10 @@
 #include <QtCore/QEvent>
 #include <QtCore/QTimer>
 
-#include <QtGui/QHBoxLayout>
-#include <QtGui/QPainter>
-#include <QtGui/QMouseEvent>
-#include <QtGui/QApplication>
+#include <QHBoxLayout>
+#include <QPainter>
+#include <QMouseEvent>
+#include <QApplication>
 
 
 namespace QSint

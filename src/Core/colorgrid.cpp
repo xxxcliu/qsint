@@ -2,9 +2,9 @@
 
 #include <qmath.h>
 
-#include <QtGui/QPainter>
-#include <QtGui/QMouseEvent>
-#include <QtGui/QToolTip>
+#include <QPainter>
+#include <QMouseEvent>
+#include <QToolTip>
 
 
 namespace QSint

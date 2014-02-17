@@ -1,11 +1,11 @@
 #ifndef OPTIONSLIDER_H
 #define OPTIONSLIDER_H
 
-#include <QtCore/QStringList>
+#include <QStringList>
 
-#include <QtGui/QSlider>
-#include <QtGui/QLabel>
-#include <QtGui/QBoxLayout>
+#include <QSlider>
+#include <QLabel>
+#include <QBoxLayout>
 
 
 namespace QSint

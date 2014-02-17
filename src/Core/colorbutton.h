@@ -3,7 +3,7 @@
 
 #include "colordefs.h"
 
-#include <QtGui/QToolButton>
+#include <QToolButton>
 
 
 namespace QSint

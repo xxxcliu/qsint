@@ -2,11 +2,11 @@
 #define PLOTTERBASE_H
 
 
-#include <QtGui/QPen>
-#include <QtGui/QBrush>
-#include <QtGui/QWidget>
-#include <QtGui/QPainter>
-#include <QtGui/QMouseEvent>
+#include <QPen>
+#include <QBrush>
+#include <QPainter>
+#include <QMouseEvent>
+#include <QWidget>
 
 #include <QtCore/QAbstractItemModel>
 

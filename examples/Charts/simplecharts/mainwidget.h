@@ -1,7 +1,8 @@
 #ifndef MAINWIDGET_H
 #define MAINWIDGET_H
 
-#include <QtGui>
+#include <QWidget>
+#include <QStandardItemModel>
 
 namespace Ui {
     class MainWidget;

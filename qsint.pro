@@ -3,6 +3,6 @@ TEMPLATE = subdirs
 CONFIG += ordered
 
 SUBDIRS += src \
-           designer/plugin \
+#           designer/plugin \
            examples
 #            test

@@ -1,8 +1,8 @@
 #include "scrollpanner.h"
 
-#include <QtGui/QScrollBar>
-#include <QtGui/QMouseEvent>
-#include <QtGui/QPainter>
+#include <QScrollBar>
+#include <QMouseEvent>
+#include <QPainter>
 
 
 namespace QSint
