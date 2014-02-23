@@ -131,6 +131,7 @@ protected:
     virtual void leaveEvent(QMouseEvent *event);
 
     virtual void paintEvent(QPaintEvent *event);
+    virtual void resizeEvent(QResizeEvent *event);
 
     /// Draws default background of the plotter.
     virtual void drawBackground(QPainter &p);

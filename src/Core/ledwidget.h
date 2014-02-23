@@ -12,7 +12,7 @@ namespace QSint
     \brief Round LED-style widget with gradient fill.
 
         The gradient consists of two colors: led color (main color of the widget)
-        and blick color at the top-left corner (typically, white).
+        and highlight color at the top-left corner (typically, white).
 
     \since 0.2.2
 
@@ -32,16 +32,16 @@ public:
 
 public slots:
     /**
-     * @brief setColor Funtion sets color of LED to \a ledColor. Blick color is set to Qt::white.
+     * @brief setColor Funtion sets color of LED to \a ledColor. Highlight color is set to Qt::white.
      * @param ledColor Color to set (Qt::gray is the default value).
      */
     void setColor(const QColor &ledColor);
     /**
-     * @brief setColors Funtion sets color of LED to \a ledColor and its blick color to \a blickColor.
+     * @brief setColors Funtion sets color of LED to \a ledColor and its highlight color to \a blickColor.
      * @param ledColor (Qt::gray is the default value).
-     * @param blickColor (Qt::white is the default value).
+     * @param highlightColor (Qt::white is the default value).
      */
-    void setColors(const QColor &ledColor, const QColor &blickColor);
+    void setColors(const QColor &ledColor, const QColor &highlightColor);
 
 protected:
     virtual void paintEvent(QPaintEvent *event);

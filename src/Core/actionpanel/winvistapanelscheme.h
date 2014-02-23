@@ -13,7 +13,7 @@ namespace QSint
     \brief Windows Vista-like color scheme for ActionPanel and ActionGroup.
     \since 0.2
 
-    \image html ActionPanel3.png Example of the scheme
+    \image html ActionPanel4.png Example of the scheme
 */
 class WinVistaPanelScheme : public ActionPanelScheme
 {

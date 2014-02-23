@@ -40,9 +40,6 @@ LIBS += -LQSINT_BUILD_ROOT/lib -lqsintd
 
 // for Charts module
 #include <QSintCharts>
-
-// for Apps module
-#include <QSintApps>
 \endcode
 
 As all the QSint classes are nested within \a QSint namespace, you would also like to use this namespace as well.
