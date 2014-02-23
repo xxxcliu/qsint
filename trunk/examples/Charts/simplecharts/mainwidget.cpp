@@ -41,7 +41,7 @@ MainWidget::MainWidget(QWidget *parent) :
     itemModel->setVerticalHeaderLabels(QStringList() <<
                                        "Water" << "Coal" << "Oil" << "Sand" << "Stone");
     itemModel->setHeaderData(0, Qt::Vertical, QColor(Qt::red), Qt::BackgroundRole);
-    itemModel->setHeaderData(0, Qt::Vertical, QColor(Qt::darkYellow), Qt::ForegroundRole);
+    itemModel->setHeaderData(0, Qt::Vertical, QColor(Qt::black), Qt::ForegroundRole);
     itemModel->setHeaderData(1, Qt::Vertical, QColor(Qt::blue), Qt::BackgroundRole);
     itemModel->setHeaderData(1, Qt::Vertical, QColor(Qt::darkBlue), Qt::ForegroundRole);
     itemModel->setHeaderData(2, Qt::Vertical, QColor(Qt::green), Qt::BackgroundRole);
@@ -55,6 +55,10 @@ MainWidget::MainWidget(QWidget *parent) :
             itemModel->setData(itemModel->index(i,j), qrand()%60-30);
 
     ui->BarPlot->setModel(itemModel);
+
+    // update single segment color - row 0 (Coal), col 1 (2008)
+    itemModel->setData(itemModel->index(0,1), QColor(Qt::cyan), Qt::BackgroundRole);
+    itemModel->setData(itemModel->index(0,1), QColor(Qt::red), Qt::ForegroundRole);
 
 
     ui->PieChart->setModel(itemModel);

@@ -18,10 +18,10 @@ PlotterBase::PlotterBase(QWidget *parent) :
     setBackground(QBrush(Qt::lightGray));
     setItemPen(QPen(Qt::darkGray));
 
-    setHighlightAlpha(1);
+    setHighlightAlpha(0.5);
     setHighlightTextColor(Qt::white);
-    setHighlightPen(QPen(Qt::white));
-    setHighlightBrush(QBrush(Qt::black, Qt::Dense5Pattern));
+    setHighlightPen(QPen(Qt::black));
+    setHighlightBrush(QBrush(Qt::gray));
 
     setModel(0);
 
@@ -180,17 +180,30 @@ void PlotterBase::mouseMoveEvent(QMouseEvent *event)
 }
 
 
-void PlotterBase::leaveEvent(QMouseEvent* /*event*/)
+void PlotterBase::leaveEvent(QMouseEvent *event)
 {
     m_mousePos = QPoint();
+    m_indexUnderMouse = m_indexClick = QModelIndex();
 
     repaint();
+
+    QWidget::leaveEvent(event);
+}
+
+
+void PlotterBase::resizeEvent(QResizeEvent *event)
+{
+    m_mousePos = QPoint();
+    m_indexUnderMouse = m_indexClick = QModelIndex();
+
+    QWidget::resizeEvent(event);
 }
 
 
 void PlotterBase::paintEvent(QPaintEvent *)
 {
     QPainter p(this);
+
     if (m_antiAliasing)
         p.setRenderHint(QPainter::Antialiasing);
 

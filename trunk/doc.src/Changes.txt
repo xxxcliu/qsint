@@ -1,17 +1,40 @@
 /*! \page changes Changes and Features
 
-\b 0.3.0
+\b 0.2.2
 
-Since version 0.3, QSint library has modular structure.
+Changes of \a Core module:
+
+- <b>New widgets:</b>
+	- QSint::SpinSlider
+	- QSint::OptionSlider
+	- QSint::LedWidget
+	
+Changes of \a Charts module:
+
+- <b>New widgets:</b>
+	- QSint::RingChart
+	
+- <b>Improvements:</b>
+	- Fixed some painting issue	
+	
+	
+
+\b 0.2.1
+
+Since version 0.2.1, QSint library has modular structure.
 All the widgets are represented by \a Core module.
 
-New modules \a Charts and \a Apps added.
+New module \a Charts added, including:
+- <b>QSint::BarChartPlotter</b>
+- <b>QSint::PieChart</b>
 
 Changes of \a Core module:
 
 - <b>New widgets:</b>
 	- QSint::PathPicker
 	
+- <b>Improvements:</b>
+	- Added \a AndroidScheme to QSint::ActionPanel
 	
 
 

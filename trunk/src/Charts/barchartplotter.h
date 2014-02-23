@@ -78,13 +78,22 @@ protected:
 
     virtual void drawSegment(QPainter &p, QRect rect,
                               const QModelIndex &index, double value,
-                              bool isHighlighted);
+                              bool isHighlighted) const;
 
     virtual void drawValue(QPainter &p, QRect rect,
                               const QModelIndex &index, double value,
-                              bool isHighlighted);
+                              bool isHighlighted) const;
 
-    virtual void drawHighlightedValueFrame(QPainter &p, const QRect &rect, const QRect &textRect);
+    virtual void drawValueText(QPainter &p,
+                               const QRect &rect,
+                               int flags,
+                               bool isHighlighted,
+                               const QModelIndex &index,
+                               const QString &text) const;
+
+    virtual QRect drawHighlightedValueFrame(QPainter &p,
+                                           const QRect &rect,
+                                           const QRect &textRect) const;
 
     int m_barsize_min, m_barsize_max;
     double m_scale;

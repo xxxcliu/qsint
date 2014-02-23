@@ -113,7 +113,7 @@ void BarChartPlotter::drawContent(QPainter &p)
 
 void BarChartPlotter::drawSegment(QPainter &p, QRect rect,
                                   const QModelIndex &index, double /*value*/,
-                                  bool isHighlighted)
+                                  bool isHighlighted) const
 {
     if (isHighlighted)
     {
@@ -122,10 +122,13 @@ void BarChartPlotter::drawSegment(QPainter &p, QRect rect,
     }
     else
     {
-        QBrush brush(qvariant_cast<QBrush>(model()->headerData(index.row(), Qt::Vertical, Qt::BackgroundRole)));
+        QVariant v_brush(model()->data(index, Qt::BackgroundRole));
+        if (v_brush.isValid())
+            p.setBrush(qvariant_cast<QBrush>(v_brush));
+        else
+            p.setBrush(qvariant_cast<QBrush>(model()->headerData(index.row(), Qt::Vertical, Qt::BackgroundRole)));
 
         p.setPen(itemPen());
-        p.setBrush(brush);
     }
 
     if (barType() == Trend)
@@ -140,7 +143,7 @@ void BarChartPlotter::drawSegment(QPainter &p, QRect rect,
 
 void BarChartPlotter::drawValue(QPainter &p, QRect rect,
                                   const QModelIndex &index, double value,
-                                  bool isHighlighted)
+                                  bool isHighlighted) const
 {
     int flags = Qt::AlignCenter;
     QString text(QString::number(value));
@@ -152,25 +155,44 @@ void BarChartPlotter::drawValue(QPainter &p, QRect rect,
             if (value < 0)
             {
                 flags = Qt::AlignHCenter | Qt::AlignTop;
-                rect.setTop(rect.bottom());
-                rect.setHeight(100);
+                rect.setTop(rect.bottom() + 4);
+                rect.setHeight(textRect.height());
             }
             else
             {
                 flags = Qt::AlignHCenter | Qt::AlignBottom;
-                rect.setTop(rect.top()-100);
-                rect.setHeight(100);
+                rect.setTop(rect.top() - textRect.height() - 4);
+                rect.setHeight(textRect.height());
             }
+
+            if (rect.width() < textRect.width() + 4)
+                rect.setWidth(textRect.width() + 4);
+
+            if (isHighlighted)
+            {
+                flags = Qt::AlignCenter;
+                QRect frameRect = drawHighlightedValueFrame(p, rect, textRect);
+                drawValueText(p, frameRect, flags, true, index, text);
+            }
+            else
+                drawValueText(p, rect, flags, isHighlighted, index, text);
+
             break;
 
         case Stacked:
-            if (isHighlighted)
+            if (textRect.height() > rect.height() || textRect.width() > rect.width())
             {
-                if (textRect.height() > rect.height() || textRect.width() > rect.width())
+                if (isHighlighted)
                 {
-                    drawHighlightedValueFrame(p, rect, textRect);
+                    QRect frameRect = drawHighlightedValueFrame(p, rect, textRect);
+                    drawValueText(p, frameRect, flags, true, index, text);
                 }
             }
+            else
+            {
+                drawValueText(p, rect, flags, isHighlighted, index, text);
+            }
+
             break;
 
         case Trend:
@@ -182,39 +204,53 @@ void BarChartPlotter::drawValue(QPainter &p, QRect rect,
             else
                 rect.moveTop(rect.top() - rect.height());
 
+            if (rect.width() < textRect.width() + 4)
+                rect.setWidth(textRect.width() + 4);
+
             if (isHighlighted)
             {
                 drawHighlightedValueFrame(p, rect, textRect);
             }
+
+            drawValueText(p, rect, flags, isHighlighted, index, text);
+
             break;
     }
+
+}
+
+
+void BarChartPlotter::drawValueText(QPainter &p, const QRect &rect, int flags, bool isHighlighted, const QModelIndex &index, const QString &text) const
+{
 
     if (isHighlighted)
     {
         p.setPen(QPen(highlightTextColor()));
-        //p.setBrush(highlightBrush());
     }
     else
     {
-        QPen pen(qvariant_cast<QColor>(model()->headerData(index.row(), Qt::Vertical, Qt::ForegroundRole)));
-        //QBrush brush(qvariant_cast<QBrush>(model()->headerData(index.row(), Qt::Vertical, Qt::BackgroundRole)));
-
-        p.setPen(pen);
-        //p.setBrush(brush);
+        QVariant v_pen(model()->data(index, Qt::ForegroundRole));
+        if (v_pen.isValid())
+            p.setPen(qvariant_cast<QColor>(v_pen));
+        else
+            p.setPen(qvariant_cast<QColor>(model()->headerData(index.row(), Qt::Vertical, Qt::ForegroundRole)));
     }
 
     p.drawText(rect, flags, text);
 }
 
 
-void BarChartPlotter::drawHighlightedValueFrame(QPainter &p, const QRect &rect, const QRect &textRect)
-{
-    p.setPen(QPen(highlightTextColor()));
-    p.setBrush(highlightBrush());
+QRect BarChartPlotter::drawHighlightedValueFrame(QPainter &p, const QRect &rect, const QRect &textRect) const
+{    
     QRect backRect(textRect.adjusted(-3,-3,3,3));
     backRect.moveLeft(rect.center().x() - backRect.width()/2);
     backRect.moveTop(rect.center().y() - backRect.height()/2);
+
+    p.setPen(highlightPen());
+    p.setBrush(highlightBrush());
     p.drawRect(backRect);
+
+    return backRect;
 }
 
 
