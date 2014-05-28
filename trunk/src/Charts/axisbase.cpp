@@ -338,12 +338,14 @@ void AxisBase::drawAxisModel(QPainter &p)
 
             if (m_model)
             {
-                QRect prevRect;
-
                 int count = m_model->columnCount();
+				if (count <= 0)
+					return;
 
                 int p_offs = (p_end - p_start) / count;
                 int p_line_d = p_start + p_offs;
+
+				QRect prevRect;
 
                 for (int i = 0; i < count; i++)
                 {
