@@ -210,7 +210,7 @@ void PieChart::drawValue(QPainter &p, const QRect& pieRect,
         p.setPen(pen);
     }
 
-    p.drawText(tx, ty, QString::number(value));
+    p.drawText(tx, ty, formattedValue(value));
 }
 
 

@@ -77,6 +77,14 @@ void PlotterBase::setHighlightAlpha(double alpha)
 }
 
 
+void PlotterBase::setTextFormat(const QString &textFormat)
+{
+    m_textFormat = textFormat;
+
+    update();
+}
+
+
 QRect PlotterBase::dataRect() const
 {
     QRect p_rect(rect());
@@ -239,6 +247,17 @@ void PlotterBase::drawAxes(QPainter &p)
 
     if (m_axisY)
         m_axisY->draw(p);
+}
+
+
+QString PlotterBase::formattedValue(double value) const
+{
+    if (m_textFormat.isEmpty())
+    {
+        return QString::number(value);
+    }
+
+    return m_textFormat.arg(value);
 }
 
 

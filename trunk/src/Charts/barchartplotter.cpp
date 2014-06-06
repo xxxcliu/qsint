@@ -146,10 +146,12 @@ void BarChartPlotter::drawValue(QPainter &p, QRect rect,
                                   bool isHighlighted) const
 {
     int flags = Qt::AlignCenter;
-    QString text(QString::number(value));
+
+    QString text = formattedValue(value);
+
     QRect textRect(p.fontMetrics().boundingRect(text));
 
-    switch (barType())
+/*    switch (barType())
     {
         case Columns:
             if (value < 0)
@@ -195,9 +197,11 @@ void BarChartPlotter::drawValue(QPainter &p, QRect rect,
 
             break;
 
-        case Trend:
+        case Trend:*/
+            int rectWidth = rect.width();
             rect.setSize(textRect.size());
-            rect.moveLeft(rect.left() - rect.width()/2);
+            rect.moveLeft(rect.left() + (rectWidth - textRect.width()) /2);
+
             rect.moveTop(rect.top() - rect.height()/2);
             if (value < 0)
                 rect.moveTop(rect.top() + rect.height());
@@ -205,7 +209,10 @@ void BarChartPlotter::drawValue(QPainter &p, QRect rect,
                 rect.moveTop(rect.top() - rect.height());
 
             if (rect.width() < textRect.width() + 4)
+            {
                 rect.setWidth(textRect.width() + 4);
+                rect.moveLeft(rect.left() - 2);
+            }
 
             if (isHighlighted)
             {
@@ -214,8 +221,8 @@ void BarChartPlotter::drawValue(QPainter &p, QRect rect,
 
             drawValueText(p, rect, flags, isHighlighted, index, text);
 
-            break;
-    }
+/*            break;
+    }*/
 
 }
 
@@ -266,11 +273,12 @@ void BarChartPlotter::BarPainter::drawBarItem(QPainter &p, QRect rect,
 
 void BarChartPlotter::BarPainter::drawValueText(QPainter &p, QRect rect, int flags,
                                                 const QPen &pen, const QBrush &brush,
-                                                const QModelIndex &/*index*/, double value)
+                                                const QModelIndex &index, double /*value*/)
 {
     p.setPen(pen);
     p.setBrush(brush);
-    p.drawText(rect, flags, QString::number(value));
+    //p.drawText(rect, flags, QString::number(value));
+    p.drawText(rect, flags, index.data(Qt::DisplayRole).toString());
 }
 
 
@@ -305,7 +313,7 @@ void BarChartPlotter::StackedBarPainter::draw(
             QRect itemRect;
 
             const QModelIndex index(plotter->model()->index(j, i));
-            double value = plotter->model()->data(index).toDouble();
+            double value = plotter->model()->data(index, Qt::EditRole).toDouble();
             if (value < 0)
             {
                 neg_value += value;
@@ -384,7 +392,7 @@ void BarChartPlotter::ColumnBarPainter::draw(
         for (int j = 0; j < row_count; j++)
         {
             const QModelIndex index(plotter->model()->index(j, i));
-            double value = plotter->model()->data(index).toDouble();
+            double value = plotter->model()->data(index, Qt::EditRole).toDouble();
 
             int p_h = plotter->axisY()->toView(value);
 
@@ -460,7 +468,7 @@ void BarChartPlotter::TrendPainter::draw(
         for (int i = 0; i < count; i++)
         {
             const QModelIndex index(plotter->model()->index(j, i));
-            double value = plotter->model()->data(index).toDouble();
+            double value = plotter->model()->data(index, Qt::EditRole).toDouble();
 
             int x = p_start + p_offs*i + p_offs/2;
             int y = plotter->axisY()->toView(value);
@@ -490,7 +498,7 @@ void BarChartPlotter::TrendPainter::draw(
             const QModelIndex index(plotter->model()->index(j, i));
             if (index != indexHl)
             {
-                double value = plotter->model()->data(index).toDouble();
+                double value = plotter->model()->data(index, Qt::EditRole).toDouble();
                 plotter->drawSegment(p, QRect(points.at(i), QSize(1,1)), index, value, false);
             }
 
