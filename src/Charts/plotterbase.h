@@ -81,6 +81,10 @@ public:
     inline double highlightAlpha() const { return m_hlAlpha; }
 
 
+    void setTextFormat(const QString& textFormat);
+    QString textFormat() const { return m_textFormat; }
+
+
     /// Enables (\a set=true, the default) or disables (\a set=false) painter's antialiasing.
     inline void setAntiAliasing(bool set) { m_antiAliasing = set;}
 
@@ -142,6 +146,8 @@ protected:
     /// Draws content of the plotter.
     virtual void drawContent(QPainter &p) = 0;
 
+    virtual QString formattedValue(double value) const;
+
     void setIndexUnderMouse(const QModelIndex& index);
 
     AxisBase *m_axisX;
@@ -159,6 +165,8 @@ protected:
     QPen m_hlPen;
     QBrush m_hlBrush;
     double m_hlAlpha;
+
+    QString m_textFormat;
 
     QPixmap m_buffer;
     bool m_repaint;
