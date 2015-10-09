@@ -1,0 +1,1 @@
+Sintegrial QSint Framework - free collection of high-quality Qt widgets, a framework for rapid MDI application development, etc.
